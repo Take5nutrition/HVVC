@@ -4,8 +4,8 @@
    ======================================== */
 
 /* ---------- TRYOUT / IN-SEASON MODE TOGGLE ---------- */
-body.mode-in-season [data-mode="tryouts"] { display: none !important; }
-body.mode-tryouts [data-mode="in-season"] { display: none !important; }
+.mode-in-season [data-mode="tryouts"] { display: none !important; }
+.mode-tryouts [data-mode="in-season"] { display: none !important; }
 
 /* ---------- DESIGN TOKENS ---------- */
 :root {
@@ -2731,3 +2731,75 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-form select { appearance: none; cursor: pointer; }
 .dk-form select option { background: var(--ink); color: #fff; }
 .dk-form .btn--full { width: 100%; }
+
+/* ========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+/* Reduce heavy blur/particle effects on mobile */
+@media (max-width: 768px) {
+  .dk-hero__orb { display: none; }
+  .hero__particles { display: none; }
+  .grain-overlay::before { display: none; }
+  .dk-hero__bg { animation: none; }
+  .dk-cta__watermark { display: none; }
+  .photo-carousel__track { animation-duration: 50s; }
+  .dk-hero { min-height: 50vh; }
+  .dk-hero--compact { min-height: 40vh; }
+  .dk-hero__scroll { display: none; }
+  .dk-section { padding: 60px 0; }
+  .section { padding: 60px 0; }
+  .dk-cta { padding: 60px 0; }
+  .dk-hero__title { font-size: clamp(2rem, 8vw, 3.5rem); }
+}
+
+@media (max-width: 480px) {
+  .dk-hero__title { font-size: 2rem; }
+  .dk-hero__sub { font-size: .9rem; }
+  .dk-section { padding: 40px 0; }
+  .section { padding: 40px 0; }
+  .dk-cta { padding: 40px 0; }
+  .dk-steps { gap: 16px; }
+  .dk-invest-grid { gap: 16px; }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .photo-carousel__track { animation: none; }
+  .dk-hero__orb { display: none; }
+  .hero__particles { display: none; }
+}
+
+/* Mobile navbar improvements */
+@media (max-width: 1023px) {
+  .navbar__right { display: none; }
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 768px) {
+  .btn { min-height: 44px; min-width: 44px; }
+  .dk-gallery-filter { min-height: 44px; padding: 10px 20px; }
+  .faq-q { min-height: 52px; }
+  .footer__links a { padding: 6px 0; }
+}
+
+/* Mobile form improvements */
+@media (max-width: 640px) {
+  .dk-form { padding: 24px 20px; }
+  .dk-form input, .dk-form select, .dk-form textarea {
+    font-size: 16px; /* Prevent iOS zoom on focus */
+  }
+  .dk-contact-grid { gap: 32px; }
+}
+
+/* Lightbox mobile fixes */
+@media (max-width: 640px) {
+  .lightbox__content img { max-height: 70vh; }
+  .coach-lightbox img { max-width: 92vw; max-height: 75vh; }
+}

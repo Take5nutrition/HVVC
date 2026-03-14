@@ -13,43 +13,63 @@ const TRYOUTS_ACTIVE = false;
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Apply mode class to body
-  document.body.classList.add(TRYOUTS_ACTIVE ? 'mode-tryouts' : 'mode-in-season');
+  // ---- Detect mobile for perf gating ----
+  const isMobile = window.innerWidth < 768;
 
-  // ---- Scroll progress bar ----
+  // ---- Combined scroll handler (single listener for all scroll logic) ----
   const scrollProgress = document.querySelector('.scroll-progress');
-  if (scrollProgress) {
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      scrollProgress.style.width = progress + '%';
-    }, { passive: true });
-  }
-
-  // ---- Back to top button ----
   const backToTop = document.querySelector('.back-to-top');
-  if (backToTop) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 400) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    }, { passive: true });
+  const navbar = document.getElementById('navbar');
+  let lastScrollY = window.scrollY;
+  let scrollTicking = false;
 
+  if (backToTop) {
     backToTop.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  // ---- Navbar scroll effect ----
-  const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        // Scroll progress bar
+        if (scrollProgress) {
+          scrollProgress.style.width = (docHeight > 0 ? (scrollY / docHeight) * 100 : 0) + '%';
+        }
+
+        // Back to top visibility
+        if (backToTop) {
+          backToTop.classList.toggle('visible', scrollY > 400);
+        }
+
+        // Navbar scroll effect
+        if (navbar) {
+          navbar.classList.toggle('scrolled', scrollY > 50);
+          // Hide/show on scroll direction
+          if (scrollY > lastScrollY && scrollY > 200) {
+            navbar.style.transform = 'translateY(-100%)';
+          } else {
+            navbar.style.transform = 'translateY(0)';
+          }
+        }
+
+        // Parallax (desktop only)
+        if (!isMobile && scrollY < window.innerHeight * 1.5) {
+          const heroPhotoBg = document.querySelector('.hero__photo-bg');
+          const heroBg = document.querySelector('.hero__bg');
+          const heroParticles = document.querySelector('.hero-particles');
+          if (heroPhotoBg) heroPhotoBg.style.transform = `scale(${1 + scrollY * 0.0003}) translateY(${scrollY * 0.2}px)`;
+          if (heroBg && !heroPhotoBg) heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+          if (heroParticles) heroParticles.style.transform = `translateY(${scrollY * 0.1}px)`;
+        }
+
+        lastScrollY = scrollY;
+        scrollTicking = false;
+      });
+      scrollTicking = true;
     }
   }, { passive: true });
 
@@ -240,15 +260,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Mouse spotlight on dark sections ----
-  document.querySelectorAll('.stats-dark, .pull-quote, .featured-testimonial, .tryouts').forEach(section => {
-    section.classList.add('has-spotlight');
-    section.addEventListener('mousemove', (e) => {
-      const rect = section.getBoundingClientRect();
-      section.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-      section.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+  // ---- Mouse spotlight on dark sections (desktop only) ----
+  if (!isMobile) {
+    document.querySelectorAll('.stats-dark, .pull-quote, .featured-testimonial, .tryouts').forEach(section => {
+      section.classList.add('has-spotlight');
+      section.addEventListener('mousemove', (e) => {
+        const rect = section.getBoundingClientRect();
+        section.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+        section.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+      });
     });
-  });
+  }
 
   // ---- Magnetic button effect ----
   if (window.matchMedia('(min-width: 768px)').matches) {
@@ -525,43 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ---- Multi-layer parallax ----
-  const heroPhotoBg = document.querySelector('.hero__photo-bg');
-  const heroBg = document.querySelector('.hero__bg');
-  const heroParticles = document.querySelector('.hero-particles');
-
-  function handleParallax() {
-    const scrollY = window.scrollY;
-    if (scrollY < window.innerHeight * 1.5) {
-      if (heroPhotoBg) {
-        heroPhotoBg.style.transform = `scale(${1 + scrollY * 0.0003}) translateY(${scrollY * 0.2}px)`;
-      }
-      if (heroBg && !heroPhotoBg) {
-        heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
-      }
-      if (heroParticles) {
-        heroParticles.style.transform = `translateY(${scrollY * 0.1}px)`;
-      }
-    }
-  }
-
-  window.addEventListener('scroll', handleParallax, { passive: true });
-
-  // ---- Smooth navbar hide/show on scroll direction ----
-  let lastScrollY = window.scrollY;
-  let scrollDirection = 'up';
-
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 200) {
-      scrollDirection = 'down';
-      navbar.style.transform = 'translateY(-100%)';
-    } else {
-      scrollDirection = 'up';
-      navbar.style.transform = 'translateY(0)';
-    }
-    lastScrollY = currentScrollY;
-  }, { passive: true });
+  // (Parallax & navbar hide/show consolidated into main scroll handler above)
 
   // ---- About page MVV accordion ----
   document.querySelectorAll('[data-mvv]').forEach(item => {
@@ -663,33 +649,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ---- About page: parallax orbs on scroll ----
-  const aboutOrb1 = document.querySelector('.about-hero__orb--1');
-  const aboutOrb2 = document.querySelector('.about-hero__orb--2');
-  if (aboutOrb1 && aboutOrb2) {
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      if (scrollY < window.innerHeight * 1.2) {
-        aboutOrb1.style.transform = `translate(${scrollY * 0.05}px, ${scrollY * 0.15}px) scale(1)`;
-        aboutOrb2.style.transform = `translate(${scrollY * -0.04}px, ${scrollY * -0.1}px) scale(1)`;
-      }
-    }, { passive: true });
-  }
-
-  // ---- Generic hero orb parallax (programs + shared dk-hero) ----
-  document.querySelectorAll('.prog-hero__orbs, .dk-hero__orbs').forEach(orbContainer => {
-    const orb1 = orbContainer.children[0];
-    const orb2 = orbContainer.children[1];
-    if (orb1 && orb2) {
+  // ---- Orb parallax on scroll (desktop only) ----
+  if (!isMobile) {
+    const aboutOrb1 = document.querySelector('.about-hero__orb--1');
+    const aboutOrb2 = document.querySelector('.about-hero__orb--2');
+    if (aboutOrb1 && aboutOrb2) {
       window.addEventListener('scroll', () => {
         const scrollY = window.scrollY;
         if (scrollY < window.innerHeight * 1.2) {
-          orb1.style.transform = `translate(${scrollY * 0.05}px, ${scrollY * 0.15}px) scale(1)`;
-          orb2.style.transform = `translate(${scrollY * -0.04}px, ${scrollY * -0.1}px) scale(1)`;
+          aboutOrb1.style.transform = `translate(${scrollY * 0.05}px, ${scrollY * 0.15}px) scale(1)`;
+          aboutOrb2.style.transform = `translate(${scrollY * -0.04}px, ${scrollY * -0.1}px) scale(1)`;
         }
       }, { passive: true });
     }
-  });
+
+    document.querySelectorAll('.prog-hero__orbs, .dk-hero__orbs').forEach(orbContainer => {
+      const orb1 = orbContainer.children[0];
+      const orb2 = orbContainer.children[1];
+      if (orb1 && orb2) {
+        window.addEventListener('scroll', () => {
+          const scrollY = window.scrollY;
+          if (scrollY < window.innerHeight * 1.2) {
+            orb1.style.transform = `translate(${scrollY * 0.05}px, ${scrollY * 0.15}px) scale(1)`;
+            orb2.style.transform = `translate(${scrollY * -0.04}px, ${scrollY * -0.1}px) scale(1)`;
+          }
+        }, { passive: true });
+      }
+    });
+  }
 
   // ---- Directional reveals on dk-split sections ----
   document.querySelectorAll('.dk-split').forEach(split => {
@@ -763,14 +750,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
   }
 
-  // ---- Spotlight on dark sections (all pages) ----
-  document.querySelectorAll('.about-hero, .about-story, .about-mvv, .prog-hero, .prog-training, .dk-hero, .dk-section, .dk-split, .teams-division').forEach(section => {
-    section.classList.add('has-spotlight');
-    section.addEventListener('mousemove', (e) => {
-      const rect = section.getBoundingClientRect();
-      section.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-      section.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+  // ---- Spotlight on dark sections (desktop only) ----
+  if (!isMobile) {
+    document.querySelectorAll('.about-hero, .about-story, .about-mvv, .prog-hero, .prog-training, .dk-hero, .dk-section, .dk-split, .teams-division').forEach(section => {
+      section.classList.add('has-spotlight');
+      section.addEventListener('mousemove', (e) => {
+        const rect = section.getBoundingClientRect();
+        section.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+        section.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+      });
     });
-  });
+  }
 
 });
