@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HVVC Programs - Club Teams, HVVC Academy, Open Gyms, Speed & Performance training in Happy Valley, OR." />
+  <title>Programs - HVVC</title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <img src="img/logo.png" alt="HVVC" class="logo-img" />
+        <span class="logo-sub">Happy Valley Volleyball Club</span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="programs.html" class="nav-active">Programs</a>
+        <a href="teams.html">Teams</a>
+        <a href="coaches.html">Coaches</a>
+        <a href="investment.html">Investment</a>
+        <a href="media.html">Media</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="navbar__right"><a href="contact.html" class="btn btn--primary navbar__cta" data-mode="tryouts">Register for Tryouts</a><a href="teams.html" class="btn btn--primary navbar__cta" data-mode="in-season">Current Season</a></div>
+      <button class="navbar__burger" id="burger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="scroll-progress"></div>
+  <button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
+  <!-- ===== HERO - cinematic dark ===== -->
+  <section class="prog-hero grain-overlay">
+    <div class="prog-hero__bg"></div>
+    <div class="prog-hero__orbs">
+      <div class="prog-hero__orb prog-hero__orb--1"></div>
+      <div class="prog-hero__orb prog-hero__orb--2"></div>
+    </div>
+    <div class="container prog-hero__content">
+      <span class="prog-hero__kicker">What We Offer</span>
+      <h1 class="prog-hero__title">Our Programs.</h1>
+      <p class="prog-hero__sub">From first-time players to competitive athletes -<br>we have a pathway for every level.</p>
+      <div class="prog-hero__badges">
+        <span class="prog-hero__badge">Club Teams</span>
+        <span class="prog-hero__badge">Academy</span>
+        <span class="prog-hero__badge">Open Gyms</span>
+        <span class="prog-hero__badge">Speed &amp; Performance</span>
+      </div>
+    </div>
+    <div class="prog-hero__scroll"><span>Scroll</span><div class="prog-hero__scroll-line"></div></div>
+  </section>
+
+  <!-- ===== OUR PROGRAMS - cards ===== -->
+  <section class="prog-training grain-overlay">
+    <div class="prog-training__bg"></div>
+    <div class="container prog-training__inner">
+      <div class="prog-training__header">
+        <span class="section__tag section__tag--light">Training Programs</span>
+        <h2 class="prog-training__title">Ways to <span class="gradient-text">Train</span></h2>
+        <p class="prog-training__sub">From competitive club teams to flexible drop-in sessions - we offer year-round development for athletes at every level.</p>
+      </div>
+
+      <div class="prog-cards prog-cards--4col">
+        <!-- Club Teams -->
+        <div class="prog-card" data-prog>
+          <div class="prog-card__img-wrap">
+            <img src="img/hero-16u-team.png" alt="HVVC Club Teams" class="prog-card__img" style="object-position: center 0%;" />
+            <div class="prog-card__img-overlay"></div>
+          </div>
+          <div class="prog-card__body">
+            <span class="prog-card__num">01</span>
+            <h3 class="prog-card__title">Club Teams</h3>
+            <p class="prog-card__desc">Professional coaching, structured practices, and competitive tournament play for athletes ready to compete at the next level.</p>
+            <ul class="prog-card__list">
+              <li>Ages 10U–16U</li>
+              <li>2x weekly practices</li>
+              <li>2+ tournaments per month</li>
+              <li>Full uniform package</li>
+              <li>12 players per roster</li>
+              <li>Power League Series</li>
+            </ul>
+            <a href="contact.html" class="prog-card__link">Join a Team <span>&rarr;</span></a>
+          </div>
+        </div>
+
+        <!-- Academy -->
+        <div class="prog-card" data-prog>
+          <div class="prog-card__img-wrap">
+            <img src="img/academy.jpg" alt="HVVC Academy training" class="prog-card__img" />
+            <div class="prog-card__img-overlay"></div>
+          </div>
+          <div class="prog-card__body">
+            <span class="prog-card__num">02</span>
+            <h3 class="prog-card__title">HVVC Academy</h3>
+            <p class="prog-card__desc">Focused, skill-based training without the full club commitment. Elite-level instruction in smaller group sessions designed to accelerate development.</p>
+            <ul class="prog-card__list">
+              <li>All skill levels welcome</li>
+              <li>Smaller group sessions</li>
+              <li>Flexible commitment</li>
+              <li>Seasonal training blocks</li>
+            </ul>
+            <a href="contact.html" class="prog-card__link">Learn More <span>&rarr;</span></a>
+          </div>
+        </div>
+
+        <!-- Open Gyms -->
+        <div class="prog-card" data-prog>
+          <div class="prog-card__img-wrap">
+            <img src="img/open-gyms.png" alt="HVVC Open Gym" class="prog-card__img" />
+            <div class="prog-card__img-overlay"></div>
+          </div>
+          <div class="prog-card__body">
+            <span class="prog-card__num">03</span>
+            <h3 class="prog-card__title">Open Gyms</h3>
+            <p class="prog-card__desc">Refine your skills, connect with other players, and build confidence in a fun, high-energy environment. No commitment required.</p>
+            <ul class="prog-card__list">
+              <li>All levels welcome</li>
+              <li>Drop-in friendly</li>
+              <li>No commitment required</li>
+              <li>Stay sharp off-season</li>
+            </ul>
+            <a href="contact.html" class="prog-card__link">Learn More <span>&rarr;</span></a>
+          </div>
+        </div>
+
+        <!-- Speed & Performance -->
+        <div class="prog-card" data-prog>
+          <div class="prog-card__img-wrap">
+            <img src="img/action-bench.jpg" alt="Speed and Performance training" class="prog-card__img" />
+            <div class="prog-card__img-overlay"></div>
+          </div>
+          <div class="prog-card__body">
+            <span class="prog-card__num">04</span>
+            <h3 class="prog-card__title">Speed &amp; Performance</h3>
+            <p class="prog-card__desc">Sprint mechanics, strength fundamentals, and movement efficiency to build faster, more resilient athletes on and off the court.</p>
+            <ul class="prog-card__list">
+              <li>Sprint mechanics</li>
+              <li>Strength fundamentals</li>
+              <li>Sports nutrition guidance</li>
+              <li>Injury prevention</li>
+            </ul>
+            <a href="contact.html" class="prog-card__link">Learn More <span>&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMING SOON - minimal accordion ===== -->
+  <section class="prog-soon">
+    <div class="container prog-soon__inner">
+      <div class="prog-soon__header">
+        <span class="prog-soon__kicker"><span class="prog-soon__kicker-bar"></span>Coming Soon</span>
+        <h2 class="prog-soon__title">On the <span class="gradient-text">Horizon</span></h2>
+        <p class="prog-soon__sub">We're always expanding. Here's what's next for HVVC athletes.</p>
+      </div>
+      <div class="prog-soon__grid">
+        <div class="prog-soon__item">
+          <div class="prog-soon__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+          </div>
+          <div class="prog-soon__text">
+            <h3>Camps</h3>
+            <p>Intensive multi-day training camps during school breaks for focused, accelerated development.</p>
+          </div>
+        </div>
+        <div class="prog-soon__item">
+          <div class="prog-soon__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="prog-soon__text">
+            <h3>Clinics</h3>
+            <p>Position-specific and skill-focused clinics led by experienced coaches and guest instructors.</p>
+          </div>
+        </div>
+        <div class="prog-soon__item">
+          <div class="prog-soon__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          </div>
+          <div class="prog-soon__text">
+            <h3>Private Lessons</h3>
+            <p>One-on-one and small group instruction tailored to individual athlete goals and positions.</p>
+          </div>
+        </div>
+        <div class="prog-soon__item">
+          <div class="prog-soon__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="prog-soon__text">
+            <h3 data-mode="tryouts">Tryouts</h3>
+            <h3 data-mode="in-season">Tryouts (Coming Soon)</h3>
+            <p data-mode="tryouts">Annual tryouts for all age divisions. Check back for dates and registration info.</p>
+            <p data-mode="in-season">Tryouts are held annually in the fall. Follow us to be notified when registration opens.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA - watermark style ===== -->
+  <section class="prog-cta">
+    <div class="prog-cta__watermark">TRAIN</div>
+    <div class="container prog-cta__inner">
+      <h2 class="prog-cta__title">Find Your <span class="gradient-text">Program</span></h2>
+      <p class="prog-cta__text">Not sure which program is right for you? Reach out and we'll help you find the perfect fit.</p>
+      <div class="prog-cta__actions">
+        <a href="contact.html" class="btn btn--primary btn--lg">Contact Us</a>
+        <a href="investment.html" class="btn btn--outline btn--lg">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="navbar__logo"><img src="img/logo.png" alt="HVVC" class="logo-img" /><span class="logo-sub">Happy Valley Volleyball Club</span></div>
+          <p class="footer__tagline">Developing Players. Building People. Every Season.</p>
+          <div class="footer__social">
+            <a href="https://instagram.com/hvvc_volleyball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="mailto:Hvvc@Hvvcvolleyballclub.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+            <a href="tel:5039567494" aria-label="Phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col"><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a><a href="teams.html">Teams</a></div>
+          <div class="footer__col"><h4>Programs</h4><a href="programs.html">Club Teams</a><a href="programs.html">HVVC Academy</a><a href="programs.html">Open Gyms</a><a href="programs.html">Speed &amp; Performance</a></div>
+          <div class="footer__col"><h4>Connect</h4><a href="coaches.html">Coaches</a><a href="investment.html">Investment</a><a href="media.html">Media</a><a href="contact.html">Contact Us</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Happy Valley Volleyball Club. All rights reserved.</p>
+        <p>Happy Valley, OR 97086 &bull; 501(c)(3) Nonprofit Organization</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

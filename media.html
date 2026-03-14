@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HVVC Media - Photo gallery and media uploads for Happy Valley Volleyball Club." />
+  <title>Media - HVVC</title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="index.html" class="navbar__logo"><img src="img/logo.png" alt="HVVC" class="logo-img" /><span class="logo-sub">Happy Valley Volleyball Club</span></a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="programs.html">Programs</a>
+        <a href="teams.html">Teams</a>
+        <a href="coaches.html">Coaches</a>
+        <a href="investment.html">Investment</a>
+        <a href="media.html" class="nav-active">Media</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="navbar__right"><a href="contact.html" class="btn btn--primary navbar__cta" data-mode="tryouts">Register for Tryouts</a><a href="teams.html" class="btn btn--primary navbar__cta" data-mode="in-season">Current Season</a></div>
+      <button class="navbar__burger" id="burger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="scroll-progress"></div>
+  <button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
+  <!-- ===== HERO - cinematic dark ===== -->
+  <section class="dk-hero dk-hero--compact grain-overlay">
+    <div class="dk-hero__bg"></div>
+    <div class="dk-hero__orbs">
+      <div class="dk-hero__orb dk-hero__orb--1"></div>
+      <div class="dk-hero__orb dk-hero__orb--2"></div>
+    </div>
+    <div class="container dk-hero__content">
+      <span class="dk-hero__kicker">Photos &amp; Media</span>
+      <h1 class="dk-hero__title">Gallery.</h1>
+      <p class="dk-hero__sub">Highlights from tournaments, team events, and behind-the-scenes moments.</p>
+    </div>
+    <div class="dk-hero__scroll"><span>Scroll</span><div class="dk-hero__scroll-line"></div></div>
+  </section>
+
+  <!-- UPLOAD SECTION -->
+  <section class="dk-section grain-overlay">
+    <div class="dk-section__bg"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section__header">
+        <span class="section__tag">Share Your Moments</span>
+        <h2 class="section__title">Upload <span class="gradient-text">Photos</span></h2>
+        <p class="section__subtitle">Drop your best tournament shots, team photos, and behind-the-scenes moments. They'll appear in the gallery below!</p>
+      </div>
+
+      <div class="dk-upload-zone" id="uploadZone">
+        <div class="dk-upload-zone__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <h3>Drag &amp; drop photos here</h3>
+        <p>or click to browse your files</p>
+        <p class="dk-upload-zone__formats">JPG, PNG, WebP &bull; Max 10MB per file</p>
+        <input type="file" id="fileInput" multiple accept="image/*" hidden />
+      </div>
+
+      <!-- Upload preview -->
+      <div class="upload-preview" id="uploadPreview"></div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section class="dk-section grain-overlay" style="padding-top:20px;">
+    <div class="dk-section__bg"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section__header">
+        <span class="section__tag">Gallery</span>
+        <h2 class="section__title">HVVC <span class="gradient-text">Photos</span></h2>
+        <p class="section__subtitle">Photos from the season - tournaments, practices, and team moments.</p>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="dk-gallery-filters" id="galleryFilters">
+        <button class="dk-gallery-filter active" data-filter="all">All</button>
+        <button class="dk-gallery-filter" data-filter="tournament">Tournaments</button>
+        <button class="dk-gallery-filter" data-filter="practice">Practice</button>
+        <button class="dk-gallery-filter" data-filter="team">Team</button>
+        <button class="dk-gallery-filter" data-filter="uploaded">Your Uploads</button>
+      </div>
+
+      <!-- Gallery grid -->
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- Placeholder cards when no photos exist yet -->
+        <div class="gallery-empty" id="galleryEmpty">
+          <div class="gallery-empty__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+          <h3>No photos yet</h3>
+          <p>Upload your first photos above to start building the HVVC gallery! Photos you add will be saved right here in your browser.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose">&times;</button>
+    <button class="lightbox__nav lightbox__prev" id="lightboxPrev">&#8249;</button>
+    <button class="lightbox__nav lightbox__next" id="lightboxNext">&#8250;</button>
+    <div class="lightbox__content">
+      <img id="lightboxImg" src="" alt="Gallery photo" />
+      <div class="lightbox__caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- UPDATES -->
+  <section class="dk-section grain-overlay">
+    <div class="dk-section__bg"></div>
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="section__header">
+        <span class="section__tag">Stay Connected</span>
+        <h2 class="section__title">Updates &amp; <span class="gradient-text">Alerts</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+        <div class="dk-update-card">
+          <div class="dk-update-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Text Message Updates</h3>
+          <p>Never miss a game - weather alerts, schedule changes, and last-minute updates delivered right to your phone.</p>
+        </div>
+        <div class="dk-update-card">
+          <div class="dk-update-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <h3>Follow @hvvc_volleyball</h3>
+          <p>Follow us on Instagram for real-time updates, highlights, and behind-the-scenes content from our teams.</p>
+        </div>
+        <div class="dk-update-card">
+          <div class="dk-update-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <h3>News &amp; Events</h3>
+          <p>Catch the latest HVVC news, event updates, and highlights. Don't miss your chance to get involved.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="navbar__logo"><img src="img/logo.png" alt="HVVC" class="logo-img" /><span class="logo-sub">Happy Valley Volleyball Club</span></div>
+          <p class="footer__tagline">Developing Players. Building People. Every Season.</p>
+          <div class="footer__social">
+            <a href="https://instagram.com/hvvc_volleyball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="mailto:Hvvc@Hvvcvolleyballclub.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+            <a href="tel:5039567494" aria-label="Phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col"><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a><a href="teams.html">Teams</a></div>
+          <div class="footer__col"><h4>Programs</h4><a href="programs.html">Club Teams</a><a href="programs.html">HVVC Academy</a><a href="programs.html">Open Gyms</a><a href="programs.html">Speed &amp; Performance</a></div>
+          <div class="footer__col"><h4>Connect</h4><a href="coaches.html">Coaches</a><a href="investment.html">Investment</a><a href="media.html">Media</a><a href="contact.html">Contact Us</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Happy Valley Volleyball Club. All rights reserved.</p>
+        <p>Happy Valley, OR 97086 &bull; 501(c)(3) Nonprofit Organization</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/gallery.js"></script>
+</body>
+</html>
