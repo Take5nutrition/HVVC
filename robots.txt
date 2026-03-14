@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://take5nutrition.github.io/HVVC/sitemap.xml

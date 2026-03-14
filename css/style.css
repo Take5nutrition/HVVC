@@ -3,6 +3,31 @@
    Premium Design — Aspire NW × HVVC Fusion
    ======================================== */
 
+/* ---------- SKIP TO CONTENT ---------- */
+.skip-to-content {
+  position: absolute; top: -100%; left: 16px; z-index: 10000;
+  padding: 12px 24px; background: var(--pink); color: #fff;
+  font-weight: 700; font-size: .9rem; border-radius: var(--radius-md);
+  text-decoration: none; transition: top .2s ease;
+}
+.skip-to-content:focus { top: 12px; }
+
+/* ---------- GLOBAL FOCUS STYLES ---------- */
+:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(255, 42, 161, .15);
+}
+.navbar__links a:focus-visible {
+  outline: 2px solid var(--pink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* ---------- TRYOUT / IN-SEASON MODE TOGGLE ---------- */
 .mode-in-season [data-mode="tryouts"] { display: none !important; }
 .mode-tryouts [data-mode="in-season"] { display: none !important; }
@@ -2731,6 +2756,47 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-form select { appearance: none; cursor: pointer; }
 .dk-form select option { background: var(--ink); color: #fff; }
 .dk-form .btn--full { width: 100%; }
+
+/* ---------- SCHEDULE PAGE ---------- */
+.dk-schedule-list { display: flex; flex-direction: column; gap: 12px; }
+.dk-schedule-item {
+  display: flex; align-items: center; gap: 24px;
+  padding: 20px 24px; background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+.dk-schedule-item:hover { border-color: var(--pink); background: rgba(255,255,255,.05); }
+.dk-schedule-item__date {
+  display: flex; flex-direction: column; align-items: center; min-width: 60px;
+  padding: 8px 12px; background: rgba(255,42,161,.1); border-radius: var(--radius-sm);
+}
+.dk-schedule-item__month {
+  font-size: .65rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--pink);
+}
+.dk-schedule-item__day {
+  font-size: 1.2rem; font-weight: 800; color: #fff; line-height: 1.2;
+}
+.dk-schedule-item__details { flex: 1; }
+.dk-schedule-item__details h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.dk-schedule-item__meta {
+  display: flex; gap: 16px; font-size: .82rem; color: #94a3b8; flex-wrap: wrap;
+}
+.dk-schedule-item__badge {
+  font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  padding: 4px 12px; border-radius: 20px; white-space: nowrap;
+  background: rgba(255,255,255,.06); color: #94a3b8; border: 1px solid rgba(255,255,255,.1);
+}
+.dk-schedule-item__badge--highlight {
+  background: rgba(255,42,161,.12); color: var(--pink); border-color: rgba(255,42,161,.3);
+}
+.dk-schedule-item__badge--event {
+  background: rgba(123,63,228,.12); color: var(--purple); border-color: rgba(123,63,228,.3);
+}
+@media (max-width: 640px) {
+  .dk-schedule-item { flex-wrap: wrap; gap: 12px; padding: 16px; }
+  .dk-schedule-item__badge { margin-left: auto; }
+}
 
 /* ========================================
    MOBILE PERFORMANCE OPTIMIZATIONS

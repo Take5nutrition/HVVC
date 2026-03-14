@@ -522,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return canvas;
   }
 
-  // ---- Contact form with confetti ----
+  // ---- Contact form with real submission ----
   const form = document.getElementById('contactForm');
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -532,21 +532,35 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
-      setTimeout(() => {
-        btn.textContent = 'Message Sent!';
-        btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-        form.reset();
+      const formData = new FormData(form);
 
-        window.fireConfetti();
-        window.showToast('Message sent successfully!');
-
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          btn.textContent = 'Message Sent!';
+          btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+          form.reset();
+          window.fireConfetti();
+          window.showToast('Message sent successfully!');
+        } else {
+          btn.textContent = 'Error - Try Again';
+          btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+          window.showToast('Something went wrong. Please try again.');
+        }
+      }).catch(() => {
+        btn.textContent = 'Error - Try Again';
+        btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+        window.showToast('Network error. Please try again.');
+      }).finally(() => {
         setTimeout(() => {
           btn.textContent = originalText;
           btn.style.background = '';
           btn.disabled = false;
         }, 3000);
-      }, 1000);
-    });
+      });
   }
 
   // (Parallax & navbar hide/show consolidated into main scroll handler above)

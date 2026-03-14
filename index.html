@@ -3,16 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png" />
   <meta name="description" content="Happy Valley Volleyball Club - Developing Players. Building People. Every Season. Competitive youth volleyball in Happy Valley, OR." />
+  <meta property="og:title" content="HVVC - Happy Valley Volleyball Club" />
+  <meta property="og:description" content="Developing Players. Building People. Every Season. Competitive youth volleyball in Happy Valley, OR." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Happy Valley Volleyball Club" />
+  <meta property="og:image" content="img/hero-16u-team.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
   <title>HVVC - Happy Valley Volleyball Club</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsOrganization",
+    "name": "Happy Valley Volleyball Club",
+    "alternateName": "HVVC",
+    "description": "Competitive youth volleyball club in Happy Valley, Oregon. Developing Players. Building People. Every Season.",
+    "sport": "Volleyball",
+    "url": "https://take5nutrition.github.io/HVVC/",
+    "logo": "img/logo.png",
+    "email": "Hvvc@Hvvcvolleyballclub.com",
+    "telephone": "+1-503-956-7494",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "10408 SE Webelos Way",
+      "addressLocality": "Happy Valley",
+      "addressRegion": "OR",
+      "postalCode": "97086",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      "https://instagram.com/hvvc_volleyball"
+    ],
+    "nonprofit": {
+      "@type": "NonprofitType",
+      "name": "501(c)(3)"
+    }
+  }
+  </script>
   <link rel="stylesheet" href="css/reset.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script>document.documentElement.classList.add("mode-"+(false?"tryouts":"in-season"));</script>
+  <!-- Google Analytics - replace G-XXXXXXXXXX with your Measurement ID -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-XXXXXXXXXX");</script> -->
 </head>
 <body>
+  <a href="#main" class="skip-to-content">Skip to content</a>
 
   <!-- ========== NAVBAR ========== -->
   <header class="navbar" id="navbar">
@@ -33,7 +76,7 @@
       </nav>
       <div class="navbar__right">
         
-        <a href="contact.html" class="btn btn--primary navbar__cta" data-mode="tryouts">Register for Tryouts</a><a href="teams.html" class="btn btn--primary navbar__cta" data-mode="in-season">Current Season</a>
+        <a href="https://hvvc.leagueapps.com/clubteams/4797399-hvvc-tryouts-25-26" class="btn btn--primary navbar__cta" data-mode="tryouts" target="_blank" rel="noopener">Register for Tryouts</a><a href="teams.html" class="btn btn--primary navbar__cta" data-mode="in-season">Current Season</a>
       </div>
       <button class="navbar__burger" id="burger" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
@@ -71,7 +114,7 @@
         We train with purpose, play with heart, and build a community that lasts beyond the court.
       </p>
       <div class="hero__actions">
-        <a href="contact.html" class="btn btn--primary btn--lg" data-mode="tryouts">Register for Tryouts</a>
+        <a href="https://hvvc.leagueapps.com/clubteams/4797399-hvvc-tryouts-25-26" class="btn btn--primary btn--lg" data-mode="tryouts" target="_blank" rel="noopener">Register for Tryouts</a>
         <a href="teams.html" class="btn btn--primary btn--lg" data-mode="in-season">Follow the Season</a>
         <a href="about.html" class="btn btn--outline btn--lg">Our Story</a>
       </div>
@@ -203,7 +246,7 @@
 
   <!-- Wave divider: dark to light -->
   <div class="wave-divider">
-    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" fill="var(--body-bg)">
+    <svg aria-hidden="true" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="var(--body-bg)">
       <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z"/>
     </svg>
   </div>
@@ -375,7 +418,7 @@
       <div class="countdown" id="countdown"></div>
       <p class="tryouts__text">Our tryouts are your chance to showcase your skills, compete with purpose, and take the next step in your volleyball journey.</p>
       <div class="tryouts__actions">
-        <a href="contact.html" class="btn btn--primary btn--lg">Register for Tryouts</a>
+        <a href="https://hvvc.leagueapps.com/clubteams/4797399-hvvc-tryouts-25-26" class="btn btn--primary btn--lg" target="_blank" rel="noopener">Register for Tryouts</a>
         <a href="contact.html" class="btn btn--outline btn--lg">Ask a Question</a>
       </div>
     </div>
@@ -521,7 +564,7 @@
         <div class="footer__links">
           <div class="footer__col"><h4>Pages</h4><a href="index.html">Home</a><a href="about.html">About Us</a><a href="programs.html">Programs</a><a href="teams.html">Teams</a></div>
           <div class="footer__col"><h4>Programs</h4><a href="programs.html">Club Teams</a><a href="programs.html">HVVC Academy</a><a href="programs.html">Open Gyms</a><a href="programs.html">Speed &amp; Performance</a></div>
-          <div class="footer__col"><h4>Connect</h4><a href="coaches.html">Coaches</a><a href="investment.html">Investment</a><a href="media.html">Media</a><a href="contact.html">Contact Us</a></div>
+          <div class="footer__col"><h4>Connect</h4><a href="coaches.html">Coaches</a><a href="investment.html">Investment</a><a href="media.html">Media</a><a href="schedule.html">Schedule</a><a href="contact.html">Contact Us</a></div>
         </div>
       </div>
       <div class="footer__bottom">
