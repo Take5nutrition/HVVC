@@ -48,11 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Navbar scroll effect
         if (navbar) {
           navbar.classList.toggle('scrolled', scrollY > 50);
-          // Hide/show on scroll direction
-          if (scrollY > lastScrollY && scrollY > 200) {
-            navbar.style.transform = 'translateY(-100%)';
-          } else {
-            navbar.style.transform = 'translateY(0)';
+          // Hide/show on scroll direction (desktop only)
+          if (!isMobile) {
+            if (scrollY > lastScrollY && scrollY > 200) {
+              navbar.style.transform = 'translateY(-100%)';
+            } else {
+              navbar.style.transform = 'translateY(0)';
+            }
           }
         }
 
