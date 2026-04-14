@@ -2243,10 +2243,44 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 /* Compact hero variant (shorter) */
 .dk-hero--compact { min-height: 70vh; }
 
+/* Page hero variant — clean black slab w/ just a centered title */
+.dk-hero--page {
+  min-height: 0;
+  padding: calc(var(--nav-height) + 90px) 0 110px;
+  background: #000;
+}
+.dk-hero--page .dk-hero__bg,
+.dk-hero--page .dk-hero__orbs,
+.dk-hero--page .dk-hero__kicker,
+.dk-hero--page .dk-hero__sub,
+.dk-hero--page .dk-hero__scroll { display: none !important; }
+.dk-hero--page .dk-hero__title {
+  font-size: clamp(2.6rem, 7.5vw, 5.5rem);
+  letter-spacing: -.04em;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+/* Teal breadcrumb banner that sits directly below a page hero */
+.dk-page-banner {
+  background: var(--pink);
+  color: #fff;
+  text-align: center;
+  padding: 16px 20px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.dk-page-banner__sep { margin: 0 12px; opacity: .7; }
+
 @media (max-width: 640px) {
   .dk-hero__title { font-size: 3.2rem; }
   .dk-hero { min-height: 90vh; }
   .dk-hero--compact { min-height: 60vh; }
+  .dk-hero--page { padding: calc(var(--nav-height) + 50px) 0 70px; }
+  .dk-hero--page .dk-hero__title { font-size: 2.2rem; }
+  .dk-page-banner { font-size: .68rem; letter-spacing: .18em; padding: 12px 16px; }
 }
 
 /* ===== SHARED DARK SECTION ===== */
