@@ -2243,21 +2243,24 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 /* Compact hero variant (shorter) */
 .dk-hero--compact { min-height: 70vh; }
 
-/* Page hero variant — clean black slab w/ just a centered title */
+/* Page hero variant — clean black slab, perfectly centered */
 .dk-hero--page {
-  min-height: 420px;
-  padding: var(--nav-height) 0 0;
-  background: #000;
+  min-height: 440px !important;
+  max-height: 440px;
+  padding: var(--nav-height) 0 70px !important;
+  background: #000 !important;
 }
 .dk-hero--page .dk-hero__bg,
 .dk-hero--page .dk-hero__orbs { display: none !important; }
 .dk-hero--page .dk-hero__content { width: 100%; text-align: center; }
 .dk-hero--page .dk-hero__sub { display: none !important; }
+.dk-hero--page .dk-hero__kicker { margin-bottom: 14px; }
 .dk-hero--page .dk-hero__title {
-  font-size: clamp(2.6rem, 7.5vw, 5.5rem);
+  font-size: clamp(2.4rem, 6vw, 5rem);
   letter-spacing: -.04em;
   margin-bottom: 0;
   text-transform: uppercase;
+  line-height: 1;
 }
 
 /* Teal breadcrumb banner that sits directly below a page hero */
@@ -2277,8 +2280,8 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
   .dk-hero__title { font-size: 3.2rem; }
   .dk-hero { min-height: 90vh; }
   .dk-hero--compact { min-height: 60vh; }
-  .dk-hero--page { min-height: 320px; padding: var(--nav-height) 0 0; }
-  .dk-hero--page .dk-hero__title { font-size: 2rem; }
+  .dk-hero--page { min-height: 320px !important; max-height: 320px; padding: var(--nav-height) 0 60px !important; }
+  .dk-hero--page .dk-hero__title { font-size: 1.8rem; }
   .dk-page-banner { font-size: .68rem; letter-spacing: .18em; padding: 12px 16px; }
 }
 
@@ -2845,7 +2848,7 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
   .photo-carousel__track { animation-duration: 50s; }
   .dk-hero { min-height: 50vh; }
   .dk-hero--compact { min-height: 40vh; }
-  .dk-hero--page { min-height: 320px; }
+  .dk-hero--page { min-height: 320px !important; max-height: 320px; }
   .dk-hero__scroll { display: none; }
   .dk-section { padding: 60px 0; }
   .section { padding: 60px 0; }
