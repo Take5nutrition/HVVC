@@ -625,7 +625,7 @@ body.dark-mode .hero__bg {
 .ql-card__pink {
   position: absolute;
   inset: 0;
-  background: rgba(255,42,161,.32);
+  background: rgba(255,255,255,.25);
   opacity: 0;
   transition: opacity .35s ease;
   z-index: 2;
