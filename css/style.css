@@ -735,7 +735,7 @@ body.dark-mode .hero__bg {
 }
 .ql-card__img-wrap {
   width: 100%;
-  aspect-ratio: 3/4.2;
+  aspect-ratio: 2/3.8;
   border-radius: 18px;
   overflow: hidden;
   position: relative;
@@ -744,7 +744,7 @@ body.dark-mode .hero__bg {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.5) 78%, #000 100%);
+  background: linear-gradient(to bottom, transparent 42%, rgba(0,0,0,.65) 68%, #000 88%);
   z-index: 1;
 }
 .ql-card__white {
