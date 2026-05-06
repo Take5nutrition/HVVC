@@ -113,6 +113,61 @@
     </div>
   </section>
 
+  <!-- ========== VOLLEYBALL NET DIVIDER ========== -->
+  <div class="vb-net" aria-hidden="true">
+    <svg class="vb-net__svg" viewBox="0 0 1440 210" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="diamonds" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+          <path d="M12,0 L24,12 L12,24 L0,12 Z" fill="none" stroke="rgba(190,200,230,0.45)" stroke-width="0.9"/>
+        </pattern>
+        <linearGradient id="sidefade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#000" stop-opacity="1"/>
+          <stop offset="6%"   stop-color="#000" stop-opacity="0"/>
+          <stop offset="94%"  stop-color="#000" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000" stop-opacity="1"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Net mesh body -->
+      <rect x="90" y="42" width="1260" height="138" fill="url(#diamonds)"/>
+
+      <!-- Bottom cable sag -->
+      <path d="M90,178 Q720,188 1350,178" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2.5"/>
+
+      <!-- Left vertical side band -->
+      <rect x="90" y="42" width="10" height="136" fill="rgba(255,255,255,0.7)"/>
+      <!-- Right vertical side band -->
+      <rect x="1340" y="42" width="10" height="136" fill="rgba(255,255,255,0.7)"/>
+
+      <!-- Top tape (white, prominent, with glow) -->
+      <rect x="90" y="42" width="1260" height="10" fill="rgba(255,255,255,0.95)" rx="1" filter="url(#glow)"/>
+
+      <!-- Left pole -->
+      <rect x="84" y="0" width="7" height="210" fill="rgba(210,215,230,0.55)" rx="3"/>
+      <!-- Right pole -->
+      <rect x="1349" y="0" width="7" height="210" fill="rgba(210,215,230,0.55)" rx="3"/>
+
+      <!-- Left antenna (red/white stripes, extends above net) -->
+      <rect x="95" y="0"  width="4" height="60" fill="white"/>
+      <rect x="95" y="0"  width="4" height="10" fill="#cc2200"/>
+      <rect x="95" y="20" width="4" height="10" fill="#cc2200"/>
+      <rect x="95" y="40" width="4" height="10" fill="#cc2200"/>
+
+      <!-- Right antenna -->
+      <rect x="1341" y="0"  width="4" height="60" fill="white"/>
+      <rect x="1341" y="0"  width="4" height="10" fill="#cc2200"/>
+      <rect x="1341" y="20" width="4" height="10" fill="#cc2200"/>
+      <rect x="1341" y="40" width="4" height="10" fill="#cc2200"/>
+
+      <!-- Side fade overlay so net softly disappears at edges -->
+      <rect x="0" y="0" width="1440" height="210" fill="url(#sidefade)"/>
+    </svg>
+  </div>
+
   <!-- ========== PROGRAMS - quick links style ========== -->
   <section class="ql-section">
     <div class="container">

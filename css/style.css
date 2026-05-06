@@ -580,6 +580,18 @@ body.dark-mode .hero__bg {
 @keyframes photoScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 @media (max-width: 640px) { .photo-carousel__slide { width: 280px; height: 200px; } }
 
+/* ---------- VOLLEYBALL NET DIVIDER ---------- */
+.vb-net {
+  background: #000;
+  line-height: 0;
+  position: relative;
+}
+.vb-net__svg {
+  width: 100%;
+  height: 210px;
+  display: block;
+}
+
 /* ---------- QUICK-LINKS STYLE PROGRAM SECTION ---------- */
 .ql-section {
   background: #000;
