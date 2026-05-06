@@ -613,7 +613,7 @@ body.dark-mode .hero__bg {
 }
 .ql-card__img-wrap {
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 2/3.5;
   border-radius: 18px;
   overflow: hidden;
   position: relative;
@@ -622,10 +622,8 @@ body.dark-mode .hero__bg {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 55%, rgba(0,0,0,.45) 100%);
-  transition: opacity .3s ease;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.6) 72%, #000 100%);
 }
-.ql-card:hover .ql-card__img-wrap::after { opacity: .5; }
 .ql-card__img {
   width: 100%;
   height: 100%;
