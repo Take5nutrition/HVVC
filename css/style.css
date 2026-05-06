@@ -254,8 +254,8 @@ body.dark-mode .navbar.scrolled { background: #0a0a0a; }
 
 /* ---------- HERO ---------- */
 .hero {
-  position: relative; min-height: 100vh; display: flex; align-items: center;
-  padding: calc(var(--nav-height) + 40px) 0 60px; overflow: hidden; background: var(--body-bg);
+  position: relative; min-height: 100vh; display: flex; align-items: flex-end;
+  padding: calc(var(--nav-height) + 40px) 0 120px; overflow: hidden; background: var(--body-bg);
 }
 
 .hero__bg {
