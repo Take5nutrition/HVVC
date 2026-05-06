@@ -347,7 +347,7 @@ body.dark-mode .hero__bg {
 
 .hero--photo .hero__overlay {
   position: absolute; inset: 0; z-index: 0;
-  background: linear-gradient(to bottom, rgba(5,5,15,.45) 0%, rgba(5,5,15,.65) 100%);
+  background: linear-gradient(to bottom, rgba(5,5,15,.35) 0%, rgba(5,5,15,.6) 60%, #000 100%);
 }
 .hero--photo .hero__content { color: #fff; }
 .hero--photo .hero__title { color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,.4); }
@@ -674,11 +674,11 @@ body.dark-mode .hero__bg {
 
 /* ---------- HERO WHITE FOG TRANSITION ---------- */
 .hero-fog {
-  height: 160px;
-  margin-top: -160px;
+  height: 200px;
+  margin-top: -40px;
   position: relative;
   z-index: 2;
-  background: linear-gradient(to bottom, transparent 0%, #fff 100%);
+  background: linear-gradient(to bottom, #000 0%, #fff 100%);
   pointer-events: none;
 }
 
