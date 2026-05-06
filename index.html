@@ -48,7 +48,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Bebas+Neue&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
   <script>document.documentElement.classList.add("mode-"+(false?"tryouts":"in-season"));</script>
   <!-- Google Analytics - replace G-XXXXXXXXXX with your Measurement ID -->
   <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -87,82 +87,36 @@
   <div class="scroll-progress"></div>
   <button class="back-to-top" aria-label="Back to top">&uarr;</button>
 
-  <!-- ========== HERO - full-bleed team photo ========== -->
-  <section class="hero hero--photo grain-overlay" id="home">
+  <!-- ========== HERO - split layout ========== -->
+  <section class="hero hero--photo hero--split grain-overlay" id="home">
     <div class="hero__photo-bg" style="background-image:url('img/hero-16u-team.jpg')"></div>
     <div class="hero__overlay"></div>
-    <!-- Floating particles -->
-    <div class="hero-particles">
-      <div class="hero-particle"></div>
-      <div class="hero-particle"></div>
-      <div class="hero-particle"></div>
-      <div class="hero-particle"></div>
-      <div class="hero-particle"></div>
-      <div class="hero-particle"></div>
-      <div class="hero-particle"></div>
-      <div class="hero-particle"></div>
-    </div>
-    <div class="hero__editorial">
-      <div class="hero__editorial-badge">Welcome to Happy Valley Volleyball Club</div>
-      <h1 class="hero__editorial-title">Heart. Vision.<br>Value. Compete.</h1>
-      <div class="hero__actions hero__actions--editorial">
-        <a href="https://hvvc.leagueapps.com/clubteams/4797399-hvvc-tryouts-25-26" class="btn btn--primary btn--lg" data-mode="tryouts" target="_blank" rel="noopener">Register for Tryouts</a>
-        <a href="teams.html" class="btn btn--primary btn--lg" data-mode="in-season">Follow the Season</a>
-        <a href="about.html" class="btn btn--outline btn--lg">Our Story</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== PINK DIAGONAL SLASH ========== -->
-  <div class="hero-slash" aria-hidden="true">
-    <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="0,72 1440,28 1440,72" fill="var(--pink)"/>
-    </svg>
-  </div>
-
-  <!-- ========== STATS BAR ========== -->
-  <section class="stats-bar">
     <div class="container">
-      <div class="stats-bar__card">
-        <div class="stats-bar__item">
-          <div class="stats-bar__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <div class="stats-bar__text"><span class="stats-bar__num">200+</span><span class="stats-bar__label">Athletes</span></div>
-        </div>
-        <div class="stats-bar__divider"></div>
-        <div class="stats-bar__item">
-          <div class="stats-bar__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
-          </div>
-          <div class="stats-bar__text"><span class="stats-bar__num">18</span><span class="stats-bar__label">Teams</span></div>
-        </div>
-        <div class="stats-bar__divider"></div>
-        <div class="stats-bar__item">
-          <div class="stats-bar__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
-          </div>
-          <div class="stats-bar__text"><span class="stats-bar__num">Elite</span><span class="stats-bar__label">Coaching</span></div>
-        </div>
-        <div class="stats-bar__divider"></div>
-        <div class="stats-bar__item">
-          <div class="stats-bar__icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-          <div class="stats-bar__text"><span class="stats-bar__num">Year Round</span><span class="stats-bar__label">Development</span></div>
+      <div class="hero__split">
+        <span class="hero__editorial-badge">Welcome to Happy Valley Volleyball Club</span>
+        <h1 class="hero__split-title">
+          More Than<br>A Club.
+          <span class="hero__split-script">A Standard.</span>
+        </h1>
+        <p class="hero__split-sub">We don't just play volleyball.<br>We live it. Every practice. Every match. Every teammate.</p>
+        <div class="hero__actions hero__split-actions">
+          <a href="https://hvvc.leagueapps.com/clubteams/4797399-hvvc-tryouts-25-26" class="btn btn--primary btn--lg" data-mode="tryouts" target="_blank" rel="noopener">Register for Tryouts</a>
+          <a href="teams.html" class="btn btn--primary btn--lg" data-mode="in-season">Follow the Season</a>
+          <a href="about.html" class="btn btn--outline btn--lg">Our Story</a>
         </div>
       </div>
+    </div>
+    <div class="hero__diag" aria-hidden="true">
+      <svg viewBox="0 0 600 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,90 600,35 600,90" fill="var(--pink)"/>
+      </svg>
     </div>
   </section>
 
   <!-- ========== PROGRAMS ========== -->
   <section class="ql-section">
     <div class="container">
-      <div class="ql-header">
-        <span class="ql-header__tag">Our Programs</span>
-        <h2 class="ql-title">Built for Every Athlete</h2>
-        <p class="ql-header__sub">Whether you're just getting started or chasing your next level,<br>HVVC has a place for you to grow, compete and belong.</p>
-      </div>
+      <span class="ql-inline-tag">Our Programs</span>
       <div class="ql-grid">
         <a href="programs.html" class="ql-card">
           <div class="ql-card__img-wrap">
@@ -226,68 +180,59 @@
     </div>
   </section>
 
-  <!-- ========== WELCOME - immersive intro ========== -->
-  <section class="section welcome-section" style="position:relative;">
-    <!-- Floating gradient orbs -->
-    <div class="floating-orbs">
-      <div class="floating-orb floating-orb--1"></div>
-      <div class="floating-orb floating-orb--2"></div>
-      <div class="floating-orb floating-orb--3"></div>
-    </div>
-    <div class="container" style="position:relative;z-index:1;">
-      <div class="welcome">
-        <div class="welcome__text">
-          <span class="section__tag">Who We Are</span>
-          <h2 class="section__title" style="text-align:left;">Welcome to <span class="gradient-text">HVVC</span></h2>
-          <p class="welcome__lead">A growing competitive club volleyball program built on passion, purpose, and a deep commitment to giving back to youth volleyball in Happy Valley.</p>
-          <p>We focus on the athlete in front of us - building teams that play fast, communicate well, and understand why each drill is on the plan. We keep our operations intentionally small so coaches can know every athlete personally.</p>
-          <div class="welcome__features">
-            <div class="welcome__feature">
-              <div class="welcome__feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              </div>
-              <div>
-                <strong>Small Rosters</strong>
-                <span>12 athletes per team for meaningful reps</span>
-              </div>
-            </div>
-            <div class="welcome__feature">
-              <div class="welcome__feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              </div>
-              <div>
-                <strong>Elite Coaching</strong>
-                <span>Head + assistant coach on every team</span>
-              </div>
-            </div>
-            <div class="welcome__feature">
-              <div class="welcome__feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-              </div>
-              <div>
-                <strong>Compete Monthly</strong>
-                <span>2+ tournaments every month of the season</span>
-              </div>
-            </div>
-            <div class="welcome__feature">
-              <div class="welcome__feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              </div>
-              <div>
-                <strong>Culture First</strong>
-                <span>Positive environment on and off the court</span>
-              </div>
-            </div>
-          </div>
-          <a href="about.html" class="btn btn--primary">Read Our Full Story &rarr;</a>
+  <!-- ========== BUILT ON PURPOSE ========== -->
+  <section class="purpose-section">
+    <div class="container">
+      <div class="purpose-layout">
+        <div class="purpose-left">
+          <span class="purpose-tag">Why HVVC?</span>
+          <h2 class="purpose-heading">Built on Purpose.</h2>
+          <span class="purpose-script">Focused on You.</span>
+          <div class="purpose-rule" aria-hidden="true"></div>
+          <p class="purpose-body">At HVVC, we combine elite coaching with a positive culture to help athletes grow on and off the court. We meet you where you are and push you toward where you want to be.</p>
+          <a href="contact.html" class="btn btn--primary">Join the HVVC Family &rarr;</a>
         </div>
-        <div class="welcome__media">
-          <div class="welcome__image-stack">
-            <img src="img/action-celebrate.jpg" alt="HVVC athletes celebrating" class="welcome__img-main" loading="lazy" />
-            <img src="img/team-12u-floor.jpg" alt="HVVC 12U team" class="welcome__img-accent" loading="lazy" />
-            <div class="welcome__img-badge">
-              <span class="welcome__img-badge-number">7</span>
-              <span class="welcome__img-badge-label">Teams Strong</span>
+        <div class="purpose-right">
+          <div class="purpose-features">
+            <div class="purpose-feature">
+              <div class="purpose-feature__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <h3 class="purpose-feature__title">Player First</h3>
+              <p class="purpose-feature__desc">We build confidence, character, and lifelong skills.</p>
+              <div class="purpose-feature__photo">
+                <img src="img/action-celebrate.jpg" alt="Player First" loading="lazy" />
+              </div>
+            </div>
+            <div class="purpose-feature">
+              <div class="purpose-feature__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+              </div>
+              <h3 class="purpose-feature__title">Elite Coaching</h3>
+              <p class="purpose-feature__desc">Experienced coaches who develop athletes at every level.</p>
+              <div class="purpose-feature__photo">
+                <img src="img/academy.jpg" alt="Elite Coaching" loading="lazy" />
+              </div>
+            </div>
+            <div class="purpose-feature">
+              <div class="purpose-feature__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <h3 class="purpose-feature__title">Proven Pathway</h3>
+              <p class="purpose-feature__desc">Programs designed to grow with you year after year.</p>
+              <div class="purpose-feature__photo">
+                <img src="img/action-bench.jpg" alt="Proven Pathway" loading="lazy" />
+              </div>
+            </div>
+            <div class="purpose-feature">
+              <div class="purpose-feature__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <h3 class="purpose-feature__title">Community Driven</h3>
+              <p class="purpose-feature__desc">A supportive environment where teammates become family.</p>
+              <div class="purpose-feature__photo">
+                <img src="img/hero-16u-team.jpg" alt="Community Driven" loading="lazy" />
+              </div>
             </div>
           </div>
         </div>

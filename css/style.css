@@ -286,6 +286,77 @@ body.dark-mode .hero__bg {
 .typing-cursor { display: inline-block; width: 3px; height: .85em; background: var(--pink); margin-left: 4px; animation: blink 1s infinite; vertical-align: text-bottom; box-shadow: 0 0 8px rgba(255,42,161,.5); }
 @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 
+/* ---- Split hero layout ---- */
+.hero--split {
+  align-items: center;
+  padding-top: calc(var(--nav-height) + 60px);
+  padding-bottom: 100px;
+}
+.hero--split .hero__overlay {
+  background: linear-gradient(105deg,
+    #000 0%,
+    #000 28%,
+    rgba(0,0,0,.88) 42%,
+    rgba(0,0,0,.35) 62%,
+    rgba(0,0,0,.08) 100%
+  );
+}
+.hero--split .hero__photo-bg {
+  background-position: right center;
+  opacity: .85;
+}
+.hero__split {
+  position: relative; z-index: 1;
+  max-width: 560px;
+}
+.hero__split-title {
+  font-family: 'Bebas Neue', var(--font-heading);
+  font-size: clamp(3.5rem, 8.5vw, 8.5rem);
+  font-weight: 400; line-height: .9;
+  color: #fff; text-transform: uppercase;
+  letter-spacing: .01em;
+  margin: 0 0 0;
+  animation: fadeUp .6s ease .1s both;
+}
+.hero__split-script {
+  display: block;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2.2rem, 5.5vw, 5.5rem);
+  font-weight: 700;
+  color: var(--pink);
+  text-transform: none;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.hero__split-script::after {
+  content: '';
+  display: block;
+  width: 70px; height: 3px;
+  background: var(--pink);
+  margin-top: 10px;
+}
+.hero__split-sub {
+  font-size: 1rem; color: rgba(255,255,255,.75);
+  line-height: 1.75; margin: 28px 0 36px;
+  animation: fadeUp .6s ease .2s both;
+}
+.hero__split-actions {
+  justify-content: flex-start !important;
+  animation: fadeUp .6s ease .3s both;
+}
+.hero__diag {
+  position: absolute; bottom: 0; right: 0;
+  width: 42%; height: 90px; z-index: 1;
+  pointer-events: none;
+}
+.hero__diag svg { width: 100%; height: 100%; display: block; }
+@media (max-width: 768px) {
+  .hero--split { padding-bottom: 80px; }
+  .hero--split .hero__overlay { background: linear-gradient(to bottom, rgba(0,0,0,.7) 0%, rgba(0,0,0,.85) 100%); }
+  .hero__split { max-width: 100%; }
+  .hero__diag { width: 60%; height: 60px; }
+}
+
 /* ---- Editorial hero layout ---- */
 .hero__editorial {
   position: relative; z-index: 1;
@@ -638,7 +709,7 @@ body.dark-mode .hero__bg {
 /* ---------- PROGRAMS SECTION ---------- */
 .ql-section {
   background: #000;
-  padding: 0;
+  padding: 0 0 0;
 }
 .ql-header {
   text-align: center;
@@ -770,6 +841,96 @@ body.dark-mode .hero__bg {
 }
 .ql-cta__btn:hover { background: #fff; color: var(--pink); }
 @media (max-width: 640px) { .ql-cta { padding: 28px 24px; justify-content: center; text-align: center; } }
+
+/* Inline tag above program grid */
+.ql-inline-tag {
+  display: block;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--pink); margin-bottom: 24px;
+  padding-top: 60px;
+}
+
+/* ---------- BUILT ON PURPOSE SECTION ---------- */
+.purpose-section {
+  background: #0d0d14;
+  padding: 100px 0 110px;
+}
+.purpose-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.purpose-tag {
+  display: block;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--pink); margin-bottom: 16px;
+}
+.purpose-heading {
+  font-family: 'Bebas Neue', var(--font-heading);
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 400; color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .02em; line-height: 1;
+  margin-bottom: 4px;
+}
+.purpose-script {
+  display: block;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 700;
+  color: var(--pink);
+  margin-bottom: 8px;
+}
+.purpose-rule {
+  width: 55px; height: 3px;
+  background: var(--pink);
+  margin-bottom: 28px;
+}
+.purpose-body {
+  font-size: .95rem; color: #94a3b8;
+  line-height: 1.75; margin-bottom: 36px;
+}
+.purpose-features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.purpose-feature__icon {
+  width: 42px; height: 42px;
+  color: var(--pink); margin-bottom: 14px;
+}
+.purpose-feature__icon svg { width: 100%; height: 100%; }
+.purpose-feature__title {
+  font-family: 'Bebas Neue', var(--font-heading);
+  font-size: 1.15rem; color: #fff;
+  text-transform: uppercase;
+  letter-spacing: .07em; margin-bottom: 8px;
+}
+.purpose-feature__desc {
+  font-size: .82rem; color: #94a3b8;
+  line-height: 1.6; margin-bottom: 18px;
+}
+.purpose-feature__photo {
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.purpose-feature__photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.purpose-feature:hover .purpose-feature__photo img { transform: scale(1.05); }
+@media (max-width: 1024px) {
+  .purpose-layout { grid-template-columns: 1fr; gap: 48px; }
+  .purpose-features { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .purpose-features { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+}
 
 /* ---------- PROGRAM PHOTO CARDS (HVVC original-style: photo bg + gradient overlay) ---------- */
 .program-photo-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
