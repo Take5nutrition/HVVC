@@ -2255,6 +2255,7 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-hero--page .dk-hero__content { width: 100%; text-align: center; }
 .dk-hero--page .dk-hero__sub { display: none !important; }
 .dk-hero--page .dk-hero__kicker { margin-bottom: 14px; }
+.dk-hero--page .dk-hero__scroll { display: none !important; }
 .dk-hero--page .dk-hero__title {
   font-size: clamp(2.4rem, 6vw, 5rem);
   letter-spacing: -.04em;
