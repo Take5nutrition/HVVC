@@ -286,11 +286,34 @@ body.dark-mode .hero__bg {
 .typing-cursor { display: inline-block; width: 3px; height: .85em; background: var(--pink); margin-left: 4px; animation: blink 1s infinite; vertical-align: text-bottom; box-shadow: 0 0 8px rgba(255,42,161,.5); }
 @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 
-.hero__tagline-static {
-  font-family: var(--font-heading); font-size: clamp(1rem, 2.5vw, 1.5rem);
-  font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
-  color: rgba(255,255,255,.75); margin: 0 auto 32px;
-  animation: fadeUp .8s ease .15s both;
+/* ---- Editorial hero layout ---- */
+.hero__editorial {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; width: 100%; padding: 0 24px;
+}
+.hero__editorial-badge {
+  display: inline-block;
+  background: var(--pink);
+  color: #fff;
+  font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
+  padding: 10px 28px; margin-bottom: 28px;
+  animation: fadeUp .6s ease both;
+}
+.hero__editorial-title {
+  font-family: var(--font-heading);
+  font-size: clamp(4rem, 11vw, 13rem);
+  font-weight: 900; line-height: .9; letter-spacing: -.03em;
+  color: #fff; text-transform: uppercase;
+  text-shadow: 0 4px 40px rgba(0,0,0,.3);
+  margin: 0 0 40px;
+  animation: fadeUp .7s ease .1s both;
+}
+.hero__actions--editorial { animation: fadeUp .7s ease .2s both; }
+
+@media (max-width: 640px) {
+  .hero__editorial-title { font-size: clamp(3rem, 14vw, 5rem); }
+  .hero__editorial-badge { font-size: .65rem; padding: 8px 20px; }
 }
 .hero__subtitle { font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--muted); line-height: 1.7; max-width: 620px; margin: 0 auto 40px; animation: fadeUp .8s ease .2s both; }
 .hero__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; animation: fadeUp .8s ease .3s both; }
@@ -317,9 +340,7 @@ body.dark-mode .hero__bg {
 
 .hero--photo .hero__overlay {
   position: absolute; inset: 0; z-index: 0;
-  background:
-    linear-gradient(105deg, rgba(0,0,0,.85) 0%, rgba(0,0,0,.55) 50%, rgba(0,0,0,.15) 100%),
-    linear-gradient(to top, rgba(0,0,0,.8) 0%, transparent 50%);
+  background: rgba(10,12,28,.55);
 }
 .hero--photo .hero__content { color: #fff; }
 .hero--photo .hero__title { color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,.4); }
