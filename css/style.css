@@ -710,7 +710,7 @@ body.dark-mode .hero__bg {
 }
 .ql-big-title {
   font-family: var(--font-heading);
-  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-size: clamp(2rem, 4.5vw, 4.5rem);
   font-weight: 700;
   color: #fff;
   text-align: center;
