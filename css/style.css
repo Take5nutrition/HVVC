@@ -672,6 +672,16 @@ body.dark-mode .hero__bg {
   letter-spacing: .18em; text-transform: uppercase; color: #fff; padding: 0 8px;
 }
 
+/* ---------- HERO WHITE FOG TRANSITION ---------- */
+.hero-fog {
+  height: 160px;
+  margin-top: -160px;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent 0%, #fff 100%);
+  pointer-events: none;
+}
+
 /* ---------- VOLLEYBALL NET DRAPE ---------- */
 .net-drape {
   position: relative;
