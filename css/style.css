@@ -307,9 +307,9 @@ body.dark-mode .hero__bg {
   max-width: 560px;
 }
 .hero__split-title {
-  font-family: 'Bebas Neue', var(--font-heading);
+  font-family: var(--font-heading);
   font-size: clamp(3.5rem, 8.5vw, 8.5rem);
-  font-weight: 400; line-height: .9;
+  font-weight: 700; line-height: .9;
   color: #fff; text-transform: uppercase;
   letter-spacing: .01em;
   margin: 0 0 0;
@@ -370,9 +370,9 @@ body.dark-mode .hero__bg {
   animation: fadeUp .5s ease both;
 }
 .hero__editorial-title {
-  font-family: 'Bebas Neue', var(--font-heading);
+  font-family: var(--font-heading);
   font-size: clamp(4rem, 10vw, 13rem);
-  font-weight: 400; line-height: .88; letter-spacing: .02em;
+  font-weight: 700; line-height: .88; letter-spacing: .02em;
   color: #fff; text-transform: uppercase;
   text-shadow: 0 8px 60px rgba(0,0,0,.5);
   margin: 0 0 44px;
@@ -709,9 +709,9 @@ body.dark-mode .hero__bg {
   padding: 0;
 }
 .ql-big-title {
-  font-family: 'Bebas Neue', var(--font-heading);
+  font-family: var(--font-heading);
   font-size: clamp(3.5rem, 8vw, 8rem);
-  font-weight: 400;
+  font-weight: 700;
   color: #fff;
   text-align: center;
   letter-spacing: .04em;
@@ -764,9 +764,9 @@ body.dark-mode .hero__bg {
 }
 .ql-card:hover .ql-card__img { transform: scale(1.06); }
 .ql-card__label {
-  font-family: 'Bebas Neue', var(--font-heading);
+  font-family: var(--font-heading);
   font-size: clamp(1.1rem, 2vw, 1.6rem);
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: #fff;
@@ -842,9 +842,9 @@ body.dark-mode .hero__bg {
   color: var(--pink); margin-bottom: 16px;
 }
 .purpose-heading {
-  font-family: 'Bebas Neue', var(--font-heading);
+  font-family: var(--font-heading);
   font-size: clamp(2.4rem, 4.5vw, 4rem);
-  font-weight: 400; color: #fff;
+  font-weight: 700; color: #fff;
   text-transform: uppercase;
   letter-spacing: .02em; line-height: 1;
   margin-bottom: 4px;
@@ -877,7 +877,7 @@ body.dark-mode .hero__bg {
 }
 .purpose-feature__icon svg { width: 100%; height: 100%; }
 .purpose-feature__title {
-  font-family: 'Bebas Neue', var(--font-heading);
+  font-family: var(--font-heading);
   font-size: 1.15rem; color: #fff;
   text-transform: uppercase;
   letter-spacing: .07em; margin-bottom: 8px;
