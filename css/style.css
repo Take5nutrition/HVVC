@@ -580,21 +580,40 @@ body.dark-mode .hero__bg {
 @keyframes photoScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 @media (max-width: 640px) { .photo-carousel__slide { width: 280px; height: 200px; } }
 
-/* ---------- VOLLEYBALL NET DIVIDER ---------- */
-.vb-net {
-  background: #000;
-  line-height: 0;
-  position: relative;
-  width: 100vw;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.vb-net__svg {
+/* ---------- HERO MARQUEE BANNER ---------- */
+.hero-marquee {
+  background: var(--pink);
+  overflow: hidden;
+  padding: 18px 0;
   width: 100%;
-  height: 320px;
-  display: block;
 }
-@media (max-width: 768px) { .vb-net__svg { height: 200px; } }
+.hero-marquee__track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+  white-space: nowrap;
+}
+.hero-marquee__track span {
+  font-family: 'Bebas Neue', var(--font-heading);
+  font-size: 1.25rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 0 28px;
+}
+.hero-marquee__dot {
+  color: rgba(255,255,255,0.5) !important;
+  font-size: .5rem !important;
+  padding: 0 !important;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+}
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
 /* ---------- QUICK-LINKS STYLE PROGRAM SECTION ---------- */
 .ql-section {

@@ -113,90 +113,22 @@
     </div>
   </section>
 
-  <!-- ========== VOLLEYBALL NET DIVIDER ========== -->
-  <div class="vb-net" aria-hidden="true">
-    <svg class="vb-net__svg" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Diamond mesh - realistic volleyball net weave -->
-        <pattern id="vbmesh" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
-          <path d="M13,0 L26,13 L13,26 L0,13 Z" fill="none" stroke="rgba(210,220,240,0.55)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-        </pattern>
-        <!-- Vertical lighting on mesh: bright top, dark bottom -->
-        <linearGradient id="meshlight" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%"   stop-color="rgba(255,255,255,0.18)"/>
-          <stop offset="40%"  stop-color="rgba(255,255,255,0)"/>
-          <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
-        </linearGradient>
-        <!-- Metallic pole gradient - left -->
-        <linearGradient id="poleL" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"   stop-color="#2a2a2a"/>
-          <stop offset="25%"  stop-color="#888"/>
-          <stop offset="50%"  stop-color="#ddd"/>
-          <stop offset="72%"  stop-color="#aaa"/>
-          <stop offset="100%" stop-color="#333"/>
-        </linearGradient>
-        <!-- Metallic pole gradient - right -->
-        <linearGradient id="poleR" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"   stop-color="#333"/>
-          <stop offset="28%"  stop-color="#aaa"/>
-          <stop offset="50%"  stop-color="#ddd"/>
-          <stop offset="75%"  stop-color="#888"/>
-          <stop offset="100%" stop-color="#2a2a2a"/>
-        </linearGradient>
-        <!-- Top tape glow -->
-        <filter id="tapeglow" x="-2%" y="-200%" width="104%" height="600%">
-          <feGaussianBlur stdDeviation="4" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <!-- Pole shadow -->
-        <filter id="poleshadow">
-          <feDropShadow dx="4" dy="0" stdDeviation="6" flood-color="rgba(0,0,0,0.8)"/>
-        </filter>
-      </defs>
-
-      <!-- ── LEFT POLE ── metallic cylinder -->
-      <rect x="18" y="0" width="18" height="320" fill="url(#poleL)" rx="5" filter="url(#poleshadow)"/>
-      <!-- pole highlight edge -->
-      <rect x="21" y="0" width="3" height="320" fill="rgba(255,255,255,0.25)" rx="2"/>
-
-      <!-- ── RIGHT POLE ── -->
-      <rect x="1404" y="0" width="18" height="320" fill="url(#poleR)" rx="5" filter="url(#poleshadow)"/>
-      <rect x="1416" y="0" width="3" height="320" fill="rgba(255,255,255,0.25)" rx="2"/>
-
-      <!-- ── NET MESH BODY ── -->
-      <rect x="36" y="80" width="1368" height="190" fill="url(#vbmesh)"/>
-      <!-- vertical lighting overlay -->
-      <rect x="36" y="80" width="1368" height="190" fill="url(#meshlight)"/>
-
-      <!-- ── BOTTOM CABLE with natural sag ── -->
-      <path d="M36,268 Q360,278 720,282 Q1080,278 1404,268"
-            fill="none" stroke="rgba(200,210,230,0.4)" stroke-width="3.5" stroke-linecap="round"/>
-
-      <!-- ── LEFT SIDE BAND ── -->
-      <rect x="36" y="80" width="13" height="188" fill="rgba(255,255,255,0.82)"/>
-      <!-- ── RIGHT SIDE BAND ── -->
-      <rect x="1391" y="80" width="13" height="188" fill="rgba(255,255,255,0.82)"/>
-
-      <!-- ── TOP TAPE ── bright white with glow -->
-      <rect x="36" y="80" width="1368" height="13" fill="white" filter="url(#tapeglow)"/>
-      <!-- tape underside shadow -->
-      <rect x="36" y="93" width="1368" height="5" fill="rgba(0,0,0,0.25)"/>
-
-      <!-- ── LEFT ANTENNA ── red/white alternating stripes, 80px tall above net -->
-      <rect x="42"  y="18" width="6" height="75" fill="white"/>
-      <rect x="42"  y="18" width="6" height="13" fill="#d41a1a"/>
-      <rect x="42"  y="44" width="6" height="13" fill="#d41a1a"/>
-      <rect x="42"  y="70" width="6" height="13" fill="#d41a1a"/>
-
-      <!-- ── RIGHT ANTENNA ── -->
-      <rect x="1392" y="18" width="6" height="75" fill="white"/>
-      <rect x="1392" y="18" width="6" height="13" fill="#d41a1a"/>
-      <rect x="1392" y="44" width="6" height="13" fill="#d41a1a"/>
-      <rect x="1392" y="70" width="6" height="13" fill="#d41a1a"/>
-
-      <!-- ── NET UPPER CABLE (top rope, just below top tape) ── -->
-      <line x1="36" y1="80" x2="1404" y2="80" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
-    </svg>
+  <!-- ========== MARQUEE BANNER ========== -->
+  <div class="hero-marquee" aria-hidden="true">
+    <div class="hero-marquee__track">
+      <span>Club Teams</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>HVVC Academy</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Open Gyms</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Speed &amp; Performance</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Power League</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Happy Valley, OR</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Club Teams</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>HVVC Academy</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Open Gyms</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Speed &amp; Performance</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Power League</span><span class="hero-marquee__dot">&#9679;</span>
+      <span>Happy Valley, OR</span><span class="hero-marquee__dot">&#9679;</span>
+    </div>
   </div>
 
   <!-- ========== PROGRAMS - quick links style ========== -->
