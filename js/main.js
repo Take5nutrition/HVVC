@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- 3D Tilt effect on cards (GPU-accelerated, rAF-throttled) ----
   if (window.matchMedia('(min-width: 768px)').matches) {
-    document.querySelectorAll('.stat-card, .program-photo-card, .quick-link-card, .welcome__feature, .about-story__cred, .prog-card, .prog-featured__feature, .dk-team-card, .dk-invest-card, .dk-step, .dk-update-card').forEach(card => {
+    document.querySelectorAll('.stat-card, .program-photo-card, .quick-link-card, .welcome__feature, .about-story__cred, .prog-featured__feature, .dk-team-card, .dk-invest-card, .dk-step, .dk-update-card').forEach(card => {
       card.classList.add('tilt-card');
       card.style.willChange = 'transform';
       card.style.transition = 'transform 0.15s ease-out';
