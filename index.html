@@ -115,56 +115,87 @@
 
   <!-- ========== VOLLEYBALL NET DIVIDER ========== -->
   <div class="vb-net" aria-hidden="true">
-    <svg class="vb-net__svg" viewBox="0 0 1440 210" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="vb-net__svg" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <pattern id="diamonds" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-          <path d="M12,0 L24,12 L12,24 L0,12 Z" fill="none" stroke="rgba(190,200,230,0.45)" stroke-width="0.9"/>
+        <!-- Diamond mesh - realistic volleyball net weave -->
+        <pattern id="vbmesh" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse">
+          <path d="M13,0 L26,13 L13,26 L0,13 Z" fill="none" stroke="rgba(210,220,240,0.55)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
         </pattern>
-        <linearGradient id="sidefade" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%"   stop-color="#000" stop-opacity="1"/>
-          <stop offset="6%"   stop-color="#000" stop-opacity="0"/>
-          <stop offset="94%"  stop-color="#000" stop-opacity="0"/>
-          <stop offset="100%" stop-color="#000" stop-opacity="1"/>
+        <!-- Vertical lighting on mesh: bright top, dark bottom -->
+        <linearGradient id="meshlight" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="rgba(255,255,255,0.18)"/>
+          <stop offset="40%"  stop-color="rgba(255,255,255,0)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0.55)"/>
         </linearGradient>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2.5" result="blur"/>
+        <!-- Metallic pole gradient - left -->
+        <linearGradient id="poleL" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#2a2a2a"/>
+          <stop offset="25%"  stop-color="#888"/>
+          <stop offset="50%"  stop-color="#ddd"/>
+          <stop offset="72%"  stop-color="#aaa"/>
+          <stop offset="100%" stop-color="#333"/>
+        </linearGradient>
+        <!-- Metallic pole gradient - right -->
+        <linearGradient id="poleR" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#333"/>
+          <stop offset="28%"  stop-color="#aaa"/>
+          <stop offset="50%"  stop-color="#ddd"/>
+          <stop offset="75%"  stop-color="#888"/>
+          <stop offset="100%" stop-color="#2a2a2a"/>
+        </linearGradient>
+        <!-- Top tape glow -->
+        <filter id="tapeglow" x="-2%" y="-200%" width="104%" height="600%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Pole shadow -->
+        <filter id="poleshadow">
+          <feDropShadow dx="4" dy="0" stdDeviation="6" flood-color="rgba(0,0,0,0.8)"/>
         </filter>
       </defs>
 
-      <!-- Net mesh body -->
-      <rect x="90" y="42" width="1260" height="138" fill="url(#diamonds)"/>
+      <!-- ── LEFT POLE ── metallic cylinder -->
+      <rect x="18" y="0" width="18" height="320" fill="url(#poleL)" rx="5" filter="url(#poleshadow)"/>
+      <!-- pole highlight edge -->
+      <rect x="21" y="0" width="3" height="320" fill="rgba(255,255,255,0.25)" rx="2"/>
 
-      <!-- Bottom cable sag -->
-      <path d="M90,178 Q720,188 1350,178" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2.5"/>
+      <!-- ── RIGHT POLE ── -->
+      <rect x="1404" y="0" width="18" height="320" fill="url(#poleR)" rx="5" filter="url(#poleshadow)"/>
+      <rect x="1416" y="0" width="3" height="320" fill="rgba(255,255,255,0.25)" rx="2"/>
 
-      <!-- Left vertical side band -->
-      <rect x="90" y="42" width="10" height="136" fill="rgba(255,255,255,0.7)"/>
-      <!-- Right vertical side band -->
-      <rect x="1340" y="42" width="10" height="136" fill="rgba(255,255,255,0.7)"/>
+      <!-- ── NET MESH BODY ── -->
+      <rect x="36" y="80" width="1368" height="190" fill="url(#vbmesh)"/>
+      <!-- vertical lighting overlay -->
+      <rect x="36" y="80" width="1368" height="190" fill="url(#meshlight)"/>
 
-      <!-- Top tape (white, prominent, with glow) -->
-      <rect x="90" y="42" width="1260" height="10" fill="rgba(255,255,255,0.95)" rx="1" filter="url(#glow)"/>
+      <!-- ── BOTTOM CABLE with natural sag ── -->
+      <path d="M36,268 Q360,278 720,282 Q1080,278 1404,268"
+            fill="none" stroke="rgba(200,210,230,0.4)" stroke-width="3.5" stroke-linecap="round"/>
 
-      <!-- Left pole -->
-      <rect x="84" y="0" width="7" height="210" fill="rgba(210,215,230,0.55)" rx="3"/>
-      <!-- Right pole -->
-      <rect x="1349" y="0" width="7" height="210" fill="rgba(210,215,230,0.55)" rx="3"/>
+      <!-- ── LEFT SIDE BAND ── -->
+      <rect x="36" y="80" width="13" height="188" fill="rgba(255,255,255,0.82)"/>
+      <!-- ── RIGHT SIDE BAND ── -->
+      <rect x="1391" y="80" width="13" height="188" fill="rgba(255,255,255,0.82)"/>
 
-      <!-- Left antenna (red/white stripes, extends above net) -->
-      <rect x="95" y="0"  width="4" height="60" fill="white"/>
-      <rect x="95" y="0"  width="4" height="10" fill="#cc2200"/>
-      <rect x="95" y="20" width="4" height="10" fill="#cc2200"/>
-      <rect x="95" y="40" width="4" height="10" fill="#cc2200"/>
+      <!-- ── TOP TAPE ── bright white with glow -->
+      <rect x="36" y="80" width="1368" height="13" fill="white" filter="url(#tapeglow)"/>
+      <!-- tape underside shadow -->
+      <rect x="36" y="93" width="1368" height="5" fill="rgba(0,0,0,0.25)"/>
 
-      <!-- Right antenna -->
-      <rect x="1341" y="0"  width="4" height="60" fill="white"/>
-      <rect x="1341" y="0"  width="4" height="10" fill="#cc2200"/>
-      <rect x="1341" y="20" width="4" height="10" fill="#cc2200"/>
-      <rect x="1341" y="40" width="4" height="10" fill="#cc2200"/>
+      <!-- ── LEFT ANTENNA ── red/white alternating stripes, 80px tall above net -->
+      <rect x="42"  y="18" width="6" height="75" fill="white"/>
+      <rect x="42"  y="18" width="6" height="13" fill="#d41a1a"/>
+      <rect x="42"  y="44" width="6" height="13" fill="#d41a1a"/>
+      <rect x="42"  y="70" width="6" height="13" fill="#d41a1a"/>
 
-      <!-- Side fade overlay so net softly disappears at edges -->
-      <rect x="0" y="0" width="1440" height="210" fill="url(#sidefade)"/>
+      <!-- ── RIGHT ANTENNA ── -->
+      <rect x="1392" y="18" width="6" height="75" fill="white"/>
+      <rect x="1392" y="18" width="6" height="13" fill="#d41a1a"/>
+      <rect x="1392" y="44" width="6" height="13" fill="#d41a1a"/>
+      <rect x="1392" y="70" width="6" height="13" fill="#d41a1a"/>
+
+      <!-- ── NET UPPER CABLE (top rope, just below top tape) ── -->
+      <line x1="36" y1="80" x2="1404" y2="80" stroke="rgba(255,255,255,0.35)" stroke-width="2"/>
     </svg>
   </div>
 

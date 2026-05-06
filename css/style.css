@@ -585,12 +585,16 @@ body.dark-mode .hero__bg {
   background: #000;
   line-height: 0;
   position: relative;
+  width: 100vw;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .vb-net__svg {
   width: 100%;
-  height: 210px;
+  height: 320px;
   display: block;
 }
+@media (max-width: 768px) { .vb-net__svg { height: 200px; } }
 
 /* ---------- QUICK-LINKS STYLE PROGRAM SECTION ---------- */
 .ql-section {
