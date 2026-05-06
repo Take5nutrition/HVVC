@@ -286,6 +286,12 @@ body.dark-mode .hero__bg {
 .typing-cursor { display: inline-block; width: 3px; height: .85em; background: var(--pink); margin-left: 4px; animation: blink 1s infinite; vertical-align: text-bottom; box-shadow: 0 0 8px rgba(255,42,161,.5); }
 @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 
+.hero__tagline-static {
+  font-family: var(--font-heading); font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.75); margin: 0 auto 32px;
+  animation: fadeUp .8s ease .15s both;
+}
 .hero__subtitle { font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--muted); line-height: 1.7; max-width: 620px; margin: 0 auto 40px; animation: fadeUp .8s ease .2s both; }
 .hero__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; animation: fadeUp .8s ease .3s both; }
 
