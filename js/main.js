@@ -561,6 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.disabled = false;
         }, 3000);
       });
+    });
   }
 
   // (Parallax & navbar hide/show consolidated into main scroll handler above)
