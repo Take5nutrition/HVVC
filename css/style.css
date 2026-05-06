@@ -290,30 +290,37 @@ body.dark-mode .hero__bg {
 .hero__editorial {
   position: relative; z-index: 1;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; width: 100%; padding: 0 24px;
+  text-align: center; width: 100%;
 }
 .hero__editorial-badge {
   display: inline-block;
   background: var(--pink);
   color: #fff;
-  font-size: .72rem; font-weight: 800; letter-spacing: .2em; text-transform: uppercase;
-  padding: 10px 28px; margin-bottom: 28px;
-  animation: fadeUp .6s ease both;
+  font-family: var(--font-heading);
+  font-size: .75rem; font-weight: 700; letter-spacing: .25em; text-transform: uppercase;
+  padding: 11px 32px; margin-bottom: 32px;
+  animation: fadeUp .5s ease both;
 }
 .hero__editorial-title {
-  font-family: var(--font-heading);
-  font-size: clamp(4rem, 11vw, 13rem);
-  font-weight: 900; line-height: .9; letter-spacing: -.03em;
+  font-family: 'Bebas Neue', var(--font-heading);
+  font-size: clamp(5rem, 13.5vw, 17rem);
+  font-weight: 400; line-height: .88; letter-spacing: .02em;
   color: #fff; text-transform: uppercase;
-  text-shadow: 0 4px 40px rgba(0,0,0,.3);
-  margin: 0 0 40px;
-  animation: fadeUp .7s ease .1s both;
+  text-shadow: 0 8px 60px rgba(0,0,0,.5);
+  margin: 0 0 44px;
+  width: 100%;
+  animation: fadeUp .6s ease .1s both;
 }
-.hero__actions--editorial { animation: fadeUp .7s ease .2s both; }
+.hero__actions--editorial {
+  animation: fadeUp .6s ease .2s both;
+}
 
-@media (max-width: 640px) {
-  .hero__editorial-title { font-size: clamp(3rem, 14vw, 5rem); }
-  .hero__editorial-badge { font-size: .65rem; padding: 8px 20px; }
+@media (max-width: 768px) {
+  .hero__editorial-title { font-size: clamp(4rem, 16vw, 8rem); }
+}
+@media (max-width: 480px) {
+  .hero__editorial-title { font-size: clamp(3rem, 17vw, 5rem); }
+  .hero__editorial-badge { font-size: .65rem; padding: 9px 20px; letter-spacing: .18em; }
 }
 .hero__subtitle { font-size: clamp(1.05rem, 2vw, 1.2rem); color: var(--muted); line-height: 1.7; max-width: 620px; margin: 0 auto 40px; animation: fadeUp .8s ease .2s both; }
 .hero__actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; animation: fadeUp .8s ease .3s both; }
@@ -340,7 +347,7 @@ body.dark-mode .hero__bg {
 
 .hero--photo .hero__overlay {
   position: absolute; inset: 0; z-index: 0;
-  background: rgba(10,12,28,.55);
+  background: linear-gradient(to bottom, rgba(5,5,15,.45) 0%, rgba(5,5,15,.65) 100%);
 }
 .hero--photo .hero__content { color: #fff; }
 .hero--photo .hero__title { color: #fff; text-shadow: 0 2px 20px rgba(0,0,0,.4); }
