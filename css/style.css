@@ -705,49 +705,38 @@ body.dark-mode .hero__bg {
 /* ---------- PROGRAMS SECTION ---------- */
 .ql-section {
   background: #000;
-  padding: 0 0 0;
+  padding: 0;
 }
-.ql-header {
-  text-align: center;
-  padding: 70px 0 48px;
-}
-.ql-header__tag {
-  display: block;
-  font-size: .72rem; font-weight: 700;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: var(--pink); margin-bottom: 14px;
-}
-.ql-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 6vw, 4.5rem);
-  font-weight: 900;
+.ql-big-title {
+  font-family: 'Bebas Neue', var(--font-heading);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 400;
   color: #fff;
   text-align: center;
-  letter-spacing: -.03em;
+  letter-spacing: .04em;
   text-transform: uppercase;
-  margin-bottom: 16px;
   line-height: 1;
-}
-.ql-header__sub {
-  font-size: 1rem; color: #94a3b8; line-height: 1.65;
+  padding: 64px 0 48px;
 }
 .ql-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 @media (max-width: 900px) { .ql-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .ql-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
+@media (max-width: 480px) { .ql-grid { grid-template-columns: 1fr 1fr; gap: 12px; } }
 .ql-card {
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-decoration: none;
   color: #fff;
+  gap: 16px;
 }
 .ql-card__img-wrap {
   width: 100%;
-  aspect-ratio: 3/4;
-  border-radius: 14px;
+  aspect-ratio: 3/4.2;
+  border-radius: 18px;
   overflow: hidden;
   position: relative;
 }
@@ -755,13 +744,13 @@ body.dark-mode .hero__bg {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 45%, rgba(0,0,0,.55) 80%, #000 100%);
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.5) 78%, #000 100%);
   z-index: 1;
 }
 .ql-card__white {
   position: absolute;
   inset: 0;
-  background: rgba(255,255,255,.18);
+  background: rgba(255,255,255,.15);
   opacity: 0;
   transition: opacity .3s ease;
   z-index: 2;
@@ -773,29 +762,16 @@ body.dark-mode .hero__bg {
   transition: transform .6s cubic-bezier(.25,.46,.45,.94);
 }
 .ql-card:hover .ql-card__img { transform: scale(1.06); }
-.ql-card__body {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 4px 0;
-}
-.ql-card__body-text { display: flex; flex-direction: column; gap: 2px; }
 .ql-card__label {
-  font-family: var(--font-heading);
-  font-size: 1rem; font-weight: 800;
-  letter-spacing: .04em; text-transform: uppercase;
-  color: #fff; line-height: 1.1;
+  font-family: 'Bebas Neue', var(--font-heading);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 400;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  line-height: 1.2;
 }
-.ql-card__sub {
-  font-size: .7rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: .1em;
-  color: var(--pink);
-}
-.ql-card__arrow {
-  font-size: 1.1rem; color: var(--pink);
-  transition: transform .3s ease;
-}
-.ql-card:hover .ql-card__arrow { transform: translateX(4px); }
 .ql-cta {
   background: var(--pink);
   display: flex;
