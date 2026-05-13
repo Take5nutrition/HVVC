@@ -259,6 +259,10 @@ body.dark-mode .navbar.scrolled .nav-dropdown__menu { background: #0a0a0a; }
 .nav-dropdown.open .nav-dropdown__menu {
   opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0);
 }
+.nav-dropdown__section {
+  font-family: var(--font-mono); font-size: .5rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--pink); padding: 8px 14px 2px; display: block;
+}
 .nav-dropdown__menu a {
   display: block; padding: 10px 14px; font-family: var(--font-heading);
   font-size: .78rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
