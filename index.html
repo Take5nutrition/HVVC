@@ -57,6 +57,16 @@
 <body>
   <a href="#main" class="skip-to-content">Skip to content</a>
 
+  <!-- ========== EVENT BANNER ========== -->
+  <div id="hvvcEventBanner" role="alert" aria-live="polite">
+    <div class="hvvc-banner__inner">
+      <span class="hvvc-banner__badge">Coming Up</span>
+      <span class="hvvc-banner__text" id="hvvcBannerText"></span>
+      <a href="#" class="hvvc-banner__link" id="hvvcBannerLink">Register →</a>
+      <button class="hvvc-banner__close" aria-label="Dismiss" onclick="(function(){document.getElementById('hvvcEventBanner').style.display='none';sessionStorage.setItem('hvvcBannerDismissed','1')})()">✕</button>
+    </div>
+  </div>
+
   <!-- ========== NAVBAR ========== -->
   <header class="navbar" id="navbar">
     <div class="container navbar__inner">
@@ -70,6 +80,7 @@
         <a href="programs.html">Programs</a>
         <a href="teams.html">Teams</a>
         <a href="coaches.html">Coaches</a>
+        <a href="events.html">Events</a>
         <a href="investment.html">Investment</a>
         <a href="media.html">Media</a>
         <a href="contact.html">Contact</a>
@@ -315,6 +326,20 @@
     </div>
   </section>
 
+  <!-- ========== EVENTS PREVIEW ========== -->
+  <section class="section events-preview">
+    <div class="container">
+      <div class="section__header events-preview__header">
+        <span class="section__tag">What's Coming Up</span>
+        <h2 class="section__title">Upcoming <span class="gradient-text">Events</span></h2>
+      </div>
+      <div class="events-preview__grid" id="homeEventsList"></div>
+      <div class="events-preview__footer">
+        <a href="events.html" class="btn btn--outline">View All Events →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== FAQ ========== -->
   <section class="section">
     <div class="container">
@@ -376,7 +401,73 @@
     </div>
   </footer>
 
+  <script src="js/events-data.js"></script>
   <script src="js/main.js"></script>
   <script src="js/widget.js"></script>
+  <script>
+  (function () {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const upcoming = HVVC_EVENTS
+      .filter(e => new Date(e.dateISO + 'T00:00:00') >= today)
+      .sort((a, b) => new Date(a.dateISO) - new Date(b.dateISO));
+
+    // Banner: show if a registerable event is within 60 days
+    const banner = document.getElementById('hvvcEventBanner');
+    const bannerText = document.getElementById('hvvcBannerText');
+    const bannerLink = document.getElementById('hvvcBannerLink');
+    if (banner && !sessionStorage.getItem('hvvcBannerDismissed')) {
+      const registerable = upcoming.find(e => e.registerUrl);
+      if (registerable) {
+        const d = new Date(registerable.dateISO + 'T00:00:00');
+        const daysAway = Math.round((d - today) / 86400000);
+        if (daysAway <= 60) {
+          const dateStr = d.toLocaleString('en-US', { month: 'long', day: 'numeric' });
+          const daysLabel = daysAway === 0 ? 'Today!' : daysAway === 1 ? 'Tomorrow' : `In ${daysAway} days`;
+          bannerText.innerHTML = `<strong>${registerable.title}</strong> — ${dateStr} &nbsp;·&nbsp; ${daysLabel}`;
+          bannerLink.href = registerable.registerUrl;
+          bannerLink.target = '_blank';
+          bannerLink.rel = 'noopener';
+          banner.style.display = 'block';
+        }
+      }
+    }
+
+    // Homepage preview: show up to 3 upcoming events
+    const list = document.getElementById('homeEventsList');
+    if (!list) return;
+
+    function monthStr(d) { return d.toLocaleString('en-US', { month: 'short' }).toUpperCase(); }
+    function tagColor(tag) { return tag === 'Tryouts' ? '#38BDF8' : 'var(--pink)'; }
+
+    const show = upcoming.slice(0, 3);
+    if (show.length === 0) {
+      list.innerHTML = '<p class="hvvc-events-empty">No upcoming events — check back soon.</p>';
+      return;
+    }
+    show.forEach(ev => {
+      const d = new Date(ev.dateISO + 'T00:00:00');
+      const card = document.createElement('article');
+      card.className = 'hvvc-event-card reveal';
+      card.innerHTML = `
+        <div class="hvvc-event-date">
+          <span class="hvvc-event-date__mo">${monthStr(d)}</span>
+          <span class="hvvc-event-date__dy">${d.getDate()}</span>
+          <span class="hvvc-event-date__dow">${['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getDay()]}</span>
+        </div>
+        <div class="hvvc-event-body">
+          <span class="hvvc-event-tag" style="color:${tagColor(ev.tag)};border-color:${tagColor(ev.tag)}40">${ev.tag}</span>
+          <h3 class="hvvc-event-title">${ev.title}</h3>
+          <p class="hvvc-event-meta">${ev.dateDisplay || ''}${ev.time ? ' · ' + ev.time : ''}${ev.location ? ' · ' + ev.location : ''}</p>
+          ${ev.description ? `<p class="hvvc-event-desc">${ev.description.substring(0,140)}…</p>` : ''}
+        </div>
+        <div class="hvvc-event-cta">
+          ${ev.registerUrl
+            ? `<a href="${ev.registerUrl}" class="btn btn--primary" target="_blank" rel="noopener">${ev.registerLabel || 'Register →'}</a>`
+            : `<a href="events.html#${ev.id}" class="hvvc-event-cta__soon">Details →</a>`}
+        </div>`;
+      list.appendChild(card);
+    });
+  })();
+  </script>
 </body>
 </html>
