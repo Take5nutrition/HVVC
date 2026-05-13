@@ -244,38 +244,6 @@ document.addEventListener('DOMContentLoaded', () => {
     gridObserver.observe(grid);
   });
 
-  // ---- 3D Tilt effect on cards (GPU-accelerated, rAF-throttled) ----
-  if (window.matchMedia('(min-width: 768px)').matches) {
-    document.querySelectorAll('.stat-card, .program-photo-card, .quick-link-card, .welcome__feature, .about-story__cred, .prog-featured__feature, .dk-team-card, .dk-invest-card, .dk-step, .dk-update-card').forEach(card => {
-      card.classList.add('tilt-card');
-      card.style.willChange = 'transform';
-      card.style.transition = 'transform 0.15s ease-out';
-
-      let tiltRAF = null;
-
-      card.addEventListener('mousemove', (e) => {
-        if (tiltRAF) return;
-        tiltRAF = requestAnimationFrame(() => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = (y - centerY) / centerY * -8;
-          const rotateY = (x - centerX) / centerX * 8;
-          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-          tiltRAF = null;
-        });
-      });
-
-      card.addEventListener('mouseleave', () => {
-        if (tiltRAF) { cancelAnimationFrame(tiltRAF); tiltRAF = null; }
-        card.style.transition = 'transform 0.4s ease-out';
-        card.style.transform = '';
-        setTimeout(() => { card.style.transition = 'transform 0.15s ease-out'; }, 400);
-      });
-    });
-  }
 
   // ---- Mouse spotlight on dark sections (desktop only) ----
   if (!isMobile) {
