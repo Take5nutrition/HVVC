@@ -2983,7 +2983,7 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
   font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: #fff;
 }
 .dk-coach-card__photo {
-  width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0; overflow: hidden;
+  width: 120px; height: 120px; border-radius: 50%; flex-shrink: 0; overflow: hidden;
   position: relative; cursor: pointer;
 }
 .dk-coach-card__photo::after {
