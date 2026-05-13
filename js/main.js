@@ -75,6 +75,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
+  // ---- Programs dropdown ----
+  document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+    const trigger = dropdown.querySelector('.nav-dropdown__trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+      if (!isOpen) dropdown.classList.add('open');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+  });
+
   // ---- Mobile burger menu ----
   const burger = document.getElementById('burger');
   const navLinks = document.getElementById('navLinks');
