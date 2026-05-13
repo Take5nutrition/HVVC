@@ -200,8 +200,8 @@ a { color: inherit; text-decoration: none; }
 body.dark-mode .navbar { background: #0a0a0a; }
 .navbar.scrolled { box-shadow: var(--shadow-md); background: #fff; }
 body.dark-mode .navbar.scrolled { background: #0a0a0a; }
-.navbar__inner { display: flex; align-items: center; justify-content: space-between; height: 100%; padding-left: 0; }
-.navbar__logo { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.navbar__inner { display: flex; align-items: center; justify-content: space-between; height: 100%; padding-left: 0; padding-right: 0; }
+.navbar__logo { display: flex; align-items: center; gap: 10px; margin-right: auto; margin-left: -16px; }
 
 .logo-img { height: 44px; width: auto; }
 .logo-text {
