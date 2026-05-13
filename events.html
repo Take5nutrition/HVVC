@@ -128,7 +128,7 @@
     function renderEvent(ev) {
       const d = new Date(ev.dateISO + 'T00:00:00');
       const card = document.createElement('article');
-      card.className = 'hvvc-event-card reveal';
+      card.className = 'hvvc-event-card';
       card.id = ev.id;
 
       if (ev.comingSoon) {

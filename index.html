@@ -447,7 +447,7 @@
     show.forEach(ev => {
       const d = new Date(ev.dateISO + 'T00:00:00');
       const card = document.createElement('article');
-      card.className = 'hvvc-event-card reveal';
+      card.className = 'hvvc-event-card';
       card.innerHTML = `
         <div class="hvvc-event-date">
           <span class="hvvc-event-date__mo">${monthStr(d)}</span>
