@@ -3619,3 +3619,57 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .events-preview__header { margin-bottom: 48px; }
 .events-preview__grid { display: flex; flex-direction: column; gap: 3px; }
 .events-preview__footer { margin-top: 36px; text-align: center; }
+
+/* ============================================================
+   RESPONSIVE SPLIT GRID UTILITY
+   ============================================================ */
+.split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .split-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .split-grid--img-first > *:first-child { order: -1; }
+}
+
+/* ============================================================
+   GLOBAL MOBILE FIXES
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Section padding reduction */
+  .section { padding: 64px 0; }
+
+  /* Inline-style grid overrides for program/about pages */
+  .page-prose-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* Strength & Performance page inline grids */
+  [data-mobile-stack] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* sticky positioning breaks in single-col flow */
+  [data-mobile-stack] > div[style*="sticky"] {
+    position: relative !important;
+    top: auto !important;
+  }
+
+  /* Reduce large gaps on mobile */
+  .season-info__label { width: 120px; font-size: .65rem; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .section { padding: 48px 0; }
+  .btn--lg { padding: 14px 24px; font-size: .85rem; }
+}
