@@ -357,7 +357,7 @@ body.dark-mode .hero__bg {
     linear-gradient(to bottom, rgba(0,0,0,.2) 0%, transparent 40%);
 }
 .hero--split .hero__photo-bg {
-  background-position: right top;
+  background-position: right 15%;
   opacity: .85;
 }
 .hero__split {
@@ -409,7 +409,7 @@ body.dark-mode .hero__bg {
   .hero--split { padding-bottom: 80px; }
   .hero--split .hero__overlay { background: linear-gradient(to bottom, rgba(0,0,0,.7) 0%, rgba(0,0,0,.85) 100%); }
   .hero__split { max-width: 100%; }
-  .hero__diag { width: 60%; height: 60px; }
+  .hero__diag { width: 100%; height: 50px; }
 }
 
 /* ---- Editorial hero layout ---- */
@@ -3492,9 +3492,13 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .hvvc-banner__close:hover { color: rgba(255,255,255,.8); }
 @media (max-width: 600px) {
   #hvvcEventBanner {
-    bottom: 1.25rem; left: 1rem; right: 1rem; transform: none;
-    border-radius: 12px; white-space: normal;
+    bottom: 1rem; left: .75rem; right: .75rem; transform: none;
+    border-radius: 12px; white-space: nowrap;
+    padding: .6rem .9rem; gap: .6rem; font-size: .72rem;
   }
+  .hvvc-banner__text { font-size: .72rem; }
+  .hvvc-banner__badge { font-size: .55rem; padding: .15rem .45rem; }
+  .hvvc-banner__link { font-size: .55rem; padding: .3rem .7rem; }
   @keyframes hvvcBannerUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
