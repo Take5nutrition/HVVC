@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png" />
+  <meta property="og:title" content="Events - HVVC" />
+  <meta property="og:description" content="Upcoming camps, clinics, tryouts, and events from Happy Valley Volleyball Club." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Happy Valley Volleyball Club" />
+  <meta property="og:image" content="img/hero-16u-team.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="description" content="Upcoming camps, clinics, tryouts, and events from Happy Valley Volleyball Club in Happy Valley, OR." />
+  <title>Events - HVVC</title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>document.documentElement.classList.add("mode-"+(false?"tryouts":"in-season"));</script>
+</head>
+<body class="dark-mode">
+  <a href="#main" class="skip-to-content">Skip to content</a>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="/" class="navbar__logo">
+        <img src="img/logo.png" alt="HVVC" class="logo-img" />
+        <span class="logo-sub">Happy Valley Volleyball Club</span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="/about-us/">About</a>
+        <div class="nav-dropdown"><button class="nav-dropdown__trigger">Programs <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="nav-dropdown__menu"><a href="/program-academy/">HVVC Academy</a><a href="/program-open-gyms/">Open Gyms</a><a href="/program-speed-performance/">Strength &amp; Performance</a></div></div>
+        <div class="nav-dropdown"><button class="nav-dropdown__trigger">Teams <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="nav-dropdown__menu"><span class="nav-dropdown__section">16U</span><a href="hvvc-16-1/">HVVC 16-1</a><a href="hvvc-16-2/">HVVC 16-2</a><span class="nav-dropdown__section">14U</span><a href="hvvc-14-1/">HVVC 14-1</a><a href="hvvc-14-2/">HVVC 14-2</a><span class="nav-dropdown__section">12U</span><a href="hvvc-12-1/">HVVC 12-1</a><a href="hvvc-12-2/">HVVC 12-2</a><span class="nav-dropdown__section">Developmental</span><a href="hvvc-10u/">HVVC 10U</a></div></div>
+        <a href="/coaches/">Staff</a>
+        <a href="/events/" class="nav-active">Events</a>
+        <a href="/investment/">Investment</a>
+        
+        <a href="/contact/">Contact</a>
+      </nav>
+      <div class="navbar__right"><a href="https://hvvc.leagueapps.com/clubteams/4797399-hvvc-tryouts-25-26" class="btn btn--primary navbar__cta" data-mode="tryouts" target="_blank" rel="noopener">Register for Tryouts</a></div>
+      <button class="navbar__burger" id="burger" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="scroll-progress"></div>
+  <button class="back-to-top" aria-label="Back to top">&uarr;</button>
+
+  <!-- ========== PAGE HERO ========== -->
+  <section class="dk-hero dk-hero--page grain-overlay">
+    <div class="container dk-hero__content">
+      <span class="dk-hero__kicker">What's Coming Up</span>
+      <h1 class="dk-hero__title">Events.</h1>
+    </div>
+    <div class="dk-hero__scroll"><span>Scroll</span><div class="dk-hero__scroll-line"></div></div>
+  </section>
+  <div class="dk-page-banner">Happy Valley Volleyball Club<span class="dk-page-banner__sep">&bull;</span>Events</div>
+
+  <!-- ========== EVENTS LIST ========== -->
+  <main id="main">
+    <section class="section section--dark">
+      <div class="container">
+        <div id="eventsList"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <div class="navbar__logo">
+            <img src="img/logo.png" alt="HVVC" class="logo-img" />
+            <span class="logo-sub">Happy Valley Volleyball Club</span>
+          </div>
+          <p class="footer__tagline">Developing Players. Building People. Every Season.</p>
+          <div class="footer__social">
+            <a href="https://instagram.com/hvvc_volleyball" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="mailto:Hvvc@Hvvcvolleyballclub.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+            <a href="tel:5039567494" aria-label="Phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <div class="footer__col"><h4>Pages</h4><a href="/">Home</a><a href="/about-us/">About Us</a><a href="/programs/">Programs</a><div class="nav-dropdown"><button class="nav-dropdown__trigger">Teams <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="nav-dropdown__menu"><span class="nav-dropdown__section">16U</span><a href="hvvc-16-1/">HVVC 16-1</a><a href="hvvc-16-2/">HVVC 16-2</a><span class="nav-dropdown__section">14U</span><a href="hvvc-14-1/">HVVC 14-1</a><a href="hvvc-14-2/">HVVC 14-2</a><span class="nav-dropdown__section">12U</span><a href="hvvc-12-1/">HVVC 12-1</a><a href="hvvc-12-2/">HVVC 12-2</a><span class="nav-dropdown__section">Developmental</span><a href="hvvc-10u/">HVVC 10U</a></div></div></div>
+          <div class="footer__col"><h4>Programs</h4><a href="/program-academy/">HVVC Academy</a><a href="/program-open-gyms/">Open Gyms</a><a href="/program-speed-performance/">Strength &amp; Performance</a></div>
+          <div class="footer__col"><h4>Connect</h4><a href="/coaches/">Staff</a><a href="/events/">Events</a><a href="/investment/">Investment</a><a href="/contact/">Contact Us</a></div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Happy Valley Volleyball Club. All rights reserved.</p>
+        <p>Happy Valley, OR 97086 &bull; 501(c)(3) Nonprofit Organization</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/events-data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/widget.js"></script>
+  <script>
+  (function () {
+    const list = document.getElementById('eventsList');
+    if (!list) return;
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const upcoming = HVVC_EVENTS
+      .filter(e => new Date(e.dateISO + 'T00:00:00') >= today)
+      .sort((a, b) => new Date(a.dateISO) - new Date(b.dateISO));
+
+    const past = HVVC_EVENTS
+      .filter(e => new Date(e.dateISO + 'T00:00:00') < today)
+      .sort((a, b) => new Date(b.dateISO) - new Date(a.dateISO));
+
+    function monthStr(d) { return d.toLocaleString('en-US', { month: 'short' }).toUpperCase(); }
+    function dayStr(d)   { return d.getDate(); }
+    function dowStr(d)   { return ['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getDay()]; }
+
+    function tagColor(tag) {
+      if (tag === 'Camp') return 'var(--pink)';
+      if (tag === 'Tryouts') return '#38BDF8';
+      return 'var(--pink)';
+    }
+
+    function renderEvent(ev) {
+      const d = new Date(ev.dateISO + 'T00:00:00');
+      const card = document.createElement('article');
+      card.className = 'hvvc-event-card';
+      card.id = ev.id;
+
+      if (ev.comingSoon) {
+        card.innerHTML = `
+          <div class="hvvc-event-date">
+            <span class="hvvc-event-date__mo">${monthStr(d)}</span>
+            <span class="hvvc-event-date__dy">${dayStr(d)}</span>
+            <span class="hvvc-event-date__dow">${dowStr(d)}</span>
+          </div>
+          <div class="hvvc-event-body">
+            <span class="hvvc-event-tag" style="color:${tagColor(ev.tag)};border-color:${tagColor(ev.tag)}40">${ev.tag}</span>
+            <h2 class="hvvc-event-title">${ev.title}</h2>
+            ${ev.dateDisplay ? `<p class="hvvc-event-meta">${ev.dateDisplay}</p>` : ''}
+            <p class="hvvc-event-coming-soon">Details coming soon — stay tuned on <a href="https://instagram.com/hvvc_volleyball" target="_blank" rel="noopener">Instagram</a> for updates.</p>
+          </div>
+          <div class="hvvc-event-cta">
+            <span class="hvvc-event-cta__soon">Coming Soon</span>
+          </div>`;
+      } else {
+        const expectHtml = ev.expect
+          ? `<div class="hvvc-event-detail-group">
+              <h4>What to Expect</h4>
+              <ul>${ev.expect.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>`
+          : '';
+        const schedHtml = ev.schedule
+          ? `<div class="hvvc-event-detail-group">
+              <h4>Schedule</h4>
+              <ul>${ev.schedule.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>`
+          : '';
+
+        card.innerHTML = `
+          <div class="hvvc-event-date">
+            <span class="hvvc-event-date__mo">${monthStr(d)}</span>
+            <span class="hvvc-event-date__dy">${dayStr(d)}</span>
+            <span class="hvvc-event-date__dow">${dowStr(d)}</span>
+          </div>
+          <div class="hvvc-event-body">
+            <span class="hvvc-event-tag" style="color:${tagColor(ev.tag)};border-color:${tagColor(ev.tag)}40">${ev.tag}</span>
+            <h2 class="hvvc-event-title">${ev.title}</h2>
+            <div class="hvvc-event-meta-row">
+              ${ev.dateRange ? `<span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="1"/><path d="M5 1v3M11 1v3M2 7h12"/></svg>${ev.dateRange}</span>` : ''}
+              ${ev.time     ? `<span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>${ev.time}</span>` : ''}
+              ${ev.location ? `<span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5A4.5 4.5 0 0 1 12.5 6c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5Z"/><circle cx="8" cy="6" r="1.5"/></svg>${ev.location}</span>` : ''}
+            </div>
+            ${ev.description ? `<p class="hvvc-event-desc">${ev.description}</p>` : ''}
+            ${(schedHtml || expectHtml) ? `<div class="hvvc-event-details">${schedHtml}${expectHtml}</div>` : ''}
+            ${ev.notes ? `<p class="hvvc-event-notes">${ev.notes}</p>` : ''}
+          </div>
+          <div class="hvvc-event-cta">
+            ${ev.registerUrl ? `<a href="${ev.registerUrl}" class="btn btn--primary" target="_blank" rel="noopener">${ev.registerLabel || 'Register Now →'}</a>` : ''}
+          </div>`;
+      }
+      return card;
+    }
+
+    if (upcoming.length === 0) {
+      list.innerHTML = '<p class="hvvc-events-empty">No upcoming events — check back soon or follow us on <a href="https://instagram.com/hvvc_volleyball" target="_blank" rel="noopener">Instagram</a>.</p>';
+    } else {
+      upcoming.forEach(ev => list.appendChild(renderEvent(ev)));
+    }
+
+    if (past.length > 0) {
+      const pastHeader = document.createElement('h3');
+      pastHeader.className = 'hvvc-events-past-header';
+      pastHeader.textContent = 'Past Events';
+      list.appendChild(pastHeader);
+      past.forEach(ev => {
+        const card = renderEvent(ev);
+        card.classList.add('hvvc-event-card--past');
+        list.appendChild(card);
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
