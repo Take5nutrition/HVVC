@@ -82,11 +82,11 @@ const HVVC_EVENTS = [
     dateISO: "2026-06-22",
     dateDisplay: "June 22–25, 2026",
     dateRange: "June 22–25 (Mon–Thu)",
-    time: "11am–1pm (Grades 3–6)  ·  2pm–4pm (Grades 7–HS)",
+    time: "11:30am–1:30pm (Grades 3–6)  ·  2pm–4pm (Grades 7–HS)",
     location: "Adrianne Nelson High School — Main Gym",
     description: "Join Happy Valley Volleyball Club for 4 days of high energy training, skill development, competition, and FUN led by HVVC Coaches! Whether you're newer to the game or looking to sharpen your skills before school and club season, this camp is designed to help athletes grow in a positive, competitive environment.",
     schedule: [
-      "11am – 1pm — Grades 3–6",
+      "11:30am – 1:30pm — Grades 3–6",
       "2pm – 4pm — Grades 7–High School",
     ],
     expect: [
