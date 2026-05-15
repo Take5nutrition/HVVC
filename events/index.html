@@ -193,6 +193,11 @@
       upcoming.forEach(ev => list.appendChild(renderEvent(ev)));
     }
 
+    if (location.hash) {
+      const target = document.getElementById(location.hash.slice(1));
+      if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    }
+
     if (past.length > 0) {
       const pastHeader = document.createElement('h3');
       pastHeader.className = 'hvvc-events-past-header';
