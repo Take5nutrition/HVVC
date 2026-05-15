@@ -25,7 +25,7 @@ const HVVC_EVENTS = [
   },
   {
     id: "spring-academy-1012-2026",
-    title: "HVVC 10U–12U Spring Academy",
+    title: "HVVC 10U–11U Spring Academy",
     tag: "Academy",
     dateISO: "2026-05-27",
     dateDisplay: "April 6 – May 27, 2026",
