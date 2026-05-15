@@ -426,14 +426,15 @@
     const bannerText = document.getElementById('hvvcBannerText');
     const bannerLink = document.getElementById('hvvcBannerLink');
     if (banner && !sessionStorage.getItem('hvvcBannerDismissed')) {
-      const registerable = upcoming.find(e => e.registerUrl);
+      const registerable = upcoming.find(e => e.pinBanner && e.registerUrl) || upcoming.find(e => e.registerUrl);
       if (registerable) {
         const d = new Date(registerable.dateISO + 'T00:00:00');
         const daysAway = Math.round((d - today) / 86400000);
-        if (daysAway <= 60) {
+        if (daysAway <= 60 || registerable.pinBanner) {
           const dateStr = d.toLocaleString('en-US', { month: 'long', day: 'numeric' });
           const daysLabel = daysAway === 0 ? 'Today!' : daysAway === 1 ? 'Tomorrow' : `In ${daysAway} days`;
-          bannerText.innerHTML = `<strong>${registerable.title}</strong> — ${dateStr} &nbsp;·&nbsp; ${daysLabel}`;
+          const displayTitle = registerable.bannerTitle || registerable.title;
+          bannerText.innerHTML = `<strong>${displayTitle}</strong> — ${dateStr} &nbsp;·&nbsp; ${daysLabel}`;
           bannerLink.href = registerable.registerUrl;
           bannerLink.target = '_blank';
           bannerLink.rel = 'noopener';

@@ -76,6 +76,8 @@ const HVVC_EVENTS = [
       "Fun, encouraging atmosphere focused on growth & confidence",
     ],
     notes: "All skill levels welcome!",
+    bannerTitle: "Summer Camp 2026",
+    pinBanner: true,
     registerUrl: "https://hvvc.leagueapps.com/clubteams/5011923-hvvc-summer-camp-2026",
     registerLabel: "Register Now →",
   },

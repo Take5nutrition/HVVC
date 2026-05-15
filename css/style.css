@@ -189,9 +189,7 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid var(--border);
   transition: transform .4s cubic-bezier(.4,0,.2,1), background .3s ease, box-shadow .3s ease;
 }
-body.dark-mode .navbar { background: #0a0a0a; }
 .navbar.scrolled { box-shadow: var(--shadow-md); background: #fff; }
-body.dark-mode .navbar.scrolled { background: #0a0a0a; }
 .navbar__inner { display: flex; align-items: center; justify-content: space-between; height: 100%; padding-left: 0; padding-right: 0; }
 .navbar__logo { display: flex; align-items: center; gap: 10px; margin-right: auto; margin-left: -16px; }
 
@@ -400,6 +398,7 @@ body.dark-mode .hero__bg {
 @media (max-width: 768px) {
   .hero--split { padding-bottom: 80px; }
   .hero--split .hero__overlay { background: linear-gradient(to bottom, rgba(0,0,0,.7) 0%, rgba(0,0,0,.85) 100%); }
+  .hero--split .hero__photo-bg { background-position: center 5%; }
   .hero__split { max-width: 100%; }
   .hero__diag { width: 100%; height: 50px; }
 }
@@ -3484,13 +3483,15 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .hvvc-banner__close:hover { color: rgba(255,255,255,.8); }
 @media (max-width: 600px) {
   #hvvcEventBanner {
-    bottom: 1rem; left: .75rem; right: .75rem; transform: none;
-    border-radius: 12px; white-space: nowrap;
-    padding: .6rem .9rem; gap: .6rem; font-size: .72rem;
+    bottom: 1rem; left: .75rem; right: 74px; transform: none;
+    border-radius: 12px; white-space: normal;
+    padding: .55rem .8rem;
   }
-  .hvvc-banner__text { font-size: .72rem; }
-  .hvvc-banner__badge { font-size: .55rem; padding: .15rem .45rem; }
-  .hvvc-banner__link { font-size: .55rem; padding: .3rem .7rem; }
+  .hvvc-banner__badge { display: none; }
+  .hvvc-banner__inner { flex-wrap: wrap; gap: .4rem; align-items: center; }
+  .hvvc-banner__text { font-size: .67rem; flex: 1 1 100%; line-height: 1.4; }
+  .hvvc-banner__link { font-size: .55rem; padding: .28rem .65rem; }
+  .hvvc-banner__close { margin-left: auto; }
   @keyframes hvvcBannerUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
