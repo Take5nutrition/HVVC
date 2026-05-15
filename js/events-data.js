@@ -76,8 +76,8 @@ const HVVC_EVENTS = [
       "Fun, encouraging atmosphere focused on growth & confidence",
     ],
     notes: "All skill levels welcome!",
-    registerUrl: "https://www.instagram.com/hvvc_volleyball/",
-    registerLabel: "Register via link in bio →",
+    registerUrl: "https://hvvc.leagueapps.com/clubteams/5011923-hvvc-summer-camp-2026",
+    registerLabel: "Register Now →",
   },
   {
     id: "tryouts-14u-2026",
