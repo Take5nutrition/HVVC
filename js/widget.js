@@ -13,14 +13,14 @@
   const CSS = `
     /* ── FAB ── */
     #hvvc-fab-wrap {
-      position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+      position: fixed; bottom: 22px; right: 22px; z-index: 9000;
       opacity: 0; transform: scale(.7) translateY(16px);
       transition: opacity .4s cubic-bezier(.16,1,.3,1), transform .4s cubic-bezier(.16,1,.3,1);
       pointer-events: none;
     }
     #hvvc-fab-wrap.in { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
     #hvvc-fab {
-      width: 56px; height: 56px; border-radius: 50%; border: none;
+      width: 44px; height: 44px; border-radius: 50%; border: none;
       background: linear-gradient(135deg, #ff2aa1 0%, #7b3fe4 100%);
       color: #fff; display: flex; align-items: center; justify-content: center;
       cursor: pointer;
@@ -32,8 +32,8 @@
 
     /* ── PANEL ── */
     #hvvc-panel {
-      position: fixed; bottom: 96px; right: 28px; z-index: 8999;
-      width: 380px; max-width: calc(100vw - 40px); max-height: 600px;
+      position: fixed; bottom: 78px; right: 22px; z-index: 8999;
+      width: 320px; max-width: calc(100vw - 32px); max-height: 480px;
       background: #0d0d0d; border: 1px solid rgba(255,255,255,.08); border-radius: 20px;
       display: flex; flex-direction: column;
       box-shadow: 0 24px 80px rgba(0,0,0,.6);
