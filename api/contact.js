@@ -3,10 +3,22 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, phone, subject, message } = req.body;
+  let body = req.body;
+
+  // Manually parse body if Vercel didn't auto-parse it
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch { body = {}; }
+  }
+  if (!body) body = {};
+
+  const { name, email, phone, subject, message } = body;
 
   if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    return res.status(400).json({ error: 'Missing required fields', received: { name: !!name, email: !!email, message: !!message } });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    return res.status(500).json({ error: 'RESEND_API_KEY not configured' });
   }
 
   try {
@@ -42,15 +54,16 @@ module.exports = async function handler(req, res) {
       }),
     });
 
+    const resendBody = await response.json().catch(() => ({}));
+
     if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      console.error('Resend error:', error);
-      return res.status(500).json({ error: 'Failed to send email' });
+      console.error('Resend error:', resendBody);
+      return res.status(500).json({ error: 'Resend failed', detail: resendBody });
     }
 
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error('Contact handler error:', err);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: err.message });
   }
 };
