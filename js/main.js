@@ -519,8 +519,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       fetch(form.action, {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
       }).then(response => {
         if (response.ok) {
           btn.textContent = 'Message Sent!';
