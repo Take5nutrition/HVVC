@@ -309,6 +309,13 @@
     footerEl.style.display = 'block'
     renderWelcome()
     setTimeout(() => inputEl.focus(), 150)
+
+    // Send email to HVVC
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    }).catch(() => {})
   }
 
   function updateSendBtn() {
