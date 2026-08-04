@@ -1645,10 +1645,14 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .footer__col a { display: block; font-size: .88rem; color: #94a3b8; padding: 5px 0; transition: var(--transition); }
 .footer__col a:hover { color: var(--pink); transform: translateX(4px); }
 .footer__bottom {
-  padding: 28px 0; border-top: 1px solid rgba(255,255,255,.06);
+  padding: 28px 0 14px; border-top: 1px solid rgba(255,255,255,.06);
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
 }
 .footer__bottom p { font-size: .8rem; color: #475569; }
+.footer__credit { padding-bottom: 28px; text-align: center; }
+.footer__credit p { font-size: .74rem; color: #334155; letter-spacing: .02em; }
+.footer__credit a { color: #64748b; transition: var(--transition); }
+.footer__credit a:hover { color: var(--pink); }
 
 /* ---------- PULL QUOTE (big centered philosophy quote) ---------- */
 .pull-quote {
