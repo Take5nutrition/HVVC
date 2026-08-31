@@ -112,11 +112,11 @@
 
     const today = new Date(); today.setHours(0,0,0,0);
     const upcoming = HVVC_EVENTS
-      .filter(e => new Date(e.dateISO + 'T00:00:00') >= today)
+      .filter(e => new Date((e.endISO || e.dateISO) + 'T00:00:00') >= today)
       .sort((a, b) => new Date(a.dateISO) - new Date(b.dateISO));
 
     const past = HVVC_EVENTS
-      .filter(e => new Date(e.dateISO + 'T00:00:00') < today)
+      .filter(e => new Date((e.endISO || e.dateISO) + 'T00:00:00') < today)
       .sort((a, b) => new Date(b.dateISO) - new Date(a.dateISO));
 
     function monthStr(d) { return d.toLocaleString('en-US', { month: 'short' }).toUpperCase(); }
