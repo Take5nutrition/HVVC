@@ -3353,6 +3353,8 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 
 /* Human verification */
 .form-verify__row { display: flex; align-items: center; gap: 12px; }
+/* display:flex above outranks the hidden attribute's default rule */
+.form-verify__row[hidden] { display: none; }
 .form-verify__question {
   flex: 1; padding: 14px 16px; font-size: .92rem; font-weight: 600;
   background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
@@ -3360,6 +3362,7 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
   user-select: none; white-space: nowrap;
 }
 .dk-form .form-verify__row input { width: 110px; flex: none; text-align: center; }
+.form-verify__widget { min-height: 65px; }
 .form-verify__error {
   margin: 8px 0 0; font-size: .82rem; font-weight: 600; color: #f87171;
 }

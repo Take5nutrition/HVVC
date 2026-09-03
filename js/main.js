@@ -526,8 +526,79 @@ document.addEventListener('DOMContentLoaded', () => {
       errorEl.hidden = !msg;
     };
 
-    // Pull a fresh signed challenge from the server. Tokens are single-use, so
-    // every attempt gets a brand new question.
+    const mathRow = document.getElementById('captchaMathRow');
+    const widgetEl = document.getElementById('turnstileWidget');
+    const labelEl = document.getElementById('captchaLabel');
+    let turnstileId = null;
+
+    // Load Cloudflare's script once, only when Turnstile is actually in use.
+    let turnstileScript = null;
+    const loadTurnstileScript = () => {
+      if (turnstileScript) return turnstileScript;
+      turnstileScript = new Promise((resolve, reject) => {
+        if (window.turnstile) return resolve();
+        const el = document.createElement('script');
+        el.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        el.async = true;
+        el.defer = true;
+        el.onload = () => (window.turnstile ? resolve() : reject(new Error('turnstile missing')));
+        el.onerror = () => reject(new Error('turnstile script blocked'));
+        document.head.appendChild(el);
+      });
+      return turnstileScript;
+    };
+
+    const setupTurnstile = (siteKey) => {
+      // The math answer box is unused here, and a hidden required field would
+      // stop the browser from submitting at all.
+      if (mathRow) mathRow.hidden = true;
+      if (answerEl) { answerEl.required = false; answerEl.value = ''; }
+      if (widgetEl) widgetEl.hidden = false;
+      if (labelEl) labelEl.removeAttribute('for');
+
+      return loadTurnstileScript().then(() => {
+        if (turnstileId !== null) {
+          window.turnstile.reset(turnstileId);
+          return;
+        }
+        turnstileId = window.turnstile.render(widgetEl, {
+          sitekey: siteKey,
+          theme: 'dark',
+          action: 'contact',
+          callback: (token) => {
+            tokenEl.value = token;
+            challengeReady = true;
+            syncSubmit();
+          },
+          'expired-callback': () => {
+            tokenEl.value = '';
+            challengeReady = false;
+            syncSubmit();
+            setVerifyError('Your verification expired. Please complete the check again.');
+          },
+          'error-callback': () => {
+            tokenEl.value = '';
+            challengeReady = false;
+            syncSubmit();
+            setVerifyError("Verification couldn't load. Please refresh and try again.");
+          },
+        });
+      });
+    };
+
+    const setupMath = (data) => {
+      if (widgetEl) widgetEl.hidden = true;
+      if (mathRow) mathRow.hidden = false;
+      if (answerEl) { answerEl.required = true; answerEl.value = ''; }
+      if (labelEl) labelEl.setAttribute('for', 'captchaAnswer');
+      questionEl.textContent = data.question;
+      tokenEl.value = data.token;
+      challengeReady = true;
+      syncSubmit();
+    };
+
+    // Ask the server which check to show, then render it. Math tokens are
+    // single-use, so every attempt gets a brand new question.
     const loadChallenge = () => {
       if (!questionEl || !tokenEl) return Promise.resolve();
       challengeReady = false;
@@ -538,13 +609,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return fetch('/api/challenge', { headers: { 'Accept': 'application/json' } })
         .then(r => (r.ok ? r.json() : Promise.reject(new Error('challenge failed'))))
-        .then(data => {
-          questionEl.textContent = data.question;
-          tokenEl.value = data.token;
-          challengeReady = true;
-          syncSubmit();
-        })
+        .then(data => (data.mode === 'turnstile' ? setupTurnstile(data.siteKey) : setupMath(data)))
         .catch(() => {
+          if (mathRow) mathRow.hidden = false;
+          if (widgetEl) widgetEl.hidden = true;
+          if (answerEl) answerEl.required = false;
           questionEl.textContent = 'Verification unavailable \u2014 please refresh the page.';
           challengeReady = false;
           syncSubmit();

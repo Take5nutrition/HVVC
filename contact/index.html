@@ -176,13 +176,16 @@
               <input type="text" id="hp_ref_code" name="hp_ref_code" tabindex="-1" autocomplete="off" />
             </div>
 
+            <!-- Renders a Cloudflare Turnstile widget when TURNSTILE_SITE_KEY and
+                 TURNSTILE_SECRET_KEY are set, otherwise the built-in math question. -->
             <div class="form-group form-verify">
-              <label for="captchaAnswer">Human Check</label>
-              <div class="form-verify__row">
+              <label for="captchaAnswer" id="captchaLabel">Human Check</label>
+              <div class="form-verify__row" id="captchaMathRow">
                 <span class="form-verify__question" id="captchaQuestion">Loading verification&hellip;</span>
                 <input type="text" id="captchaAnswer" name="captchaAnswer" inputmode="numeric"
                        autocomplete="off" placeholder="Answer" aria-describedby="captchaQuestion" required />
               </div>
+              <div class="form-verify__widget" id="turnstileWidget" hidden></div>
               <input type="hidden" id="captchaToken" name="captchaToken" />
               <p class="form-verify__error" id="captchaError" role="alert" hidden></p>
             </div>

@@ -116,6 +116,47 @@ function verifyChallenge(token, answer) {
   return null;
 }
 
+// ---- Cloudflare Turnstile ----
+// Both keys must be present for Turnstile mode. Until they are, the form falls
+// back to the built-in math challenge so it never sits broken.
+const TURNSTILE_SITE_KEY = process.env.TURNSTILE_SITE_KEY || '';
+const TURNSTILE_SECRET_KEY = process.env.TURNSTILE_SECRET_KEY || '';
+
+function turnstileEnabled() {
+  return Boolean(TURNSTILE_SITE_KEY && TURNSTILE_SECRET_KEY);
+}
+
+function turnstileSiteKey() {
+  return TURNSTILE_SITE_KEY;
+}
+
+// Returns null when Cloudflare vouches for the visitor, otherwise a reason.
+// Turnstile tokens are single-use and short-lived; Cloudflare enforces both.
+async function verifyTurnstile(token, ip) {
+  if (!token || typeof token !== 'string') return 'missing';
+
+  try {
+    const body = { secret: TURNSTILE_SECRET_KEY, response: token };
+    if (ip && ip !== 'unknown') body.remoteip = ip;
+
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (data.success) return null;
+
+    const codes = data['error-codes'] || [];
+    if (codes.includes('timeout-or-duplicate')) return 'expired';
+    return codes.join(',') || 'failed';
+  } catch (err) {
+    console.error('Turnstile verify error:', err);
+    return 'unreachable';
+  }
+}
+
 function getClientIp(req) {
   const forwarded = req.headers['x-forwarded-for'];
   if (typeof forwarded === 'string' && forwarded.length) return forwarded.split(',')[0].trim();
@@ -194,6 +235,9 @@ module.exports = {
   escapeHtml,
   makeChallenge,
   verifyChallenge,
+  turnstileEnabled,
+  turnstileSiteKey,
+  verifyTurnstile,
   getClientIp,
   isRateLimited,
   hasValidOrigin,

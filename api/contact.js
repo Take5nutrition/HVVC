@@ -1,6 +1,8 @@
 const {
   escapeHtml,
   verifyChallenge,
+  turnstileEnabled,
+  verifyTurnstile,
   getClientIp,
   isRateLimited,
   hasValidOrigin,
@@ -52,18 +54,32 @@ module.exports = async function handler(req, res) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
-  // --- Layer 3: human verification (signed math challenge + fill timing). ---
-  const challengeError = verifyChallenge(captchaToken, captchaAnswer);
-  if (challengeError) {
-    console.log('Contact form: verification failed', { reason: challengeError, ip: getClientIp(req) });
-    return res.status(400).json({
-      error: 'verification',
-      message: challengeError === 'wrong'
-        ? "That answer wasn't right. Please try the new question."
-        : challengeError === 'too-fast'
-          ? 'That was a little too quick. Please answer the new question and send again.'
-          : 'Your verification expired. Please answer the new question and resend.',
-    });
+  // --- Layer 3: human verification. Cloudflare Turnstile when it is
+  // configured, otherwise the built-in signed math challenge. ---
+  if (turnstileEnabled()) {
+    const turnstileError = await verifyTurnstile(captchaToken, getClientIp(req));
+    if (turnstileError) {
+      console.log('Contact form: turnstile failed', { reason: turnstileError, ip: getClientIp(req) });
+      return res.status(400).json({
+        error: 'verification',
+        message: turnstileError === 'expired'
+          ? 'Your verification timed out. Please complete the check again and resend.'
+          : "We couldn't verify you as human. Please complete the check and try again.",
+      });
+    }
+  } else {
+    const challengeError = verifyChallenge(captchaToken, captchaAnswer);
+    if (challengeError) {
+      console.log('Contact form: verification failed', { reason: challengeError, ip: getClientIp(req) });
+      return res.status(400).json({
+        error: 'verification',
+        message: challengeError === 'wrong'
+          ? "That answer wasn't right. Please try the new question."
+          : challengeError === 'too-fast'
+            ? 'That was a little too quick. Please answer the new question and send again.'
+            : 'Your verification expired. Please answer the new question and resend.',
+      });
+    }
   }
 
   if (!name || !email || !message) {
