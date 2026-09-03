@@ -14,3 +14,4 @@ photos/
 *.swp
 *.swo
 *~
+.vercel
