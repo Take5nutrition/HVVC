@@ -551,6 +551,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Player questions only apply to player-related subjects. The subjects that
+    // trigger them live in the markup's data-show-for so HTML and JS stay in sync.
+    const subjectEl = document.getElementById('subject');
+    const playerFields = document.getElementById('playerFields');
+    const syncPlayerFields = () => {
+      if (!subjectEl || !playerFields) return;
+      const showFor = (playerFields.dataset.showFor || '').split('|');
+      const show = showFor.indexOf(subjectEl.value) !== -1;
+      playerFields.hidden = !show;
+      // A hidden required field makes the browser block submit with no visible
+      // reason, so required only ever applies while the fields are on screen.
+      playerFields.querySelectorAll('input, select').forEach(el => {
+        el.required = show;
+        if (!show) el.value = '';
+      });
+    };
+    if (subjectEl) subjectEl.addEventListener('change', syncPlayerFields);
+    syncPlayerFields();
+
     loadChallenge();
     if (answerEl) answerEl.addEventListener('input', () => setVerifyError(''));
 
@@ -576,6 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
           btn.textContent = 'Message Sent!';
           btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
           form.reset();
+          syncPlayerFields();
           window.fireConfetti();
           window.showToast('Message sent successfully!');
           return;
@@ -593,6 +613,8 @@ document.addEventListener('DOMContentLoaded', () => {
             loadChallenge();
           } else if (response.status === 429) {
             window.showToast(data.message || 'Too many messages. Please try again later.');
+          } else if (data.message) {
+            window.showToast(data.message);
           } else {
             window.showToast('Something went wrong. Please try again.');
           }

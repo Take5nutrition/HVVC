@@ -7,6 +7,24 @@ const {
   looksLikeSpam,
 } = require('./_antispam');
 
+// Subjects that require player details. Keep in sync with data-show-for on
+// #playerFields in contact/index.html.
+const PLAYER_SUBJECTS = [
+  'Tryout Information',
+  'Club Teams',
+  'HVVC Academy',
+  'Open Gyms',
+  'Strength & Performance',
+  'Scholarships',
+];
+
+const EXPERIENCE_OPTIONS = [
+  'New to volleyball',
+  'Rec or school ball only',
+  '1 season of club',
+  '2+ seasons of club',
+];
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -19,7 +37,7 @@ module.exports = async function handler(req, res) {
   }
   if (!body) body = {};
 
-  const { name, email, phone, subject, message, hp_ref_code, captchaToken, captchaAnswer } = body;
+  const { name, email, phone, subject, message, playerAge, playerExperience, hp_ref_code, captchaToken, captchaAnswer } = body;
 
   // --- Layer 1: honeypot. Real people never see this field, so anything in it
   // is a bot. Answer 200 so the sender thinks it worked and moves on. ---
@@ -56,6 +74,27 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid email' });
   }
 
+  // Player details are required for program-related subjects. The form hides
+  // these fields for other subjects, so validate against the subject, not blindly.
+  const needsPlayerInfo = PLAYER_SUBJECTS.indexOf(String(subject || '')) !== -1;
+  let ageValue = null;
+
+  if (needsPlayerInfo) {
+    ageValue = Number(playerAge);
+    if (!Number.isInteger(ageValue) || ageValue < 5 || ageValue > 19) {
+      return res.status(400).json({
+        error: 'player-age',
+        message: 'Please enter a player age between 5 and 19.',
+      });
+    }
+    if (EXPERIENCE_OPTIONS.indexOf(String(playerExperience || '')) === -1) {
+      return res.status(400).json({
+        error: 'player-experience',
+        message: "Please choose the player's volleyball experience.",
+      });
+    }
+  }
+
   // --- Layer 4: content heuristics. ---
   const spamReason = looksLikeSpam({ name, email, phone, subject, message });
   if (spamReason) {
@@ -83,6 +122,11 @@ module.exports = async function handler(req, res) {
   const safePhone = escapeHtml(phone);
   const safeSubject = escapeHtml(subject || 'General Question');
   const safeMessage = escapeHtml(message);
+  const safeExperience = escapeHtml(playerExperience);
+  const playerRows = needsPlayerInfo
+    ? `<tr><td style="padding:8px 0;color:#555;"><strong>Player Age</strong></td><td style="padding:8px 0;">${ageValue}</td></tr>
+       <tr><td style="padding:8px 0;color:#555;"><strong>Experience</strong></td><td style="padding:8px 0;">${safeExperience}</td></tr>`
+    : '';
 
   try {
     const response = await fetch('https://api.resend.com/emails/batch', {
@@ -108,6 +152,7 @@ module.exports = async function handler(req, res) {
                 <tr><td style="padding:8px 0;color:#555;"><strong>Email</strong></td><td style="padding:8px 0;"><a href="mailto:${safeEmail}" style="color:#7b3fe4;">${safeEmail}</a></td></tr>
                 ${phone ? `<tr><td style="padding:8px 0;color:#555;"><strong>Phone</strong></td><td style="padding:8px 0;">${safePhone}</td></tr>` : ''}
                 <tr><td style="padding:8px 0;color:#555;"><strong>Subject</strong></td><td style="padding:8px 0;">${safeSubject}</td></tr>
+                ${playerRows}
               </table>
               <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
               <p style="color:#555;font-size:14px;margin-bottom:6px;"><strong>Message</strong></p>

@@ -142,6 +142,29 @@
                 <option>General Question</option>
               </select>
             </div>
+            <!-- Shown and required only for player-related subjects (see js/main.js) -->
+            <div class="player-fields" id="playerFields" hidden
+                 data-show-for="Tryout Information|Club Teams|HVVC Academy|Open Gyms|Strength &amp; Performance|Scholarships">
+              <p class="player-fields__hint">A couple of quick details so we can point you to the right program.</p>
+              <div class="player-fields__grid">
+                <div class="form-group">
+                  <label for="playerAge">Player Age</label>
+                  <input type="number" id="playerAge" name="playerAge" min="5" max="19" step="1"
+                         inputmode="numeric" placeholder="e.g. 13" />
+                </div>
+                <div class="form-group">
+                  <label for="playerExperience">Volleyball Experience</label>
+                  <select id="playerExperience" name="playerExperience">
+                    <option value="">Select experience...</option>
+                    <option>New to volleyball</option>
+                    <option>Rec or school ball only</option>
+                    <option>1 season of club</option>
+                    <option>2+ seasons of club</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
             <div class="form-group">
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>

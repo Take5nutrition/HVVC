@@ -3332,6 +3332,18 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-form select option { background: var(--ink); color: #fff; }
 .dk-form .btn--full { width: 100%; }
 
+/* Conditional player questions */
+.player-fields { margin-bottom: 20px; }
+.player-fields__hint {
+  margin: 0 0 14px; font-size: .82rem; line-height: 1.5;
+  color: rgba(255,255,255,.45);
+}
+.player-fields__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dk-form .player-fields__grid .form-group { margin-bottom: 0; }
+@media (max-width: 560px) {
+  .player-fields__grid { grid-template-columns: 1fr; gap: 18px; }
+}
+
 /* Honeypot - off screen for people, still fillable by bots */
 .hp-field {
   position: absolute !important; left: -9999px !important; top: auto;
