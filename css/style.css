@@ -3332,6 +3332,31 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-form select option { background: var(--ink); color: #fff; }
 .dk-form .btn--full { width: 100%; }
 
+/* Honeypot - off screen for people, still fillable by bots */
+.hp-field {
+  position: absolute !important; left: -9999px !important; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+  opacity: 0; pointer-events: none;
+}
+
+/* Human verification */
+.form-verify__row { display: flex; align-items: center; gap: 12px; }
+.form-verify__question {
+  flex: 1; padding: 14px 16px; font-size: .92rem; font-weight: 600;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius-md); color: rgba(255,255,255,.85);
+  user-select: none; white-space: nowrap;
+}
+.dk-form .form-verify__row input { width: 110px; flex: none; text-align: center; }
+.form-verify__error {
+  margin: 8px 0 0; font-size: .82rem; font-weight: 600; color: #f87171;
+}
+@media (max-width: 480px) {
+  .form-verify__row { flex-wrap: wrap; }
+  .form-verify__question { white-space: normal; }
+  .dk-form .form-verify__row input { width: 100%; }
+}
+
 /* ---------- SCHEDULE PAGE ---------- */
 .dk-schedule-list { display: flex; flex-direction: column; gap: 12px; }
 .dk-schedule-item {

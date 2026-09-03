@@ -508,14 +508,64 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Contact form with real submission ----
   const form = document.getElementById('contactForm');
   if (form) {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const questionEl = document.getElementById('captchaQuestion');
+    const tokenEl = document.getElementById('captchaToken');
+    const answerEl = document.getElementById('captchaAnswer');
+    const errorEl = document.getElementById('captchaError');
+
+    // Sending is blocked while a challenge is in flight and during the short
+    // cooldown after a submit, which also covers the server's minimum fill time.
+    let challengeReady = false;
+    let cooldown = false;
+    const syncSubmit = () => { if (submitBtn) submitBtn.disabled = cooldown || !challengeReady; };
+
+    const setVerifyError = (msg) => {
+      if (!errorEl) return;
+      errorEl.textContent = msg || '';
+      errorEl.hidden = !msg;
+    };
+
+    // Pull a fresh signed challenge from the server. Tokens are single-use, so
+    // every attempt gets a brand new question.
+    const loadChallenge = () => {
+      if (!questionEl || !tokenEl) return Promise.resolve();
+      challengeReady = false;
+      syncSubmit();
+      questionEl.textContent = 'Loading verification\u2026';
+      tokenEl.value = '';
+      if (answerEl) answerEl.value = '';
+
+      return fetch('/api/challenge', { headers: { 'Accept': 'application/json' } })
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('challenge failed'))))
+        .then(data => {
+          questionEl.textContent = data.question;
+          tokenEl.value = data.token;
+          challengeReady = true;
+          syncSubmit();
+        })
+        .catch(() => {
+          questionEl.textContent = 'Verification unavailable \u2014 please refresh the page.';
+          challengeReady = false;
+          syncSubmit();
+        });
+    };
+
+    loadChallenge();
+    if (answerEl) answerEl.addEventListener('input', () => setVerifyError(''));
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const btn = form.querySelector('button[type="submit"]');
+      setVerifyError('');
+
+      const btn = submitBtn;
       const originalText = btn.textContent;
       btn.textContent = 'Sending...';
-      btn.disabled = true;
+      cooldown = true;
+      syncSubmit();
 
       const formData = new FormData(form);
+      let refreshed = false;
 
       fetch(form.action, {
         method: 'POST',
@@ -528,11 +578,25 @@ document.addEventListener('DOMContentLoaded', () => {
           form.reset();
           window.fireConfetti();
           window.showToast('Message sent successfully!');
-        } else {
-          btn.textContent = 'Error - Try Again';
-          btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
-          window.showToast('Something went wrong. Please try again.');
+          return;
         }
+
+        btn.textContent = 'Error - Try Again';
+        btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+
+        return response.json().catch(() => ({})).then(data => {
+          if (response.status === 400 && data.error === 'verification') {
+            setVerifyError(data.message || 'Please answer the verification question.');
+            window.showToast('Please answer the verification question.');
+            // Show the replacement question right away, not after the cooldown.
+            refreshed = true;
+            loadChallenge();
+          } else if (response.status === 429) {
+            window.showToast(data.message || 'Too many messages. Please try again later.');
+          } else {
+            window.showToast('Something went wrong. Please try again.');
+          }
+        });
       }).catch(() => {
         btn.textContent = 'Error - Try Again';
         btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
@@ -541,7 +605,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
           btn.textContent = originalText;
           btn.style.background = '';
-          btn.disabled = false;
+          cooldown = false;
+          if (refreshed) syncSubmit();
+          else loadChallenge();
         }, 3000);
       });
     });

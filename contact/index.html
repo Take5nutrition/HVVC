@@ -146,6 +146,24 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
             </div>
+
+            <!-- Honeypot: hidden from people, irresistible to bots. Leave it empty. -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="hp_ref_code">Leave this field empty</label>
+              <input type="text" id="hp_ref_code" name="hp_ref_code" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="form-group form-verify">
+              <label for="captchaAnswer">Human Check</label>
+              <div class="form-verify__row">
+                <span class="form-verify__question" id="captchaQuestion">Loading verification&hellip;</span>
+                <input type="text" id="captchaAnswer" name="captchaAnswer" inputmode="numeric"
+                       autocomplete="off" placeholder="Answer" aria-describedby="captchaQuestion" required />
+              </div>
+              <input type="hidden" id="captchaToken" name="captchaToken" />
+              <p class="form-verify__error" id="captchaError" role="alert" hidden></p>
+            </div>
+
             <button type="submit" class="btn btn--primary btn--full">Send Message</button>
           </form>
         </div>
