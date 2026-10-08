@@ -293,6 +293,13 @@ body.dark-mode .navbar.scrolled .nav-dropdown__menu { background: #0a0a0a; }
 .navbar__burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
 @media (min-width: 1024px) { .navbar__links { display: flex; } .navbar__cta { display: inline-flex; } .navbar__burger { display: none; } }
+.navbar__links a.nav-hiring { color: var(--pink); font-weight: 600; }
+/* The full desktop menu plus the Register for Tryouts button needs more than the 1200px content width */
+@media (min-width: 1024px) { .navbar .navbar__inner { max-width: 1400px; padding-left: 24px; padding-right: 24px; } }
+@media (min-width: 1024px) and (max-width: 1439px) { .navbar .logo-sub { display: none; } }
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .navbar__links a, .navbar__links .nav-dropdown__trigger { padding-left: 10px; padding-right: 10px; }
+}
 
 .navbar__links.mobile-open {
   display: flex; flex-direction: column; position: fixed; inset: var(--nav-height) 0 0 0;
