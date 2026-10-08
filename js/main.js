@@ -9,7 +9,7 @@
 // false during the active season.
 // That's it — one flip and the whole site updates.
 // =============================================
-const TRYOUTS_ACTIVE = false;
+const TRYOUTS_ACTIVE = true;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---- Countdown timer (only runs when tryouts are active) ----
   const countdownEl = document.getElementById('countdown');
   if (countdownEl && TRYOUTS_ACTIVE) {
-    const targetDate = new Date('2026-05-01T09:00:00');
+    const targetDate = new Date('2026-11-08T08:00:00-08:00');
 
     function updateCountdown() {
       const now = new Date();
