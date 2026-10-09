@@ -778,11 +778,11 @@ body.dark-mode .hero__bg {
 }
 .ql-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  max-width: 860px; margin-left: auto; margin-right: auto;
 }
-@media (max-width: 900px) { .ql-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .ql-grid { grid-template-columns: 1fr 1fr; gap: 12px; } }
+@media (max-width: 480px) { .ql-grid { gap: 12px; } .ql-card__label { font-size: .95rem; letter-spacing: .06em; text-align: center; } }
 .ql-card {
   display: flex;
   flex-direction: column;
@@ -2540,7 +2540,7 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 }
 @media (min-width: 768px) { .prog-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .prog-cards--4col { grid-template-columns: repeat(4, 1fr); } }
-@media (min-width: 1024px) { .prog-cards:not(.prog-cards--4col) { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .prog-cards:not(.prog-cards--4col):not(.prog-cards--2col) { grid-template-columns: repeat(3, 1fr); } }
 
 .prog-card__badge {
   position: absolute; top: 14px; left: 14px; z-index: 2;
@@ -3097,7 +3097,13 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-coaches-grid {
   display: grid; grid-template-columns: 1fr; gap: 20px;
 }
-@media (min-width: 768px) { .dk-coaches-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .dk-coaches-grid { grid-template-columns: repeat(2, 1fr); } }
+.dk-coaches-grid .dk-coach-card__avatar { width: 120px; height: 120px; font-size: 2rem; }
+.dk-coaches-grid .dk-coach-card__photo img { object-position: 50% 0; transform: scale(1.8); transform-origin: 50% 32%; }
+@media (max-width: 599px) {
+  .dk-coaches-grid .dk-coach-card { flex-direction: column; }
+  .dk-coaches-grid .dk-coach-card__photo, .dk-coaches-grid .dk-coach-card__avatar { width: 96px; height: 96px; }
+}
 .dk-coaches-grid--single { max-width: 700px; }
 
 /* ===== INVESTMENT PAGE ===== */

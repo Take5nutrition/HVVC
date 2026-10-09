@@ -16,7 +16,6 @@ const PLAYER_SUBJECTS = [
   'Club Teams',
   'HVVC Academy',
   'Open Gyms',
-  'Strength & Performance',
   'Scholarships',
 ];
 
