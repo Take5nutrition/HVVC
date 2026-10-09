@@ -293,10 +293,9 @@ body.dark-mode .navbar.scrolled .nav-dropdown__menu { background: #0a0a0a; }
 .navbar__burger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
 @media (min-width: 1024px) { .navbar__links { display: flex; } .navbar__cta { display: inline-flex; } .navbar__burger { display: none; } }
-.navbar__links a.nav-hiring { color: var(--pink); font-weight: 600; }
 /* The full desktop menu plus the Register for Tryouts button needs more than the 1200px content width */
 @media (min-width: 1024px) { .navbar .navbar__inner { max-width: 1400px; padding-left: 24px; padding-right: 24px; } }
-@media (min-width: 1024px) and (max-width: 1439px) { .navbar .logo-sub { display: none; } }
+@media (min-width: 1024px) and (max-width: 1359px) { .navbar .logo-sub { display: none; } }
 @media (min-width: 1024px) and (max-width: 1279px) {
   .navbar__links a, .navbar__links .nav-dropdown__trigger { padding-left: 10px; padding-right: 10px; }
 }
@@ -2895,6 +2894,14 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 }
 .dk-split__text-col > p:first-of-type {
   font-size: 1.05rem; color: #e2e8f0; font-weight: 500; line-height: 1.75;
+}
+.dk-split--compact { padding: clamp(48px, 5vw, 80px) 0; }
+.dk-split--compact .dk-split__inner { gap: 32px; }
+.dk-split--compact .dk-split__photo-wrap { aspect-ratio: 4 / 3; }
+.dk-split--compact .dk-split__img { height: 100%; object-fit: cover; object-position: 50% 12%; }
+@media (min-width: 900px) {
+  .dk-split--compact .dk-split__inner { grid-template-columns: .8fr 1.2fr; gap: 56px; }
+  .dk-split--compact .dk-split__photo-wrap { aspect-ratio: 4 / 5; max-height: 460px; }
 }
 
 /* ===== TEAMS PAGE ===== */
