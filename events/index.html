@@ -103,20 +103,20 @@
     </div>
   </footer>
 
-  <script src="js/events-data.js"></script>
+  <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/widget.js"></script>
   <script>
-  (function () {
+  HVVC.loadEvents().then(function (events) {
     const list = document.getElementById('eventsList');
     if (!list) return;
 
     const today = new Date(); today.setHours(0,0,0,0);
-    const upcoming = HVVC_EVENTS
+    const upcoming = events
       .filter(e => new Date((e.endISO || e.dateISO) + 'T00:00:00') >= today)
       .sort((a, b) => new Date(a.dateISO) - new Date(b.dateISO));
 
-    const past = HVVC_EVENTS
+    const past = events
       .filter(e => new Date((e.endISO || e.dateISO) + 'T00:00:00') < today)
       .sort((a, b) => new Date(b.dateISO) - new Date(a.dateISO));
 
@@ -213,7 +213,10 @@
         list.appendChild(card);
       });
     }
-  })();
+  }).catch(function () {
+    const list = document.getElementById('eventsList');
+    if (list) list.innerHTML = '<p class="hvvc-events-empty">Events could not load. Please refresh the page.</p>';
+  });
   </script>
 </body>
 </html>

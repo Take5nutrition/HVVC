@@ -32,3 +32,21 @@ my-website/
 - **Fonts** — swap the `--font-sans` variable or add a Google Fonts `<link>` in the `<head>`
 - **Pages** — duplicate any `.html` file and update the nav links
 - **Forms** — wire up `contact.html` to [Formspree](https://formspree.io) or [EmailJS](https://emailjs.com) (free tiers available)
+
+## Content dashboard
+
+Coaches, tournaments, practice times, and events are edited in
+[Pages CMS](https://app.pagescms.org), configured by `.pages.yml`. Each section
+edits one file in `data/`, and `js/content.js` renders it on the site:
+
+| Dashboard section   | File                    | Shown on                         |
+| ------------------- | ----------------------- | -------------------------------- |
+| Coaches             | `data/coaches.json`     | Staff page                       |
+| Tournament schedule | `data/tournaments.json` | Schedule page and each team page |
+| Practice schedule   | `data/practices.json`   | Schedule page                    |
+| Events              | `data/events.json`      | Events page and homepage banner  |
+
+Saving in the dashboard commits to `main`, so Vercel publishes the change. Pull
+before editing locally, since the dashboard may have committed since your last
+pull. Team page tournament sections stay hidden until a tournament is added for
+that team (or for all teams).

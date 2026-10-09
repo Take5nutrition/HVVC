@@ -408,13 +408,13 @@
     </div>
   </footer>
 
-  <script src="js/events-data.js"></script>
+  <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/widget.js"></script>
   <script>
-  (function () {
+  HVVC.loadEvents().then(function (events) {
     const today = new Date(); today.setHours(0,0,0,0);
-    const upcoming = HVVC_EVENTS
+    const upcoming = events
       .filter(e => new Date((e.endISO || e.dateISO) + 'T00:00:00') >= today)
       .sort((a, b) => new Date(a.dateISO) - new Date(b.dateISO));
 
@@ -471,11 +471,11 @@
         <div class="hvvc-event-cta">
           ${ev.registerUrl
             ? `<a href="${ev.registerUrl}" class="btn btn--primary" target="_blank" rel="noopener">${ev.registerLabel || 'Register →'}</a>`
-            : `<a href="events.html#${ev.id}" class="hvvc-event-cta__soon">Details →</a>`}
+            : `<a href="/events/#${ev.id}" class="hvvc-event-cta__soon">Details →</a>`}
         </div>`;
       list.appendChild(card);
     });
-  })();
+  });
   </script>
 </body>
 </html>

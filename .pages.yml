@@ -1,0 +1,233 @@
+# HVVC content dashboard (Pages CMS — https://app.pagescms.org)
+# Each section edits one file in /data. Saving commits to main, and Vercel
+# publishes the change to the live site in about a minute.
+
+media:
+  - name: photos
+    label: Photos
+    input: img
+    output: /img
+    extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: coaches
+    label: Coaches
+    type: file
+    path: data/coaches.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: role
+        label: Role
+        type: string
+        required: true
+        description: Shown under the name, for example "16-1 Head Coach".
+      - name: photo
+        label: Photo
+        type: image
+        description: Optional. Without a photo, the coach's initials are shown.
+        options:
+          media: photos
+      - name: framing
+        label: Photo framing
+        type: select
+        default: headshot
+        description: Full-length photos are zoomed in so the face fills the circle.
+        options:
+          values:
+            - name: headshot
+              label: Close-up or headshot (no zoom)
+            - name: full-high
+              label: Full-length photo, face near the top
+            - name: full-middle
+              label: Full-length photo, face a little lower
+            - name: full-low
+              label: Full-length photo, face lower still
+      - name: bio
+        label: Bio
+        type: text
+        description: Start each new paragraph on a new line.
+
+  - name: tournaments
+    label: Tournament schedule
+    type: file
+    path: data/tournaments.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: Tournament name
+        type: string
+        required: true
+      - name: start
+        label: Start date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: end
+        label: End date
+        type: date
+        default: ""
+        description: Leave blank for a one-day tournament.
+        options:
+          format: yyyy-MM-dd
+      - name: teams
+        label: Teams playing
+        type: select
+        required: true
+        description: Shows on the Schedule page and on each selected team's page. Past tournaments hide automatically.
+        options:
+          multiple: true
+          values:
+            - name: all
+              label: All teams
+            - name: "16-1"
+              label: 16-1
+            - name: "16-2"
+              label: 16-2
+            - name: "14-1"
+              label: 14-1
+            - name: "14-2"
+              label: 14-2
+            - name: "12-1"
+              label: 12-1
+            - name: "12-2"
+              label: 12-2
+            - name: 10u
+              label: 10U
+      - name: location
+        label: Location
+        type: string
+      - name: type
+        label: Type
+        type: select
+        default: tournament
+        options:
+          values:
+            - name: tournament
+              label: Tournament
+            - name: regional
+              label: Regional or qualifier
+            - name: event
+              label: Club event
+      - name: notes
+        label: Notes
+        type: string
+        description: Optional, for example "Check-in 7:30 AM".
+      - name: link
+        label: Link
+        type: string
+        description: Optional web address for tournament details (starts with https://).
+
+  - name: practices
+    label: Practice schedule
+    type: file
+    path: data/practices.json
+    format: json
+    list: true
+    fields:
+      - name: group
+        label: Group
+        type: string
+        required: true
+        description: For example "16s Teams".
+      - name: days
+        label: Days
+        type: string
+      - name: time
+        label: Time
+        type: string
+      - name: location
+        label: Location
+        type: string
+
+  - name: events
+    label: Events
+    type: file
+    path: data/events.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: tag
+        label: Type
+        type: select
+        default: Camp
+        options:
+          values: [Tryouts, Camp, Academy, Open Gym, Clinic, Team Event]
+      - name: dateISO
+        label: Start date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: endISO
+        label: End date
+        type: date
+        default: ""
+        description: Only for events that run over several days.
+        options:
+          format: yyyy-MM-dd
+      - name: dateDisplay
+        label: Date as written
+        type: string
+        description: For example "Sunday, November 8, 2026".
+      - name: dateRange
+        label: Date range line
+        type: string
+        description: Optional, for example "Sundays — Sept 13, 20 & 27".
+      - name: time
+        label: Time
+        type: string
+      - name: location
+        label: Location
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: schedule
+        label: Schedule
+        type: string
+        list: true
+        description: One line per session, for example "4:00 – 5:30 PM — 11U – 14U".
+      - name: expect
+        label: What to expect
+        type: string
+        list: true
+      - name: notes
+        label: Notes
+        type: string
+        description: Price, ages, or a contact line.
+      - name: registerUrl
+        label: Registration link
+        type: string
+        description: Leave blank if there's no registration yet.
+      - name: registerLabel
+        label: Button text
+        type: string
+        default: Register Now →
+      - name: pinBanner
+        label: Show in the homepage banner
+        type: boolean
+        default: false
+      - name: bannerTitle
+        label: Banner title
+        type: string
+        description: Short title for the homepage banner. Leave blank to use the event title.
+      - name: comingSoon
+        label: Details coming soon
+        type: boolean
+        default: false
+        description: Shows the event with a "details coming soon" note instead of the full details.
+      - name: id
+        label: Link name
+        type: string
+        description: Optional short name used in links, like "fall-camp-2026". Leave blank to build it from the title.

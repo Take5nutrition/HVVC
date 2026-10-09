@@ -3126,10 +3126,14 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-coach-item summary::-webkit-details-marker { display: none; }
 .dk-coach-item summary:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
 .dk-coach-item__photo { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
-.dk-coach-item__photo img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 50% 0;
-  transform: scale(2.5); transform-origin: 50% var(--face-y, 35%);
+.dk-coach-item__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.dk-coach-item__photo--zoom img { object-position: 50% 0; transform: scale(2.5); transform-origin: 50% var(--face-y); }
+.dk-coach-item__photo--initials {
+  display: flex; align-items: center; justify-content: center; background: var(--gradient);
+  font-family: var(--font-heading); font-size: 1.3rem; font-weight: 800; color: #fff;
 }
+.dk-content-note { color: #94a3b8; font-size: .95rem; line-height: 1.7; text-align: center; }
+.dk-content-note a { color: var(--pink-light); }
 .dk-coach-item__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .dk-coach-item__name { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #fff; }
 .dk-coach-item__title {

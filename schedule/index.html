@@ -74,130 +74,23 @@
     <div class="container" style="position:relative;z-index:1;">
       <div style="margin-bottom:48px;">
         <span class="dk-split__kicker"><span class="dk-split__kicker-bar"></span>Coming Up</span>
-        <h2 class="dk-split__heading">Upcoming <span class="gradient-text">Events</span></h2>
+        <h2 class="dk-split__heading">Upcoming <span class="gradient-text">Tournaments</span></h2>
       </div>
 
-      <div class="dk-schedule-list">
-        <!-- Event 1 -->
-        <div class="dk-schedule-item">
-          <div class="dk-schedule-item__date">
-            <span class="dk-schedule-item__month">MAR</span>
-            <span class="dk-schedule-item__day">22-23</span>
-          </div>
-          <div class="dk-schedule-item__details">
-            <h3>Power League #3</h3>
-            <p class="dk-schedule-item__meta">
-              <span>All Teams</span>
-              <span>Oregon Convention Center, Portland, OR</span>
-            </p>
-          </div>
-          <span class="dk-schedule-item__badge">Tournament</span>
-        </div>
-
-        <!-- Event 2 -->
-        <div class="dk-schedule-item">
-          <div class="dk-schedule-item__date">
-            <span class="dk-schedule-item__month">APR</span>
-            <span class="dk-schedule-item__day">5-6</span>
-          </div>
-          <div class="dk-schedule-item__details">
-            <h3>Friendship Tournament</h3>
-            <p class="dk-schedule-item__meta">
-              <span>12s &amp; 14s Teams</span>
-              <span>Location TBD</span>
-            </p>
-          </div>
-          <span class="dk-schedule-item__badge">Tournament</span>
-        </div>
-
-        <!-- Event 3 -->
-        <div class="dk-schedule-item">
-          <div class="dk-schedule-item__date">
-            <span class="dk-schedule-item__month">APR</span>
-            <span class="dk-schedule-item__day">19-20</span>
-          </div>
-          <div class="dk-schedule-item__details">
-            <h3>Power League #4</h3>
-            <p class="dk-schedule-item__meta">
-              <span>All Teams</span>
-              <span>Oregon Convention Center, Portland, OR</span>
-            </p>
-          </div>
-          <span class="dk-schedule-item__badge">Tournament</span>
-        </div>
-
-        <!-- Event 4 -->
-        <div class="dk-schedule-item">
-          <div class="dk-schedule-item__date">
-            <span class="dk-schedule-item__month">MAY</span>
-            <span class="dk-schedule-item__day">3-4</span>
-          </div>
-          <div class="dk-schedule-item__details">
-            <h3>CEVA Regionals</h3>
-            <p class="dk-schedule-item__meta">
-              <span>Qualifying Teams</span>
-              <span>Portland, OR</span>
-            </p>
-          </div>
-          <span class="dk-schedule-item__badge dk-schedule-item__badge--highlight">Regional</span>
-        </div>
-
-        <!-- Event 5 -->
-        <div class="dk-schedule-item">
-          <div class="dk-schedule-item__date">
-            <span class="dk-schedule-item__month">MAY</span>
-            <span class="dk-schedule-item__day">17</span>
-          </div>
-          <div class="dk-schedule-item__details">
-            <h3>End of Season Banquet</h3>
-            <p class="dk-schedule-item__meta">
-              <span>All Athletes &amp; Families</span>
-              <span>Location TBD</span>
-            </p>
-          </div>
-          <span class="dk-schedule-item__badge dk-schedule-item__badge--event">Event</span>
-        </div>
-      </div>
-
+      <div class="dk-schedule-list" data-tournament-list></div>
       <p style="color:#64748b;font-size:.85rem;margin-top:24px;text-align:center;">Dates and locations are subject to change. Check back for updates or follow us on Instagram for the latest.</p>
     </div>
   </section>
 
   <!-- ===== PRACTICE SCHEDULE ===== -->
-  <section class="section">
+  <section class="section" data-hide-when-empty>
     <div class="container">
       <div style="margin-bottom:48px;">
         <span class="section__tag">Weekly</span>
         <h2 class="section__title">Practice <span class="gradient-text">Schedule</span></h2>
       </div>
 
-      <div class="dk-invest-grid">
-        <div class="dk-invest-card">
-          <h3>16s Teams</h3>
-          <ul>
-            <li>Tuesday &amp; Thursday</li>
-            <li>6:00 PM - 8:00 PM</li>
-            <li>Practice facility TBD</li>
-          </ul>
-        </div>
-        <div class="dk-invest-card">
-          <h3>14s Teams</h3>
-          <ul>
-            <li>Monday &amp; Wednesday</li>
-            <li>6:00 PM - 8:00 PM</li>
-            <li>Practice facility TBD</li>
-          </ul>
-        </div>
-        <div class="dk-invest-card">
-          <h3>12s Teams</h3>
-          <ul>
-            <li>Monday &amp; Wednesday</li>
-            <li>5:00 PM - 7:00 PM</li>
-            <li>Practice facility TBD</li>
-          </ul>
-        </div>
-      </div>
-
+      <div class="dk-invest-grid" data-practice-list></div>
       <p style="color:#64748b;font-size:.85rem;margin-top:24px;text-align:center;">Practice times may vary during tournament weekends. Coaches will communicate changes directly.</p>
     </div>
   </section>
@@ -280,6 +173,7 @@
     </div>
   </footer>
 
+  <script src="js/content.js"></script>
   <script src="js/main.js"></script>
   <script src="js/widget.js"></script>
 </body>
