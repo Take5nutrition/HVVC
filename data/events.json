@@ -158,26 +158,6 @@
     "id": "pre-season-open-gyms-2026"
   },
   {
-    "title": "New event test",
-    "tag": "Academy",
-    "dateISO": "2026-10-09",
-    "endISO": "2026-10-10",
-    "dateDisplay": "Sunday the 10th",
-    "time": "6Am",
-    "location": "Nelson",
-    "description": "Be ther or be sqaure",
-    "registerUrl": "https://leagueapps.com/",
-    "registerLabel": "Register Now →",
-    "pinBanner": false,
-    "bannerTitle": "",
-    "dateRange": "",
-    "schedule": [],
-    "expect": [],
-    "notes": "",
-    "comingSoon": false,
-    "id": ""
-  },
-  {
     "title": "11U–14U — 2026–2027 Tryouts",
     "tag": "Tryouts",
     "dateISO": "2026-11-08",
