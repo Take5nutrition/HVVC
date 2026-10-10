@@ -9,7 +9,12 @@
     "photo": "/img/hero-16u-team.jpg",
     "cardText": "Our flagship 16U team competing at the highest level with purposeful training, strong communication, and a culture of confident competitors.",
     "overview": "HVVC 16-1 is our top-tier 16U team, competing at the highest level throughout the season. This team focuses on advanced competitive play, strategic development, and tournament excellence.",
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "nicole-warren",
+        "role": "Head Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -52,6 +57,8 @@
     "highlightsKicker": "",
     "highlightsHeading": "",
     "highlights": [],
+    "ctaText": "",
+    "hideTryoutButton": false,
     "expectations": [
       {
         "title": "Represent",
@@ -69,9 +76,7 @@
         "title": "Communication",
         "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
       }
-    ],
-    "ctaText": "",
-    "hideTryoutButton": false
+    ]
   },
   {
     "name": "HVVC 16-2",
@@ -126,6 +131,8 @@
     "highlightsKicker": "",
     "highlightsHeading": "",
     "highlights": [],
+    "ctaText": "",
+    "hideTryoutButton": false,
     "expectations": [
       {
         "title": "Represent",
@@ -143,9 +150,7 @@
         "title": "Communication",
         "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
       }
-    ],
-    "ctaText": "",
-    "hideTryoutButton": false
+    ]
   },
   {
     "name": "HVVC 14-1",
@@ -200,6 +205,8 @@
     "highlightsKicker": "",
     "highlightsHeading": "",
     "highlights": [],
+    "ctaText": "",
+    "hideTryoutButton": false,
     "expectations": [
       {
         "title": "Represent",
@@ -217,9 +224,7 @@
         "title": "Communication",
         "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
       }
-    ],
-    "ctaText": "",
-    "hideTryoutButton": false
+    ]
   },
   {
     "name": "HVVC 14-2",
@@ -274,6 +279,8 @@
     "highlightsKicker": "",
     "highlightsHeading": "",
     "highlights": [],
+    "ctaText": "",
+    "hideTryoutButton": false,
     "expectations": [
       {
         "title": "Represent",
@@ -291,9 +298,7 @@
         "title": "Communication",
         "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
       }
-    ],
-    "ctaText": "",
-    "hideTryoutButton": false
+    ]
   },
   {
     "name": "HVVC 12-1",
@@ -348,6 +353,8 @@
     "highlightsKicker": "",
     "highlightsHeading": "",
     "highlights": [],
+    "ctaText": "",
+    "hideTryoutButton": false,
     "expectations": [
       {
         "title": "Represent",
@@ -365,9 +372,7 @@
         "title": "Communication",
         "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
       }
-    ],
-    "ctaText": "",
-    "hideTryoutButton": false
+    ]
   },
   {
     "name": "HVVC 12-2",
@@ -422,6 +427,8 @@
     "highlightsKicker": "",
     "highlightsHeading": "",
     "highlights": [],
+    "ctaText": "",
+    "hideTryoutButton": false,
     "expectations": [
       {
         "title": "Represent",
@@ -439,9 +446,7 @@
         "title": "Communication",
         "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
       }
-    ],
-    "ctaText": "",
-    "hideTryoutButton": false
+    ]
   },
   {
     "name": "HVVC 10U",
@@ -505,6 +510,8 @@
         "text": "Understanding spacing, movement patterns, and reading the game at an introductory level."
       }
     ],
+    "ctaText": "Reach out to learn more about our developmental program for young athletes.",
+    "hideTryoutButton": true,
     "expectations": [
       {
         "title": "Represent",
@@ -522,8 +529,6 @@
         "title": "Communication",
         "text": "GameChanger is used for tracking schedules and team announcements throughout the program."
       }
-    ],
-    "ctaText": "Reach out to learn more about our developmental program for young athletes.",
-    "hideTryoutButton": true
+    ]
   }
 ]
