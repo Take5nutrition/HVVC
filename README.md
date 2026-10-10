@@ -35,21 +35,25 @@ my-website/
 
 ## Content dashboard
 
-The club edits coaches, tournaments, practice times, and events at
-**dashboard.hvvcvolleyballclub.com** (also reachable at `/admin/` on the main
-domain). Each section edits one file in `data/`, and `js/content.js` renders it
-on the site:
+The club edits the site at **dashboard.hvvcvolleyballclub.com** (also `/admin/`
+on the main domain). Each tab edits one file in `data/`, and `js/content.js`
+renders it on the site:
 
-| Dashboard tab | File                    | Shown on                         |
-| ------------- | ----------------------- | -------------------------------- |
-| Coaches       | `data/coaches.json`     | Staff page                       |
-| Tournaments   | `data/tournaments.json` | Schedule page and each team page |
-| Practices     | `data/practices.json`   | Schedule page                    |
-| Events        | `data/events.json`      | Events page and homepage banner  |
+| Dashboard tab | File                    | Shown on                                                   |
+| ------------- | ----------------------- | ---------------------------------------------------------- |
+| Coaches       | `data/coaches.json`     | Staff page coach list, and team pages they're assigned to  |
+| Leadership    | `data/leaders.json`     | Large featured sections at the top of the Staff page       |
+| Teams         | `data/teams.json`       | Team pages, Teams page cards, and the Teams menu everywhere |
+| Tournaments   | `data/tournaments.json` | Each team page's schedule table and the Schedule page      |
+| Practices     | `data/practices.json`   | Schedule page                                              |
+| Events        | `data/events.json`      | Events page and homepage banner                            |
 
 How it fits together:
 
-- `admin/` is the dashboard page. `api/admin.js` handles login and saving, and
+- Team pages are one template, `team/index.html`. `vercel.json` rewrites
+  `/hvvc-<slug>/` to it, and the page renders the team whose `slug` matches,
+  so adding a team in the dashboard creates its page.
+- `admin/` is the dashboard. `api/admin.js` handles login and saving, and
   `api/_content-schema.js` defines every form field and validation rule, so
   that is the one place to add or change a field.
 - Saving commits the updated JSON (and any new photos, under `img/uploads/`) to
@@ -60,10 +64,11 @@ How it fits together:
 
 Vercel environment variables (Production):
 
-| Variable                   | What it is                                                                |
-| -------------------------- | ------------------------------------------------------------------------- |
-| `DASHBOARD_PASSWORD`       | The dashboard login password. Changing it signs everyone out.             |
-| `DASHBOARD_SESSION_SECRET` | Random string used to sign login sessions.                                |
+| Variable                   | What it is                                                                   |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| `DASHBOARD_PASSWORD`       | The dashboard login password. Changing it signs everyone out.                |
+| `DASHBOARD_SESSION_SECRET` | Random string used to sign login sessions.                                   |
 | `GITHUB_TOKEN`             | Fine-grained token for this repo: Contents read/write, Commit statuses read. |
 
-Redeploy after changing any of them.
+Redeploy after changing any of them. Without `GITHUB_TOKEN` the dashboard runs
+in a read-only preview mode.

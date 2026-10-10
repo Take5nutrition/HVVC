@@ -80,7 +80,7 @@ img { max-width: 100%; }
 
 /* ---- Tabs ---- */
 .tabs {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px; margin-bottom: 22px;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; padding: 4px; margin-bottom: 22px;
   background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
 }
 .tab {
@@ -164,23 +164,48 @@ img { max-width: 100%; }
 .more > summary::before { content: '+ '; }
 .more[open] > summary::before { content: '− '; }
 
-/* ---- Photo picker (circle matches the Staff page) ---- */
+/* ---- Photo picker: frames match how the photo shows on the site ---- */
 .photo { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .photo__preview {
-  width: 72px; height: 72px; border-radius: 50%; overflow: hidden; flex: 0 0 auto;
+  position: relative; overflow: hidden; flex: 0 0 auto;
   background: var(--gradient); display: flex; align-items: center; justify-content: center;
   color: #fff; font-family: var(--font-heading); font-size: 1.4rem;
 }
-.photo__preview img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
-.photo__preview.frame-full-high img,
-.photo__preview.frame-full-middle img,
-.photo__preview.frame-full-low img { object-position: 50% 0; transform: scale(2.5); }
-.photo__preview.frame-full-high img { transform-origin: 50% 32%; }
-.photo__preview.frame-full-middle img { transform-origin: 50% 38%; }
-.photo__preview.frame-full-low img { transform-origin: 50% 50%; }
+.photo__preview img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; user-select: none; -webkit-user-drag: none; }
+.photo__preview--circle { width: 120px; height: 120px; border-radius: 50%; }
+.photo__preview--portrait { width: 144px; height: 180px; border-radius: 14px; }
+.photo__preview--landscape { width: 210px; height: 140px; border-radius: 12px; }
+.photo__preview--whole { background: #0f172a; }
+.photo__preview--whole img { object-fit: contain; object-position: 50% 50%; }
+.photo__preview--draggable { cursor: grab; touch-action: none; box-shadow: 0 0 0 3px #fff, 0 0 0 5px #f5a3cf; }
+.photo__preview--draggable:active { cursor: grabbing; }
 .photo__buttons { display: flex; flex-wrap: wrap; gap: 8px; }
 .photo__file { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-.thumb { width: 44px; height: 44px; flex: 0 0 auto; font-size: 1rem; }
+.thumb { width: 44px !important; height: 44px !important; border-radius: 50% !important; flex: 0 0 auto; font-size: 1rem; box-shadow: none !important; }
+.thumb.photo__preview--whole img { object-fit: cover; }
+
+.crop { margin-top: 14px; padding: 14px 16px; background: var(--page); border-radius: 12px; display: grid; gap: 10px; max-width: 460px; }
+.crop__row { display: grid; grid-template-columns: 110px 1fr; align-items: center; gap: 12px; font-size: .9rem; font-weight: 600; color: var(--text); }
+.range { width: 100%; accent-color: var(--pink); min-height: 28px; }
+.crop .link-button { justify-self: start; padding-left: 0; }
+
+/* ---- Repeating rows (roster, coaches, details) ---- */
+.field--list { margin-top: 20px; }
+.rows { display: grid; gap: 10px; margin: 10px 0 12px; }
+.rows__empty { margin: 8px 0 12px; color: var(--muted); font-size: .9rem; }
+.row { border: 1px solid var(--border); border-radius: 12px; padding: 4px 14px 10px; background: #fcfcfe; }
+.row__fields { display: grid; gap: 0 12px; grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .row__fields--2 { grid-template-columns: 1fr 1fr; }
+  .row__fields--4 { grid-template-columns: 80px 1fr 1fr 120px; }
+}
+.field--sub { margin-top: 10px; }
+.field--sub > label { font-size: .85rem; }
+.field--wide { grid-column: 1 / -1; }
+.field--sub .textarea { min-height: 90px; }
+.row__actions { display: flex; gap: 4px; justify-content: flex-end; margin-top: 6px; }
+.link-button--danger { color: var(--danger); }
+.link-button:disabled { opacity: .35; cursor: default; }
 
 /* ---- Save bar ---- */
 .savebar {
@@ -196,7 +221,7 @@ img { max-width: 100%; }
 @media (max-width: 560px) {
   .topbar__title { font-size: 1.1rem; }
   .topbar__site { display: none; }
-  .tabs { grid-template-columns: repeat(2, 1fr); border-radius: 18px; }
+  .tabs { grid-template-columns: repeat(3, 1fr); border-radius: 18px; }
   .tab { border-radius: 14px; }
   .field-row { grid-template-columns: 1fr; }
   .savebar__inner { justify-content: center; }

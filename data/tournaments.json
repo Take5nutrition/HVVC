@@ -1,1 +1,104 @@
-[]
+[
+  {
+    "name": "CEVA Power League Qualifier",
+    "start": "2027-01-09",
+    "end": "",
+    "location": "TBD, assigned by CEVA",
+    "type": "regional",
+    "teams": [
+      "16-1",
+      "16-2",
+      "14-1",
+      "14-2",
+      "12-1",
+      "12-2"
+    ],
+    "notes": "",
+    "link": ""
+  },
+  {
+    "name": "CEVA Power League #1",
+    "start": "2027-01-23",
+    "end": "",
+    "location": "TBD, assigned by CEVA",
+    "type": "tournament",
+    "teams": [
+      "16-1",
+      "16-2",
+      "14-1",
+      "14-2",
+      "12-1",
+      "12-2"
+    ],
+    "notes": "",
+    "link": ""
+  },
+  {
+    "name": "CEVA Power League #2",
+    "start": "2027-02-27",
+    "end": "",
+    "location": "TBD, assigned by CEVA",
+    "type": "tournament",
+    "teams": [
+      "16-1",
+      "16-2",
+      "14-1",
+      "14-2",
+      "12-1",
+      "12-2"
+    ],
+    "notes": "",
+    "link": ""
+  },
+  {
+    "name": "TBD: Friendship Tournament / Game",
+    "start": "2027-03-13",
+    "end": "",
+    "location": "TBA",
+    "type": "tournament",
+    "teams": [
+      "16-1",
+      "16-2",
+      "14-1",
+      "14-2",
+      "12-1",
+      "12-2"
+    ],
+    "notes": "",
+    "link": ""
+  },
+  {
+    "name": "CEVA Power League #3",
+    "start": "2027-04-18",
+    "end": "",
+    "location": "TBD, assigned by CEVA",
+    "type": "tournament",
+    "teams": [
+      "16-1",
+      "16-2",
+      "14-1",
+      "14-2",
+      "12-1",
+      "12-2"
+    ],
+    "notes": "",
+    "link": ""
+  },
+  {
+    "name": "CEVA Regionals *Pending Qualification*",
+    "start": "2027-04-24",
+    "end": "2027-04-25",
+    "location": "Expo / Olympus",
+    "type": "regional",
+    "teams": [
+      "16-1",
+      "16-2",
+      "14-1",
+      "14-2",
+      "12-1",
+      "12-2"
+    ],
+    "notes": "",
+    "link": ""
+  }
+]

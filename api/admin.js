@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const { SCHEMAS, cleanItems, publicSchemas, slug } = require('./_content-schema');
+const { SCHEMAS, cleanItems, publicSchemas, dependencies, optionValues, slug } = require('./_content-schema');
 const {
   isConfigured, canSave, isLoggedIn, startSession, endSession, checkPassword,
   clientIp, tooManyFailures, recordFailure, isTrustedWrite,
@@ -70,7 +70,15 @@ async function handleSave(body, res) {
     });
   }
 
-  const result = cleanItems(type, items);
+  const options = {};
+  for (const source of dependencies(type)) {
+    const file = await readFile(SCHEMAS[source].path);
+    let list = [];
+    try { list = file.text ? JSON.parse(file.text) : []; } catch { list = []; }
+    options[source] = optionValues(source, Array.isArray(list) ? list : []);
+  }
+
+  const result = cleanItems(type, items, options);
   if (result.error) return res.status(400).json({ error: result.error });
 
   const current = await readFile(schema.path);

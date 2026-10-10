@@ -2,10 +2,10 @@
 // GitHub; Vercel then publishes the site. Forms are built from the field
 // definitions in api/_content-schema.js.
 (function () {
-  const TAB_ORDER = ['coaches', 'tournaments', 'practices', 'events'];
+  const TAB_ORDER = ['coaches', 'leaders', 'teams', 'tournaments', 'practices', 'events'];
   const POLL_MS = 4000;
   const POLL_LIMIT = 60;
-  const PHOTO_MAX_EDGE = 900;
+  const PHOTO_MAX_EDGE = 1400;
   const CHEVRON = '<svg class="card__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
 
   const app = document.getElementById('app');
@@ -61,6 +61,10 @@
     return Array.from(bytes, (b) => (b % 36).toString(36)).join('');
   }
 
+  function slug(value) {
+    return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
   function formatDate(iso) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return '';
     return new Date(iso + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
@@ -104,9 +108,10 @@
   // ---------- section data ----------
   function schema(type) { return state.schemas[type]; }
   function section(type) { return state.sections[type || state.tab]; }
+  function photoField(type) { return schema(type).fields.find((f) => f.type === 'photo'); }
 
   function withKey(item) { return { ...item, _key: 'k' + (++keyCounter) }; }
-  function stripKeys(items) { return items.map(({ _key, _new, ...rest }) => rest); }
+  function stripKeys(items) { return items.map(({ _key, _new, _slugTouched, ...rest }) => rest); }
   function snapshot(items) { return JSON.stringify(stripKeys(items)); }
 
   function isDirty(type) {
@@ -115,6 +120,28 @@
   }
 
   function anyDirty() { return Object.keys(state.sections).some((t) => isDirty(t)); }
+
+  function defaultCrop(f) {
+    return { X: 50, Y: f.frame === 'circle' ? 20 : 30, Zoom: 1 };
+  }
+
+  function blankValue(f) {
+    if (f.type === 'toggle') return false;
+    if (f.type === 'checkboxes' || f.type === 'lines' || f.type === 'list') return [];
+    return f.default || '';
+  }
+
+  function blankItem(fields) {
+    const item = {};
+    for (const f of fields) {
+      item[f.name] = blankValue(f);
+      if (f.type === 'photo' && f.crop) {
+        const c = defaultCrop(f);
+        item[f.name + 'X'] = c.X; item[f.name + 'Y'] = c.Y; item[f.name + 'Zoom'] = c.Zoom;
+      }
+    }
+    return item;
+  }
 
   // Upcoming first (soonest at the top), then past ones, newest first.
   function displayOrder(type, items) {
@@ -125,19 +152,9 @@
     return [...upcoming, ...past];
   }
 
-  function blankItem(type) {
-    const item = {};
-    for (const f of schema(type).fields) {
-      if (f.type === 'toggle') item[f.name] = false;
-      else if (f.type === 'checkboxes' || f.type === 'lines') item[f.name] = [];
-      else item[f.name] = f.default || '';
-    }
-    return item;
-  }
-
-  async function loadSection(type) {
+  async function loadSection(type, { quiet } = {}) {
     state.sections[type] = { loaded: false };
-    render();
+    if (!quiet) render();
     try {
       const data = await api('content', { query: { type } });
       const items = displayOrder(type, data.items.map(withKey));
@@ -149,21 +166,57 @@
     render();
   }
 
+  // Options for coach/team pickers come from the last saved version, so a
+  // pick always refers to something that exists on the live site.
+  function dynamicOptions(source) {
+    const s = state.sections[source];
+    if (!s || (!s.loaded && !s.error)) {
+      if (!s) loadSection(source, { quiet: true });
+      return null;
+    }
+    if (!s.loaded) return [];
+    const saved = JSON.parse(s.original);
+    if (source === 'coaches') return saved.map((c) => ({ value: slug(c.id) || slug(c.name), label: c.name })).filter((o) => o.value);
+    if (source === 'teams') return saved.map((t) => ({ value: slug(t.slug), label: t.name || t.slug })).filter((o) => o.value);
+    return [];
+  }
+
+  function fieldOptions(f) {
+    const base = f.options || [];
+    if (!f.optionsFrom) return base;
+    const extra = dynamicOptions(f.optionsFrom);
+    return extra === null ? null : [...base, ...extra];
+  }
+
   // ---------- validation ----------
+  function checkValue(f, value) {
+    const v = String(value == null ? '' : value).trim();
+    if (f.required && !v) return 'This is required.';
+    if (v && f.type === 'url' && !/^https?:\/\/\S+$/i.test(v)) return 'Use a full web address starting with https://';
+    if (v && f.type === 'link' && !/^(https?:\/\/\S+|\/\S*|mailto:\S+|tel:\S+)$/i.test(v)) return 'Use a page like /contact/ or a full web address.';
+    if (v && f.max && v.length > f.max) return `Keep this under ${f.max} characters.`;
+    return '';
+  }
+
   function validate(type, item) {
     const errors = {};
     for (const f of schema(type).fields) {
       const v = item[f.name];
       if (f.type === 'checkboxes') {
         if (f.required && !(v || []).length) errors[f.name] = 'Pick at least one.';
-        continue;
+      } else if (f.type === 'list') {
+        (v || []).forEach((row, i) => {
+          for (const sub of f.fields) {
+            const msg = checkValue(sub, row[sub.name]);
+            if (msg) errors[`${f.name}.${i}.${sub.name}`] = msg;
+          }
+        });
+      } else if (f.type !== 'toggle' && f.type !== 'lines' && f.type !== 'photo') {
+        const msg = checkValue(f, v);
+        if (msg) errors[f.name] = msg;
       }
-      if (f.type === 'toggle' || f.type === 'lines') continue;
-      const value = String(v || '').trim();
-      if (f.required && !value) errors[f.name] = 'This is required.';
-      else if (value && f.type === 'url' && !/^https?:\/\/\S+$/i.test(value)) errors[f.name] = 'Start the link with https://';
-      else if (value && f.max && value.length > f.max) errors[f.name] = `Keep this under ${f.max} characters.`;
     }
+    if (type === 'teams' && item.slug && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug(item.slug))) errors.slug = 'Use letters and numbers, like 16-1.';
     const [start, end] = type === 'events' ? ['dateISO', 'endISO'] : ['start', 'end'];
     if (item[end] && item[start] && item[end] < item[start]) errors[end] = 'The end date is before the start date.';
     return errors;
@@ -239,9 +292,11 @@
       secondary = formatDate(secondary) + (end ? ' – ' + formatDate(end) : '');
     }
     if (type === 'tournaments' && (item.teams || []).length) {
-      const labels = item.teams.map((t) => (fieldOf('teams').options.find((o) => o.value === t) || {}).label || t);
+      const opts = fieldOptions(fieldOf('teams')) || [];
+      const labels = item.teams.map((t) => (opts.find((o) => o.value === t) || {}).label || t);
       secondary = [secondary, labels.join(', ')].filter(Boolean).join(' · ');
     }
+    if (type === 'teams' && item.slug) secondary = [item.group, `/hvvc-${slug(item.slug)}/`].filter(Boolean).join(' · ');
     return { primary, secondary: String(secondary || '').trim() };
   }
 
@@ -253,14 +308,28 @@
     return Boolean(last) && last < todayIso();
   }
 
-  function photoPreview(item, extraClass) {
-    const value = item.photo || '';
-    const frame = item.framing && item.framing !== 'headshot' ? ' frame-' + item.framing : '';
-    const box = h('span', { class: `photo__preview${frame}${extraClass ? ' ' + extraClass : ''}`, 'aria-hidden': 'true' });
+  function photoSrc(value) {
+    if (!value) return '';
     const upload = value.startsWith('upload:') ? state.uploads.get(value.slice(7)) : null;
-    const src = upload ? upload.dataUrl : state.publishedPhotos.get(value) || value;
+    return upload ? upload.dataUrl : state.publishedPhotos.get(value) || value;
+  }
+
+  function applyCrop(img, f, item) {
+    if (!f.crop) return;
+    const x = Number(item[f.name + 'X'] ?? 50);
+    const y = Number(item[f.name + 'Y'] ?? defaultCrop(f).Y);
+    const zoom = Number(item[f.name + 'Zoom'] ?? 1);
+    img.style.objectPosition = `${x}% ${y}%`;
+    img.style.transformOrigin = `${x}% ${y}%`;
+    img.style.transform = zoom > 1 ? `scale(${zoom})` : '';
+  }
+
+  function photoBox(f, item, extraClass) {
+    const box = h('span', { class: `photo__preview photo__preview--${f.frame || 'circle'}${f.crop ? '' : ' photo__preview--whole'}${extraClass ? ' ' + extraClass : ''}`, 'aria-hidden': 'true' });
+    const src = photoSrc(item[f.name] || '');
     if (src) {
-      const img = h('img', { src, alt: '' });
+      const img = h('img', { src, alt: '', draggable: 'false' });
+      applyCrop(img, f, item);
       img.addEventListener('error', () => { box.textContent = initials(item.name); });
       box.append(img);
     } else {
@@ -275,11 +344,12 @@
     const errors = state.errors[item._key] || {};
     const { primary, secondary } = summaryOf(type, item);
     const bodyId = 'body-' + item._key;
+    const pf = photoField(type);
     const head = h('button', {
       class: 'card__head', type: 'button', 'aria-expanded': String(open), 'aria-controls': bodyId,
       onclick: () => { open ? state.open.delete(item._key) : state.open.add(item._key); render(); },
     },
-    s.fields.some((f) => f.type === 'photo') ? photoPreview(item, 'thumb') : null,
+    pf ? photoBox(pf, item, 'thumb') : null,
     h('span', { class: 'card__text' },
       h('span', { class: 'card__title', text: primary }),
       secondary ? h('span', { class: 'card__sub', text: secondary }) : null),
@@ -297,7 +367,7 @@
     if (advanced.length) {
       const more = h('details', { class: 'more' }, h('summary', { text: 'More options' }));
       appendFields(more, type, item, advanced, errors);
-      if (advanced.some((f) => errors[f.name])) more.open = true;
+      if (advanced.some((f) => Object.keys(errors).some((k) => k === f.name || k.startsWith(f.name + '.')))) more.open = true;
       body.append(more);
     }
 
@@ -306,6 +376,9 @@
       actions.append(
         h('button', { class: 'button button--ghost button--small', type: 'button', disabled: index === 0, onclick: () => move(type, index, -1), text: '↑ Move up' }),
         h('button', { class: 'button button--ghost button--small', type: 'button', disabled: index === items.length - 1, onclick: () => move(type, index, 1), text: '↓ Move down' }));
+    }
+    if (type === 'teams' && !item._new && item.slug) {
+      actions.append(h('a', { class: 'button button--ghost button--small', href: `/hvvc-${slug(item.slug)}/`, target: '_blank', rel: 'noopener', text: 'View team page ↗' }));
     }
     actions.append(h('span', { class: 'spacer' }),
       h('button', { class: 'button button--danger button--small', type: 'button', onclick: () => removeItem(type, index), text: `Remove ${s.itemLabel}` }));
@@ -326,13 +399,48 @@
     }
   }
 
+  function labelFor(id, f) {
+    return h('label', { for: id }, f.label, f.required ? h('span', { class: 'field__required', text: 'required' }) : null);
+  }
+
+  // A text-like control (text, url, link, date, textarea, lines, select).
+  function control(id, f, value, error, onValue) {
+    const common = { id, 'aria-invalid': error ? 'true' : null };
+    if (f.type === 'textarea' || f.type === 'lines') {
+      return h('textarea', {
+        ...common, class: `textarea${f.type === 'lines' ? ' textarea--short' : ''}${error ? ' input--invalid' : ''}`,
+        maxlength: f.type === 'textarea' && f.max ? String(f.max) : null,
+        value: f.type === 'lines' ? (value || []).join('\n') : (value || ''),
+        oninput: (e) => onValue(f.type === 'lines' ? e.target.value.split('\n') : e.target.value),
+      });
+    }
+    if (f.type === 'select') {
+      const opts = fieldOptions(f);
+      if (opts === null) return h('select', { ...common, class: 'select', disabled: true }, h('option', { text: 'Loading…' }));
+      const current = value || f.default || '';
+      const list = [...opts];
+      if (!f.default && !list.some((o) => o.value === current)) list.unshift({ value: '', label: current ? `(no longer available: ${current})` : 'Choose…' });
+      return h('select', { ...common, class: `select${error ? ' input--invalid' : ''}`, onchange: (e) => onValue(e.target.value) },
+        list.map((o) => h('option', { value: o.value, selected: current === o.value, text: o.label })));
+    }
+    return h('input', {
+      ...common,
+      class: `input${error ? ' input--invalid' : ''}`,
+      type: f.type === 'date' ? 'date' : f.type === 'url' ? 'url' : 'text',
+      inputmode: f.type === 'url' ? 'url' : null,
+      placeholder: f.placeholder || (f.type === 'url' ? 'https://' : f.type === 'link' ? '/contact/' : null),
+      maxlength: f.max ? String(f.max) : null,
+      value: value || '',
+      oninput: (e) => onValue(e.target.value),
+      onchange: f.type === 'date' ? () => render() : null,
+    });
+  }
+
   function renderField(type, item, f, errors) {
     const id = `f-${item._key}-${f.name}`;
     const error = errors[f.name];
-    const label = h('label', { for: id }, f.label, f.required ? h('span', { class: 'field__required', text: 'required' }) : null);
-    const help = f.help ? h('p', { class: 'field__help', id: id + '-help', text: f.help }) : null;
+    const help = f.help ? h('p', { class: 'field__help', text: f.help }) : null;
     const errorEl = error ? h('p', { class: 'field__error', text: error }) : null;
-    const describedBy = [f.help ? id + '-help' : null].filter(Boolean).join(' ') || null;
     const set = (value) => { item[f.name] = value; changed(type, item); };
 
     if (f.type === 'toggle') {
@@ -345,60 +453,147 @@
 
     if (f.type === 'checkboxes') {
       const values = new Set(item[f.name] || []);
+      const opts = fieldOptions(f);
       return h('fieldset', { class: 'field field--group', id },
         h('legend', { class: 'field__label' }, f.label, f.required ? h('span', { class: 'field__required', text: 'required' }) : null),
-        h('div', { class: 'checks' }, f.options.map((o) => h('label', { class: 'check' },
+        opts === null ? h('p', { class: 'field__help', text: 'Loading…' }) : h('div', { class: 'checks' }, opts.map((o) => h('label', { class: 'check' },
           h('input', {
             type: 'checkbox', value: o.value, checked: values.has(o.value),
             onchange: (e) => {
               e.target.checked ? values.add(o.value) : values.delete(o.value);
-              set(f.options.map((x) => x.value).filter((v) => values.has(v)));
+              set(opts.map((x) => x.value).filter((v) => values.has(v)));
             },
           }),
           o.label))),
         help, errorEl);
     }
 
-    if (f.type === 'photo') {
-      const fileInput = h('input', { type: 'file', accept: 'image/*', class: 'photo__file', id, onchange: (e) => pickPhoto(type, item, e.target) });
-      return h('div', { class: 'field' },
-        h('span', { class: 'field__label', text: f.label }),
-        h('div', { class: 'photo' },
-          photoPreview(item),
-          h('div', { class: 'photo__buttons' },
-            fileInput,
-            h('label', { for: id, class: 'button button--ghost button--small', role: 'button', tabindex: '0',
-              onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } },
-              text: item.photo ? 'Change photo' : 'Choose photo' }),
-            item.photo ? h('button', { class: 'link-button', type: 'button', onclick: () => { set(''); render(); }, text: 'Remove photo' }) : null)),
-        help, errorEl);
-    }
+    if (f.type === 'photo') return renderPhotoField(type, item, f, id, help);
+    if (f.type === 'list') return renderListField(type, item, f, errors, help);
 
-    let control;
-    const common = { id, class: error ? 'input input--invalid' : 'input', 'aria-describedby': describedBy, 'aria-invalid': error ? 'true' : null };
-    if (f.type === 'textarea' || f.type === 'lines') {
-      const value = f.type === 'lines' ? (item[f.name] || []).join('\n') : (item[f.name] || '');
-      control = h('textarea', {
-        ...common, class: `textarea${f.type === 'lines' ? ' textarea--short' : ''}${error ? ' input--invalid' : ''}`,
-        maxlength: f.type === 'textarea' && f.max ? String(f.max) : null, value,
-        oninput: (e) => set(f.type === 'lines' ? e.target.value.split('\n') : e.target.value),
+    const onValue = (value) => {
+      set(value);
+      if (type === 'teams' && f.name === 'slug') item._slugTouched = true;
+      if (type === 'teams' && f.name === 'name' && item._new && !item._slugTouched) {
+        item.slug = slug(String(value).replace(/^\s*hvvc\s*/i, ''));
+        const slugInput = document.getElementById(`f-${item._key}-slug`);
+        if (slugInput) slugInput.value = item.slug;
+      }
+    };
+    return h('div', { class: 'field' }, labelFor(id, f), control(id, f, item[f.name], error, onValue), help, errorEl);
+  }
+
+  function renderPhotoField(type, item, f, id, help) {
+    const fileInput = h('input', { type: 'file', accept: 'image/*', class: 'photo__file', id, onchange: (e) => pickPhoto(type, item, f, e.target) });
+    const has = Boolean(item[f.name]);
+    const preview = photoBox(f, item);
+    const wrap = h('div', { class: 'field' },
+      h('span', { class: 'field__label', text: f.label }),
+      h('div', { class: 'photo' },
+        preview,
+        h('div', { class: 'photo__buttons' },
+          fileInput,
+          h('label', { for: id, class: 'button button--ghost button--small', role: 'button', tabindex: '0',
+            onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } },
+            text: has ? 'Change photo' : 'Choose photo' }),
+          has ? h('button', { class: 'link-button', type: 'button', onclick: () => { item[f.name] = ''; changed(type, item); render(); }, text: 'Remove photo' }) : null)),
+      help);
+
+    if (has && f.crop) {
+      const img = preview.querySelector('img');
+      const update = () => {
+        if (img) applyCrop(img, f, item);
+        const thumb = document.querySelector(`[aria-controls="body-${item._key}"] .thumb img`);
+        if (thumb) applyCrop(thumb, f, item);
+        changed(type, item);
+      };
+      const slider = (key, label, min, max, step) => {
+        const sid = `${id}-${key}`;
+        const input = h('input', {
+          type: 'range', id: sid, min: String(min), max: String(max), step: String(step), class: 'range',
+          value: String(item[f.name + key] ?? defaultCrop(f)[key]),
+          oninput: (e) => { item[f.name + key] = Number(e.target.value); update(); },
+        });
+        return h('div', { class: 'crop__row' }, h('label', { for: sid, text: label }), input);
+      };
+      const sliders = h('div', { class: 'crop' },
+        slider('Zoom', 'Zoom', 1, 4, 0.05),
+        slider('X', 'Left ↔ right', 0, 100, 1),
+        slider('Y', 'Up ↕ down', 0, 100, 1),
+        h('button', {
+          class: 'link-button', type: 'button', text: 'Reset framing',
+          onclick: () => { const c = defaultCrop(f); item[f.name + 'X'] = c.X; item[f.name + 'Y'] = c.Y; item[f.name + 'Zoom'] = c.Zoom; changed(type, item); render(); },
+        }));
+      enableDrag(preview, f, item, () => {
+        sliders.querySelector(`#${CSS.escape(id + '-X')}`).value = String(item[f.name + 'X']);
+        sliders.querySelector(`#${CSS.escape(id + '-Y')}`).value = String(item[f.name + 'Y']);
+        update();
       });
-    } else if (f.type === 'select') {
-      control = h('select', { ...common, class: 'select', onchange: (e) => { set(e.target.value); if (f.name === 'framing') render(); } },
-        f.options.map((o) => h('option', { value: o.value, selected: (item[f.name] || f.default) === o.value, text: o.label })));
-    } else {
-      control = h('input', {
-        ...common,
-        type: f.type === 'date' ? 'date' : f.type === 'url' ? 'url' : 'text',
-        inputmode: f.type === 'url' ? 'url' : null,
-        placeholder: f.placeholder || (f.type === 'url' ? 'https://' : null),
-        maxlength: f.max ? String(f.max) : null,
-        value: item[f.name] || '',
-        oninput: (e) => set(e.target.value),
-        onchange: f.type === 'date' ? () => render() : null,
-      });
+      preview.classList.add('photo__preview--draggable');
+      preview.title = 'Drag to move the photo';
+      wrap.append(sliders);
     }
-    return h('div', { class: 'field' }, label, control, help, errorEl);
+    return wrap;
+  }
+
+  // Dragging the photo moves it under the frame, like a phone's crop tool.
+  function enableDrag(box, f, item, onMove) {
+    let start = null;
+    box.addEventListener('pointerdown', (e) => {
+      start = { x: e.clientX, y: e.clientY, X: Number(item[f.name + 'X'] ?? 50), Y: Number(item[f.name + 'Y'] ?? defaultCrop(f).Y) };
+      box.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    box.addEventListener('pointermove', (e) => {
+      if (!start) return;
+      const rect = box.getBoundingClientRect();
+      const zoom = Number(item[f.name + 'Zoom'] ?? 1);
+      const k = 100 / zoom;
+      item[f.name + 'X'] = Math.round(Math.min(100, Math.max(0, start.X - ((e.clientX - start.x) / rect.width) * k)));
+      item[f.name + 'Y'] = Math.round(Math.min(100, Math.max(0, start.Y - ((e.clientY - start.y) / rect.height) * k)));
+      onMove();
+    });
+    const end = () => { start = null; };
+    box.addEventListener('pointerup', end);
+    box.addEventListener('pointercancel', end);
+  }
+
+  function renderListField(type, item, f, errors, help) {
+    const rows = Array.isArray(item[f.name]) ? item[f.name] : (item[f.name] = []);
+    const list = h('div', { class: 'rows' });
+    rows.forEach((row, i) => {
+      const rowEl = h('div', { class: 'row' });
+      const grid = h('div', { class: `row__fields row__fields--${f.fields.length}` });
+      for (const sub of f.fields) {
+        const id = `f-${item._key}-${f.name}-${i}-${sub.name}`;
+        const error = errors[`${f.name}.${i}.${sub.name}`];
+        grid.append(h('div', { class: `field field--sub${sub.type === 'textarea' ? ' field--wide' : ''}` },
+          labelFor(id, sub),
+          control(id, sub, row[sub.name], error, (value) => { row[sub.name] = value; changed(type, item); }),
+          error ? h('p', { class: 'field__error', text: error }) : null));
+      }
+      rowEl.append(grid, h('div', { class: 'row__actions' },
+        h('button', { class: 'link-button', type: 'button', disabled: i === 0, 'aria-label': `Move ${f.itemLabel} ${i + 1} up`, onclick: () => { rows.splice(i - 1, 0, rows.splice(i, 1)[0]); changed(type, item); render(); }, text: '↑' }),
+        h('button', { class: 'link-button', type: 'button', disabled: i === rows.length - 1, 'aria-label': `Move ${f.itemLabel} ${i + 1} down`, onclick: () => { rows.splice(i + 1, 0, rows.splice(i, 1)[0]); changed(type, item); render(); }, text: '↓' }),
+        h('button', { class: 'link-button link-button--danger', type: 'button', onclick: () => { rows.splice(i, 1); changed(type, item); render(); }, text: `Remove ${f.itemLabel}` })));
+      list.append(rowEl);
+    });
+    const add = h('button', {
+      class: 'button button--ghost button--small', type: 'button', disabled: rows.length >= f.max,
+      onclick: () => {
+        rows.push(blankItem(f.fields));
+        changed(type, item);
+        render();
+        const first = document.getElementById(`f-${item._key}-${f.name}-${rows.length - 1}-${f.fields[0].name}`);
+        if (first) first.focus();
+      },
+      text: `+ Add ${f.itemLabel}`,
+    });
+    return h('fieldset', { class: 'field field--group field--list' },
+      h('legend', { class: 'field__label', text: f.label }),
+      help,
+      rows.length ? list : h('p', { class: 'rows__empty', text: `No ${f.itemLabel}s yet.` }),
+      add);
   }
 
   function renderSection() {
@@ -459,11 +654,13 @@
       const now = validate(type, item);
       for (const name of Object.keys(state.errors[item._key])) {
         if (now[name]) continue;
-        const el = document.getElementById(`f-${item._key}-${name}`);
+        const parts = name.split('.');
+        const elId = parts.length === 3 ? `f-${item._key}-${parts[0]}-${parts[1]}-${parts[2]}` : `f-${item._key}-${name}`;
+        const el = document.getElementById(elId);
         const field = el && el.closest('.field');
         if (field) {
-          field.querySelectorAll('.field__error').forEach((e) => e.remove());
-          field.querySelectorAll('.input--invalid').forEach((e) => { e.classList.remove('input--invalid'); e.removeAttribute('aria-invalid'); });
+          field.querySelectorAll(':scope > .field__error').forEach((e) => e.remove());
+          if (el.classList.contains('input--invalid')) { el.classList.remove('input--invalid'); el.removeAttribute('aria-invalid'); }
         }
       }
       state.errors[item._key] = now;
@@ -487,7 +684,7 @@
   }
 
   function addItem(type) {
-    const item = withKey(blankItem(type));
+    const item = withKey(blankItem(schema(type).fields));
     item._new = true;
     section(type).items.unshift(item);
     state.open.add(item._key);
@@ -499,7 +696,8 @@
   function removeItem(type, index) {
     const item = section(type).items[index];
     const { primary } = summaryOf(type, item);
-    if (!window.confirm(`Remove "${primary}"? It comes off the website when you save.`)) return;
+    const extra = type === 'teams' ? ' Its team page will stop working.' : '';
+    if (!window.confirm(`Remove "${primary}"? It comes off the website when you save.${extra}`)) return;
     section(type).items.splice(index, 1);
     state.open.delete(item._key);
     delete state.errors[item._key];
@@ -538,14 +736,18 @@
     }
   }
 
-  async function pickPhoto(type, item, input) {
+  async function pickPhoto(type, item, f, input) {
     const file = input.files && input.files[0];
     if (!file) return;
     try {
       const dataUrl = await resizePhoto(file);
       const id = randomId();
       state.uploads.set(id, { dataUrl, name: item.name || file.name.replace(/\.[^.]+$/, '') });
-      item.photo = 'upload:' + id;
+      item[f.name] = 'upload:' + id;
+      if (f.crop) {
+        const c = defaultCrop(f);
+        item[f.name + 'X'] = c.X; item[f.name + 'Y'] = c.Y; item[f.name + 'Zoom'] = c.Zoom;
+      }
       changed(type, item);
       render();
     } catch {
@@ -585,12 +787,16 @@
       }
       return out;
     });
+    const pf = photoField(type);
     const uploads = [];
-    for (const item of items) {
-      if (typeof item.photo === 'string' && item.photo.startsWith('upload:')) {
-        const id = item.photo.slice(7);
-        const upload = state.uploads.get(id);
-        if (upload) uploads.push({ id, dataUrl: upload.dataUrl, name: upload.name });
+    if (pf) {
+      for (const item of items) {
+        const value = item[pf.name];
+        if (typeof value === 'string' && value.startsWith('upload:')) {
+          const id = value.slice(7);
+          const upload = state.uploads.get(id);
+          if (upload) uploads.push({ id, dataUrl: upload.dataUrl, name: upload.name });
+        }
       }
     }
 
