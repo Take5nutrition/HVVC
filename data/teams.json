@@ -9,7 +9,7 @@
     "photo": "/img/hero-16u-team.jpg",
     "cardText": "Our flagship 16U team competing at the highest level with purposeful training, strong communication, and a culture of confident competitors.",
     "overview": "HVVC 16-1 is our top-tier 16U team, competing at the highest level throughout the season. This team focuses on advanced competitive play, strategic development, and tournament excellence.",
-    "scheduleDeveloping": false,
+    "scheduleDeveloping": true,
     "coaches": [
       {
         "coach": "nicole-warren",
@@ -90,7 +90,7 @@
     "photo": "/img/team-16-2.jpg",
     "cardText": "Competitive 16U team focused on development, game IQ, and preparing athletes for high-level play.",
     "overview": "HVVC 16-2 provides a competitive 16U experience focused on player development, game strategy, and building a strong team culture. This team prepares athletes for high-level play through consistent training and tournament competition.",
-    "scheduleDeveloping": false,
+    "scheduleDeveloping": true,
     "coaches": [],
     "players": [],
     "seasonInfo": [
@@ -166,7 +166,7 @@
     "photo": "/img/team-14-1.jpg",
     "cardText": "Building strong foundations with advancing techniques, team chemistry, and competitive experience. Optional overnight travel tournaments.",
     "overview": "HVVC 14-1 is our premier 14U team, emphasizing competitive play, skill refinement, and preparing athletes for the next level of volleyball.",
-    "scheduleDeveloping": false,
+    "scheduleDeveloping": true,
     "coaches": [],
     "players": [],
     "seasonInfo": [
@@ -242,7 +242,7 @@
     "photo": "/img/team-14-2.jpg",
     "cardText": "Developing well-rounded athletes through structured practices, competitive play, and a positive team environment.",
     "overview": "HVVC 14-2 focuses on competitive development and building a strong volleyball foundation. Athletes grow through structured training, tournament play, and a supportive team environment.",
-    "scheduleDeveloping": false,
+    "scheduleDeveloping": true,
     "coaches": [],
     "players": [],
     "seasonInfo": [
@@ -318,7 +318,7 @@
     "photo": "/img/team-12-1.jpg",
     "cardText": "Clarity, energy, and a strong foundation for long-term development. Building core skills, game IQ, and competitive habits.",
     "overview": "HVVC 12-1 is our top 12U team, building strong volleyball fundamentals while developing competitive skills, court awareness, and a love for the game.",
-    "scheduleDeveloping": false,
+    "scheduleDeveloping": true,
     "coaches": [],
     "players": [],
     "seasonInfo": [
@@ -394,7 +394,7 @@
     "photo": "/img/team-12-2.jpg",
     "cardText": "A positive, teachable environment for young athletes to build fundamentals and discover their love for volleyball.",
     "overview": "HVVC 12-2 provides a competitive and supportive environment for 12U athletes, focused on developing core volleyball skills, teamwork, and a passion for the sport.",
-    "scheduleDeveloping": false,
+    "scheduleDeveloping": true,
     "coaches": [],
     "players": [],
     "seasonInfo": [
