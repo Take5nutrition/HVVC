@@ -274,8 +274,13 @@ window.HVVC = (function () {
     return Promise.all([load('tournaments'), loadOptional('teams')])
       .then(([list, teams]) => {
         const today = startOfToday();
+        // Teams whose schedule is still being developed stay off this page.
+        const developing = new Set(teams.filter((t) => t.scheduleDeveloping === true).map((t) => slug(t.slug)));
+        const published = teams.filter((t) => !developing.has(slug(t.slug)));
         const upcoming = list.map(normalizeTournament)
           .filter((t) => t && localDate(t.end || t.start) >= today)
+          .map((t) => ({ ...t, teams: t.teams.filter((s) => !developing.has(s)) }))
+          .filter((t) => t.teams.length && (!t.teams.includes('all') || published.length))
           .sort((a, b) => a.start.localeCompare(b.start));
         el.innerHTML = upcoming.length
           ? scheduleTable(upcoming, teams, { showTeams: true })
@@ -442,6 +447,22 @@ window.HVVC = (function () {
   }
 
   function teamScheduleSection(team, tournaments, teams) {
+    if (team.scheduleDeveloping === true) {
+      const message = text(team.scheduleMessage) || 'Our season schedule is being developed. Check back soon for tournament dates and locations.';
+      return `<section class="section team-schedule">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__tag">Calendar</span>
+        <h2 class="section__title">Tournament Schedule</h2>
+      </div>
+      <div class="schedule-pending">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="40" height="40" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <p class="schedule-pending__title">Season schedule coming soon</p>
+        <p class="schedule-pending__text">${escapeHtml(message)}</p>
+      </div>
+    </div>
+  </section>`;
+    }
     const id = slug(team.slug);
     const list = tournaments.map(normalizeTournament)
       .filter((t) => t && (t.teams.includes('all') || t.teams.includes(id)))

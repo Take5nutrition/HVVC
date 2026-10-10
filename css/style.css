@@ -3148,6 +3148,10 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .schedule-table__note { display: block; margin-top: 2px; font-size: .84rem; color: #64748b; }
 .schedule-table__done { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: #e2e8f0; color: #64748b; font-size: .68rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; vertical-align: middle; }
 .team-schedule__note { margin-top: 18px; text-align: center; color: #64748b; font-size: .85rem; }
+.schedule-pending { max-width: 640px; margin: 0 auto; padding: 40px 28px; text-align: center; background: #fff; border: 1px dashed #f5a3cf; border-radius: 16px; box-shadow: 0 10px 30px rgba(15,23,42,.06); color: var(--pink); }
+.schedule-pending svg { display: block; margin: 0 auto; }
+.schedule-pending__title { margin: 14px 0 6px; font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--ink); }
+.schedule-pending__text { margin: 0; color: #64748b; line-height: 1.7; }
 @media (max-width: 640px) {
   .schedule-table thead { display: none; }
   .schedule-table, .schedule-table tbody, .schedule-table tr, .schedule-table td { display: block; width: 100%; }

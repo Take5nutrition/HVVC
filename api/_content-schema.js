@@ -74,6 +74,7 @@ const SCHEMAS = {
       { name: 'photo', label: 'Team photo', type: 'photo', crop: false, frame: 'landscape', help: 'Shown on the team page and its card. Leave blank to use a text-only layout.' },
       { name: 'cardText', label: 'Teams page card text', type: 'textarea', max: 400, help: 'A sentence or two for this team\'s card on the Teams page.' },
       { name: 'overview', label: 'Team overview', type: 'textarea', max: 3000, help: 'Start each new paragraph on a new line.' },
+      { name: 'scheduleDeveloping', label: 'Season schedule is still being developed', type: 'toggle', help: 'Turn on while you build this team\'s schedule in the Tournaments tab. The team page shows a "being developed" message instead of the table, and the Schedule page leaves this team out. Turn it off to publish the schedule.' },
       { name: 'coaches', label: 'Coaches', type: 'list', itemLabel: 'coach', max: 8, help: 'Each coach links to their bio on the Staff page. Add coaches in the Coaches tab first.',
         fields: [
           { name: 'coach', label: 'Coach', type: 'select', optionsFrom: 'coaches', required: true },
@@ -102,6 +103,7 @@ const SCHEMAS = {
           { name: 'title', label: 'Title', type: 'text', required: true, max: 60 },
           { name: 'text', label: 'Text', type: 'textarea', max: 400 },
         ] },
+      { name: 'scheduleMessage', label: 'Schedule "being developed" message', type: 'text', max: 200, advanced: true, placeholder: 'Our season schedule is being developed. Check back soon for tournament dates and locations.', help: 'Shown in place of the schedule while the switch above is on. Leave blank for the standard message.' },
       { name: 'ctaText', label: 'Bottom section text', type: 'text', max: 200, advanced: true, help: 'Replaces the line under "Interested in …?" at the bottom of the team page.' },
       { name: 'hideTryoutButton', label: 'Hide the Register for Tryouts button on this team page', type: 'toggle', advanced: true },
       { name: 'expectations', label: 'Team expectations', type: 'list', itemLabel: 'expectation', max: 8, advanced: true,
