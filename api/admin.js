@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const { SCHEMAS, cleanItems, publicSchemas, slug } = require('./_content-schema');
 const {
-  isConfigured, isLoggedIn, startSession, endSession, checkPassword,
+  isConfigured, canSave, isLoggedIn, startSession, endSession, checkPassword,
   clientIp, tooManyFailures, recordFailure, isTrustedWrite,
   readFile, commitFiles, deployState,
 } = require('./_admin');
@@ -93,7 +93,7 @@ module.exports = async function handler(req, res) {
 
   try {
     if (req.method === 'GET' && action === 'session') {
-      return res.status(200).json({ configured: isConfigured(), loggedIn: isLoggedIn(req) });
+      return res.status(200).json({ configured: isConfigured(), loggedIn: isLoggedIn(req), canSave: canSave() });
     }
 
     if (req.method === 'POST' && action === 'login') {
@@ -140,6 +140,9 @@ module.exports = async function handler(req, res) {
 
     if (req.method === 'POST' && action === 'save') {
       if (!isTrustedWrite(req)) return res.status(403).json({ error: 'Forbidden' });
+      if (!canSave()) {
+        return res.status(503).json({ error: 'Saving isn\'t switched on yet, so nothing was changed on the website. Everything else here works the way it will once saving is connected.' });
+      }
       return await handleSave(parseBody(req), res);
     }
 

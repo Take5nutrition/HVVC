@@ -25,6 +25,7 @@
     publishedPhotos: new Map(),
     notice: null,
     saving: false,
+    canSave: true,
     pollToken: 0,
   };
   let keyCounter = 0;
@@ -432,7 +433,10 @@
   function render() {
     if (!state.schemas) return;
     const focused = document.activeElement && document.activeElement.id;
-    app.replaceChildren(renderTabs(), renderNotice() || '', renderSection());
+    const preview = state.canSave ? '' : h('div', { class: 'notice notice--working', role: 'status' },
+      h('span', { class: 'notice__dot', 'aria-hidden': 'true' }),
+      h('div', {}, h('strong', { text: 'Preview mode. ' }), 'You\'re seeing the real website content and can try every form, but saving is turned off until setup is finished.'));
+    app.replaceChildren(renderTabs(), preview, renderNotice() || '', renderSection());
     if (focused) {
       const again = document.getElementById(focused);
       if (again) again.focus({ preventScroll: true });
@@ -668,6 +672,8 @@
   }
 
   async function startDashboard() {
+    const session = await api('session');
+    state.canSave = session.canSave !== false;
     const data = await api('schemas');
     state.schemas = data.schemas;
     topbarActions.hidden = false;

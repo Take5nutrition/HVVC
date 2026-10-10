@@ -5,6 +5,7 @@ const BRANCH = process.env.DASHBOARD_BRANCH || 'main';
 const GITHUB_API = 'https://api.github.com';
 const COOKIE = 'hvvc_dashboard';
 const SESSION_DAYS = 14;
+const LIVE_SITE = 'https://www.hvvcvolleyballclub.com';
 
 const ALLOWED_HOSTS = [
   'dashboard.hvvcvolleyballclub.com',
@@ -22,9 +23,15 @@ function config() {
   };
 }
 
+// Login works once the password and session secret exist. Without the GitHub
+// token the dashboard runs in preview: it reads the live site and can't save.
 function isConfigured() {
   const c = config();
-  return Boolean(c.password && c.secret && c.token);
+  return Boolean(c.password && c.secret);
+}
+
+function canSave() {
+  return Boolean(config().token);
 }
 
 function sha256(value) {
@@ -131,6 +138,10 @@ async function github(path, options = {}) {
 }
 
 async function readFile(path) {
+  if (!canSave()) {
+    const res = await fetch(`${LIVE_SITE}/${path}`, { headers: { 'Cache-Control': 'no-cache' } });
+    return { sha: null, text: res.ok ? await res.text() : '' };
+  }
   try {
     const file = await github(`/repos/${REPO}/contents/${path}?ref=${BRANCH}`);
     return { sha: file.sha, text: Buffer.from(file.content, 'base64').toString('utf8') };
@@ -180,6 +191,7 @@ async function deployState(commitSha) {
 
 module.exports = {
   isConfigured,
+  canSave,
   isLoggedIn,
   startSession,
   endSession,
