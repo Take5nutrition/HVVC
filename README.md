@@ -35,18 +35,35 @@ my-website/
 
 ## Content dashboard
 
-Coaches, tournaments, practice times, and events are edited in
-[Pages CMS](https://app.pagescms.org), configured by `.pages.yml`. Each section
-edits one file in `data/`, and `js/content.js` renders it on the site:
+The club edits coaches, tournaments, practice times, and events at
+**dashboard.hvvcvolleyballclub.com** (also reachable at `/admin/` on the main
+domain). Each section edits one file in `data/`, and `js/content.js` renders it
+on the site:
 
-| Dashboard section   | File                    | Shown on                         |
-| ------------------- | ----------------------- | -------------------------------- |
-| Coaches             | `data/coaches.json`     | Staff page                       |
-| Tournament schedule | `data/tournaments.json` | Schedule page and each team page |
-| Practice schedule   | `data/practices.json`   | Schedule page                    |
-| Events              | `data/events.json`      | Events page and homepage banner  |
+| Dashboard tab | File                    | Shown on                         |
+| ------------- | ----------------------- | -------------------------------- |
+| Coaches       | `data/coaches.json`     | Staff page                       |
+| Tournaments   | `data/tournaments.json` | Schedule page and each team page |
+| Practices     | `data/practices.json`   | Schedule page                    |
+| Events        | `data/events.json`      | Events page and homepage banner  |
 
-Saving in the dashboard commits to `main`, so Vercel publishes the change. Pull
-before editing locally, since the dashboard may have committed since your last
-pull. Team page tournament sections stay hidden until a tournament is added for
-that team (or for all teams).
+How it fits together:
+
+- `admin/` is the dashboard page. `api/admin.js` handles login and saving, and
+  `api/_content-schema.js` defines every form field and validation rule, so
+  that is the one place to add or change a field.
+- Saving commits the updated JSON (and any new photos, under `img/uploads/`) to
+  `main` through the GitHub API. Vercel then deploys, and the dashboard reports
+  when the change is live.
+- Pull before editing locally, since the dashboard may have committed since your
+  last pull.
+
+Vercel environment variables (Production):
+
+| Variable                   | What it is                                                                |
+| -------------------------- | ------------------------------------------------------------------------- |
+| `DASHBOARD_PASSWORD`       | The dashboard login password. Changing it signs everyone out.             |
+| `DASHBOARD_SESSION_SECRET` | Random string used to sign login sessions.                                |
+| `GITHUB_TOKEN`             | Fine-grained token for this repo: Contents read/write, Commit statuses read. |
+
+Redeploy after changing any of them.

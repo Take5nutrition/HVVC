@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>HVVC Dashboard</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/admin/admin.css?v=1" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__brand">
+      <img src="/img/logo.png" alt="" class="topbar__logo" />
+      <span class="topbar__title">HVVC Dashboard</span>
+    </div>
+    <div class="topbar__actions" id="topbarActions" hidden>
+      <a href="https://www.hvvcvolleyballclub.com/" target="_blank" rel="noopener" class="link-button topbar__site">View website</a>
+      <button type="button" class="link-button" id="logoutButton">Log out</button>
+    </div>
+  </header>
+
+  <main id="app" class="app" aria-live="polite">
+    <p class="loading">Loading…</p>
+  </main>
+
+  <div class="savebar" id="saveBar" hidden>
+    <div class="savebar__inner">
+      <span class="savebar__text" id="saveBarText">You have unsaved changes</span>
+      <div class="savebar__buttons">
+        <button type="button" class="button button--ghost" id="discardButton">Discard</button>
+        <button type="button" class="button button--primary" id="saveButton">Save &amp; publish</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/admin/admin.js?v=1"></script>
+</body>
+</html>
