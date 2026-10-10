@@ -27,6 +27,8 @@
     saving: false,
     canSave: true,
     pollToken: 0,
+    groupFilter: {},
+    copying: null,
   };
   let keyCounter = 0;
 
@@ -291,11 +293,7 @@
       const end = type === 'events' ? item.endISO : item.end;
       secondary = formatDate(secondary) + (end ? ' – ' + formatDate(end) : '');
     }
-    if (type === 'tournaments' && (item.teams || []).length) {
-      const opts = fieldOptions(fieldOf('teams')) || [];
-      const labels = item.teams.map((t) => (opts.find((o) => o.value === t) || {}).label || t);
-      secondary = [secondary, labels.join(', ')].filter(Boolean).join(' · ');
-    }
+    if (type === 'tournaments' && item.location) secondary = [secondary, item.location].filter(Boolean).join(' · ');
     if (type === 'teams' && item.slug) secondary = [item.group, `/hvvc-${slug(item.slug)}/`].filter(Boolean).join(' · ');
     return { primary, secondary: String(secondary || '').trim() };
   }
@@ -379,12 +377,77 @@
     }
     if (type === 'teams' && !item._new && item.slug) {
       actions.append(h('a', { class: 'button button--ghost button--small', href: `/hvvc-${slug(item.slug)}/`, target: '_blank', rel: 'noopener', text: 'View team page ↗' }));
+      actions.append(h('button', { class: 'button button--ghost button--small', type: 'button', text: 'Edit schedule', onclick: () => { state.groupFilter.tournaments = slug(item.slug); switchTab('tournaments'); } }));
+    }
+    if (s.groupBy) {
+      actions.append(h('button', { class: 'button button--ghost button--small', type: 'button', text: 'Copy to other teams…', onclick: () => { state.copying = state.copying === item._key ? null : item._key; render(); } }));
     }
     actions.append(h('span', { class: 'spacer' }),
       h('button', { class: 'button button--danger button--small', type: 'button', onclick: () => removeItem(type, index), text: `Remove ${s.itemLabel}` }));
     body.append(actions);
+    if (s.groupBy && state.copying === item._key) body.append(copyChooser(type, [item], `Copy "${primary}" to:`));
     card.append(body);
     return card;
+  }
+
+  // ---------- per-team schedules ----------
+  function groupOptions(type) {
+    const s = schema(type);
+    const opts = dynamicOptions('teams');
+    if (opts === null) return null;
+    const known = new Set(opts.map((o) => o.value));
+    const orphan = section(type).items.some((i) => !known.has(i[s.groupBy]));
+    return orphan ? [...opts, { value: '__other', label: 'No team (removed teams)' }] : opts;
+  }
+
+  function inGroup(type, item, value) {
+    const key = schema(type).groupBy;
+    if (value !== '__other') return item[key] === value;
+    const known = new Set((dynamicOptions('teams') || []).map((o) => o.value));
+    return !known.has(item[key]);
+  }
+
+  function currentGroup(type, opts) {
+    let value = state.groupFilter[type];
+    if (!opts.some((o) => o.value === value)) {
+      try { value = sessionStorage.getItem('hvvc-dashboard-group-' + type); } catch { value = null; }
+    }
+    if (!opts.some((o) => o.value === value)) value = opts.length ? opts[0].value : '';
+    state.groupFilter[type] = value;
+    return value;
+  }
+
+  function copyChooser(type, sourceItems, title) {
+    const s = schema(type);
+    const from = state.groupFilter[type];
+    const targets = (dynamicOptions('teams') || []).filter((o) => o.value !== from);
+    const picked = new Set();
+    const message = h('p', { class: 'field__error', hidden: true });
+    return h('div', { class: 'copy-chooser' },
+      h('p', { class: 'copy-chooser__title', text: title }),
+      h('div', { class: 'checks' }, targets.map((o) => h('label', { class: 'check' },
+        h('input', { type: 'checkbox', value: o.value, onchange: (e) => { e.target.checked ? picked.add(o.value) : picked.delete(o.value); } }),
+        o.label))),
+      message,
+      h('div', { class: 'copy-chooser__actions' },
+        h('button', { class: 'button button--primary button--small', type: 'button', text: 'Copy', onclick: () => {
+          if (!picked.size) { message.textContent = 'Pick at least one team.'; message.hidden = false; return; }
+          const items = section(type).items;
+          let count = 0;
+          for (const target of picked) {
+            for (const src of stripKeys(sourceItems)) {
+              const copy = withKey({ ...JSON.parse(JSON.stringify(src)), [s.groupBy]: target });
+              copy._new = true;
+              items.push(copy);
+              count++;
+            }
+          }
+          const names = targets.filter((o) => picked.has(o.value)).map((o) => o.label).join(', ');
+          state.copying = null;
+          setNotice('working', [`Copied ${count} ${count === 1 ? s.itemLabel : s.itemLabel + 's'} to ${names}. Click Save & publish to make it live.`]);
+          render();
+        } }),
+        h('button', { class: 'button button--ghost button--small', type: 'button', text: 'Cancel', onclick: () => { state.copying = null; render(); } })));
   }
 
   function appendFields(container, type, item, fields, errors) {
@@ -616,6 +679,37 @@
       return wrap;
     }
 
+    if (s.groupBy) {
+      const opts = groupOptions(type);
+      if (opts === null) { wrap.append(h('p', { class: 'loading', text: 'Loading teams…' })); return wrap; }
+      if (!opts.length) { wrap.append(h('p', { class: 'empty', text: 'Add a team in the Teams tab first.' })); return wrap; }
+      const current = currentGroup(type, opts);
+      const label = (opts.find((o) => o.value === current) || {}).label || current;
+      wrap.append(h('div', { class: 'group-picker', role: 'tablist', 'aria-label': 'Team' }, opts.map((o) => {
+        const count = data.items.filter((i) => inGroup(type, i, o.value)).length;
+        return h('button', {
+          class: 'group-picker__item', type: 'button', role: 'tab', 'aria-selected': String(o.value === current),
+          onclick: () => {
+            state.groupFilter[type] = o.value; state.open.clear(); state.copying = null;
+            try { sessionStorage.setItem('hvvc-dashboard-group-' + type, o.value); } catch { /* storage unavailable */ }
+            render();
+          },
+        }, o.label, h('span', { class: 'group-picker__count', text: String(count) }));
+      })));
+      const shown = data.items.map((item, index) => ({ item, index })).filter(({ item }) => inGroup(type, item, current));
+      const toolbar = h('div', { class: 'group-toolbar' },
+        current === '__other' ? null : h('button', { class: 'button button--add', type: 'button', onclick: () => addItem(type), disabled: data.items.length >= s.maxItems }, `+ Add ${s.itemLabel} for ${label}`),
+        shown.length && current !== '__other' ? h('button', { class: 'button button--ghost button--small', type: 'button', text: `Copy ${label}'s whole schedule to…`, onclick: () => { state.copying = state.copying === '__all' ? null : '__all'; render(); } }) : null);
+      wrap.append(toolbar);
+      if (state.copying === '__all') wrap.append(copyChooser(type, shown.map((x) => x.item), `Copy all ${shown.length} of ${label}'s ${s.itemLabel}s to:`));
+      if (!shown.length) {
+        wrap.append(h('p', { class: 'empty', text: `No ${s.itemLabel}s for ${label} yet. Add one above, or copy another team's schedule from its view.` }));
+      } else {
+        wrap.append(h('ul', { class: 'items' }, shown.map(({ item, index }) => renderCard(type, item, index, data.items))));
+      }
+      return wrap;
+    }
+
     wrap.append(h('button', { class: 'button button--add', type: 'button', onclick: () => addItem(type), disabled: data.items.length >= s.maxItems }, `+ Add ${s.itemLabel}`));
     if (!data.items.length) {
       wrap.append(h('p', { class: 'empty', text: `No ${s.itemLabel}s yet. Use the button above to add one.` }));
@@ -686,6 +780,8 @@
   function addItem(type) {
     const item = withKey(blankItem(schema(type).fields));
     item._new = true;
+    const groupKey = schema(type).groupBy;
+    if (groupKey && state.groupFilter[type] && state.groupFilter[type] !== '__other') item[groupKey] = state.groupFilter[type];
     section(type).items.unshift(item);
     state.open.add(item._key);
     render();

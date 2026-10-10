@@ -229,3 +229,18 @@ img { max-width: 100%; }
   .savebar__buttons { width: 100%; }
   .savebar__buttons .button { flex: 1; }
 }
+
+/* ---- Per-team schedules ---- */
+.group-picker { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 16px; }
+.group-picker__item {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 14px;
+  border: 1px solid #cbd5e1; border-radius: 999px; background: #fff; cursor: pointer; font-weight: 700; font-size: .9rem; color: var(--text);
+}
+.group-picker__item[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.group-picker__count { min-width: 22px; padding: 1px 7px; border-radius: 999px; background: var(--page); color: var(--muted); font-size: .75rem; text-align: center; }
+.group-picker__item[aria-selected="true"] .group-picker__count { background: rgba(255,255,255,.18); color: #fff; }
+.group-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; }
+.group-toolbar .button--add { width: auto; flex: 1 1 260px; margin-bottom: 0; }
+.copy-chooser { margin: 12px 0; padding: 16px; border: 1px solid #f5a3cf; border-radius: 12px; background: var(--pink-pale); }
+.copy-chooser__title { margin: 0 0 10px; font-weight: 700; color: var(--ink); }
+.copy-chooser__actions { display: flex; gap: 8px; margin-top: 12px; }

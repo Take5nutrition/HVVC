@@ -120,15 +120,16 @@ const SCHEMAS = {
     path: 'data/tournaments.json',
     page: '/schedule/',
     pageLabel: 'Schedule page',
-    intro: 'Tournaments show in each selected team\'s schedule and on the Schedule page. Past ones stay on team schedules, grayed out, until you remove them.',
+    intro: 'Each team has its own schedule. Pick a team to see and edit its tournaments; changes only affect that team. Past tournaments stay on the team\'s page, grayed out, until you remove them.',
     sortBy: 'start',
-    maxItems: 300,
+    groupBy: 'team',
+    maxItems: 600,
     summary: ['name', 'start'],
     fields: [
       { name: 'name', label: 'Tournament name', type: 'text', required: true, max: 120 },
       { name: 'start', label: 'Start date', type: 'date', required: true },
       { name: 'end', label: 'End date', type: 'date', help: 'Leave blank for a one-day tournament.' },
-      { name: 'teams', label: 'Teams playing', type: 'checkboxes', required: true, optionsFrom: 'teams', options: [{ value: 'all', label: 'All teams' }] },
+      { name: 'team', label: 'Team', type: 'select', required: true, optionsFrom: 'teams', help: 'Change this to move the tournament to another team\'s schedule.' },
       { name: 'location', label: 'Location', type: 'text', max: 160, placeholder: 'TBD, assigned by CEVA' },
       {
         name: 'type', label: 'Type', type: 'select', default: 'tournament',
@@ -329,7 +330,7 @@ function publicSchemas() {
   for (const [key, s] of Object.entries(SCHEMAS)) {
     out[key] = {
       label: s.label, itemLabel: s.itemLabel, page: s.page, pageLabel: s.pageLabel, intro: s.intro,
-      ordered: !!s.ordered, sortBy: s.sortBy || null, maxItems: s.maxItems, summary: s.summary, fields: s.fields,
+      ordered: !!s.ordered, sortBy: s.sortBy || null, groupBy: s.groupBy || null, maxItems: s.maxItems, summary: s.summary, fields: s.fields,
     };
   }
   return out;

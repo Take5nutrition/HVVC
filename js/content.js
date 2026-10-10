@@ -220,7 +220,7 @@ window.HVVC = (function () {
     const start = isoDate(raw.start);
     if (!name || !start) return null;
     const end = isoDate(raw.end);
-    const teams = (Array.isArray(raw.teams) ? raw.teams : [raw.teams]).map(text).filter(Boolean);
+    const teams = (raw.team ? [raw.team] : Array.isArray(raw.teams) ? raw.teams : [raw.teams]).map(text).filter(Boolean);
     return {
       name, start, end: end && end > start ? end : '', teams,
       location: text(raw.location), notes: text(raw.notes), link: safeUrl(raw.link),
@@ -243,9 +243,23 @@ window.HVVC = (function () {
   }
 
   function teamsLabel(teamSlugs, teams) {
-    if (!teamSlugs.length || teamSlugs.includes('all')) return 'All Teams';
+    const listed = teams.filter((t) => t.scheduleDeveloping !== true).map((t) => slug(t.slug));
+    if (!teamSlugs.length || teamSlugs.includes('all') || (listed.length > 1 && listed.every((s) => teamSlugs.includes(s)))) return 'All Teams';
+    const order = teams.map((t) => slug(t.slug));
     const byslug = Object.fromEntries(teams.map((t) => [slug(t.slug), shortTeamName(t)]));
-    return teamSlugs.map((s) => byslug[s] || s).join(', ');
+    return [...teamSlugs].sort((a, b) => order.indexOf(a) - order.indexOf(b)).map((s) => byslug[s] || s).join(', ');
+  }
+
+  // Same tournament entered for several teams shows as one row on the Schedule page.
+  function mergeSameTournaments(list) {
+    const merged = new Map();
+    for (const t of list) {
+      const key = [t.name, t.start, t.end, t.location, t.notes, t.link, t.type].join('|');
+      const found = merged.get(key);
+      if (found) found.teams = [...new Set([...found.teams, ...t.teams])];
+      else merged.set(key, { ...t, teams: [...t.teams] });
+    }
+    return [...merged.values()];
   }
 
   function scheduleTable(list, teams, { showTeams }) {
@@ -277,11 +291,11 @@ window.HVVC = (function () {
         // Teams whose schedule is still being developed stay off this page.
         const developing = new Set(teams.filter((t) => t.scheduleDeveloping === true).map((t) => slug(t.slug)));
         const published = teams.filter((t) => !developing.has(slug(t.slug)));
-        const upcoming = list.map(normalizeTournament)
+        let upcoming = list.map(normalizeTournament)
           .filter((t) => t && localDate(t.end || t.start) >= today)
           .map((t) => ({ ...t, teams: t.teams.filter((s) => !developing.has(s)) }))
-          .filter((t) => t.teams.length && (!t.teams.includes('all') || published.length))
-          .sort((a, b) => a.start.localeCompare(b.start));
+          .filter((t) => t.teams.length && (!t.teams.includes('all') || published.length));
+        upcoming = mergeSameTournaments(upcoming).sort((a, b) => a.start.localeCompare(b.start));
         el.innerHTML = upcoming.length
           ? scheduleTable(upcoming, teams, { showTeams: true })
           : `<p class="dk-content-note">Our tournament schedule is coming soon. Check back here or follow us on ${INSTAGRAM} for updates.</p>`;
