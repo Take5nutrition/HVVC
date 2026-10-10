@@ -600,6 +600,14 @@ window.HVVC = (function () {
   }
 
   // ---------- start ----------
+  // Marks every page of the preview copy so it isn't mistaken for the live site.
+  if (!/^(www\.)?hvvcvolleyballclub\.com$/.test(location.hostname)) {
+    const ribbon = document.createElement('div');
+    ribbon.className = 'preview-ribbon';
+    ribbon.innerHTML = '<strong>Preview site</strong> · these updates aren\'t live yet · <a href="https://www.hvvcvolleyballclub.com/">Live site</a>';
+    document.body.appendChild(ribbon);
+  }
+
   const renders = [];
   document.querySelectorAll('[data-leaders]').forEach((el) => renders.push(renderLeaders(el)));
   document.querySelectorAll('[data-coach-list]').forEach((el) => renders.push(renderCoaches(el)));

@@ -31,6 +31,11 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // The preview copy of the site must not send real messages to the club.
+  if (process.env.VERCEL_ENV === 'preview') {
+    return res.status(503).json({ error: 'preview', message: 'The contact form is turned off on this preview site. Use hvvcvolleyballclub.com to send a message.' });
+  }
+
   let body = req.body;
 
   if (typeof body === 'string') {

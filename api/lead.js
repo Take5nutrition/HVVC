@@ -3,6 +3,11 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // The preview copy of the site must not email the club.
+  if (process.env.VERCEL_ENV === 'preview') {
+    return res.status(200).json({ success: true, preview: true });
+  }
+
   let body = req.body;
   if (typeof body === 'string') {
     try { body = JSON.parse(body); } catch { body = {}; }
