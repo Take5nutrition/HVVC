@@ -3888,3 +3888,4 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-contact-faq { margin-top: 14px; font-size: .92rem; color: rgba(255,255,255,.6); }
 .dk-contact-faq a { color: var(--pink-light); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 .faq-more { text-align: center; margin-top: 28px; }
+.form-submit-error { margin: 0 0 14px; padding: 12px 14px; border: 1px solid rgba(253,164,175,.45); border-radius: var(--radius-md); background: rgba(239,68,68,.12); color: #fecdd3; font-size: .9rem; font-weight: 600; line-height: 1.5; }

@@ -45,7 +45,9 @@ function formatDob(iso) {
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 
+// Logs which check failed (never the family's details) so problems show in Vercel logs.
 function badRequest(res, error, message) {
+  console.log('Contact form: invalid', { reason: error });
   return res.status(400).json({ error, message });
 }
 

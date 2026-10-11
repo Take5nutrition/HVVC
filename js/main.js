@@ -627,6 +627,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const programBoxes = form.querySelectorAll('input[name="programInterest"]');
     const programError = document.getElementById('programError');
     const setProgramError = (show) => { if (programError) programError.hidden = !show; };
+    const formError = document.getElementById('formError');
+    const setFormError = (msg) => {
+      if (!formError) return;
+      formError.textContent = msg || '';
+      formError.hidden = !msg;
+    };
+
+    // A player is 3 to 21 years old; the browser blocks other dates before sending.
+    const dobEl = document.getElementById('playerDob');
+    if (dobEl) {
+      const isoYearsAgo = (years) => {
+        const d = new Date();
+        d.setFullYear(d.getFullYear() - years);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      };
+      dobEl.min = isoYearsAgo(21);
+      dobEl.max = isoYearsAgo(3);
+      dobEl.addEventListener('invalid', () => {
+        if (dobEl.validity.valueMissing) return;
+        dobEl.setCustomValidity("Please check the player's date of birth (the player should be 3 to 21 years old).");
+      });
+      dobEl.addEventListener('input', () => dobEl.setCustomValidity(''));
+    }
+
+    form.addEventListener('input', () => setFormError(''));
+
+    // Where to send the cursor when the server flags a field.
+    const ERROR_FIELDS = {
+      missing: 'name', email: 'email', 'player-name': 'playerName', 'player-age': 'playerAge',
+      'player-dob': 'playerDob', 'player-experience': 'playerExperience',
+    };
     const syncPlayerFields = () => {
       if (!playerFields) return;
       const show = !(notPlayerEl && notPlayerEl.checked);
@@ -650,6 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       setVerifyError('');
+      setFormError('');
 
       if (playerFields && !playerFields.hidden && ![...programBoxes].some(box => box.checked)) {
         setProgramError(true);
@@ -696,7 +728,10 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (response.status === 429) {
             window.showToast(data.message || 'Too many messages. Please try again later.');
           } else if (data.message) {
+            setFormError(data.message);
             window.showToast(data.message);
+            const field = data.error === 'program-interest' ? programBoxes[0] : document.getElementById(ERROR_FIELDS[data.error] || '');
+            if (field) field.focus();
           } else {
             window.showToast('Something went wrong. Please try again.');
           }
@@ -704,6 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).catch(() => {
         btn.textContent = 'Error - Try Again';
         btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+        setFormError('Your message could not be sent. Check your internet connection and try again.');
         window.showToast('Network error. Please try again.');
       }).finally(() => {
         setTimeout(() => {
