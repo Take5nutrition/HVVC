@@ -162,6 +162,44 @@ const SCHEMAS = {
     ],
   },
 
+  faq: {
+    label: 'FAQ',
+    itemLabel: 'FAQ page',
+    path: 'data/faq.json',
+    page: '/faq/',
+    pageLabel: 'FAQ page',
+    intro: 'The Frequently Asked Questions page. The contact form auto-reply links here.',
+    single: true,
+    maxItems: 1,
+    summary: ['title'],
+    fields: [
+      { name: 'title', label: 'Page title', type: 'text', required: true, max: 120 },
+      { name: 'intro', label: 'Introduction', type: 'textarea', format: true, max: 3000, help: 'Formatting: **bold**, [link text](https://…) or [link text](/page/), start a line with • for a bullet, and leave a blank line between paragraphs.' },
+      { name: 'questions', label: 'Questions', type: 'list', itemLabel: 'question', max: 60, help: 'Shown in this order. Use the arrows to reorder. Formatting: **bold**, [link text](https://…) or [link text](/page/), start a line with • for a bullet, and leave a blank line between paragraphs. For a table, put each row on its own line with | between columns.',
+        fields: [
+          { name: 'question', label: 'Question', type: 'text', required: true, max: 200 },
+          { name: 'answer', label: 'Answer', type: 'textarea', format: true, required: true, max: 6000 },
+        ] },
+    ],
+  },
+
+  autoreply: {
+    label: 'Auto-reply',
+    itemLabel: 'auto-reply',
+    path: 'data/autoreply.json',
+    page: '/contact/',
+    pageLabel: 'Contact page',
+    intro: 'The email families get right after they send the contact form. Replies to it go to HVVC@hvvcvolleyballclub.com.',
+    single: true,
+    maxItems: 1,
+    summary: ['subject'],
+    fields: [
+      { name: 'subject', label: 'Email subject', type: 'text', required: true, max: 150 },
+      { name: 'message', label: 'Message', type: 'textarea', format: true, required: true, max: 6000, help: 'Formatting: **bold**, [link text](https://…) or [link text](/page/), start a line with • for a bullet, and leave a blank line between paragraphs.' },
+      { name: 'showCopy', label: 'Include a copy of what they sent at the bottom', type: 'toggle', default: true },
+    ],
+  },
+
   events: {
     label: 'Events',
     itemLabel: 'event',
@@ -277,10 +315,11 @@ function cleanItems(type, items, options = {}) {
   if (!schema) return { error: 'Unknown section.' };
   if (!Array.isArray(items)) return { error: 'Nothing to save.' };
   if (items.length > schema.maxItems) return { error: `That's more than ${schema.maxItems} ${schema.itemLabel}s.` };
+  if (schema.single && items.length !== 1) return { error: 'Nothing to save.' };
 
   const cleaned = [];
   for (let i = 0; i < items.length; i++) {
-    const result = cleanFields(schema.fields, items[i], `${schema.itemLabel} #${i + 1}`, options);
+    const result = cleanFields(schema.fields, items[i], schema.single ? `the ${schema.itemLabel}` : `${schema.itemLabel} #${i + 1}`, options);
     if (result.error) return result;
     const out = result.item;
     const which = `${schema.itemLabel} #${i + 1}`;
@@ -330,7 +369,7 @@ function publicSchemas() {
   for (const [key, s] of Object.entries(SCHEMAS)) {
     out[key] = {
       label: s.label, itemLabel: s.itemLabel, page: s.page, pageLabel: s.pageLabel, intro: s.intro,
-      ordered: !!s.ordered, sortBy: s.sortBy || null, groupBy: s.groupBy || null, maxItems: s.maxItems, summary: s.summary, fields: s.fields,
+      ordered: !!s.ordered, sortBy: s.sortBy || null, groupBy: s.groupBy || null, single: !!s.single, maxItems: s.maxItems, summary: s.summary, fields: s.fields,
     };
   }
   return out;

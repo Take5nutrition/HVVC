@@ -620,23 +620,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Player questions only apply to player-related subjects. The subjects that
-    // trigger them live in the markup's data-show-for so HTML and JS stay in sync.
-    const subjectEl = document.getElementById('subject');
+    // Player questions are required unless the sender says the message isn't
+    // about a player; then they're hidden and cleared.
+    const notPlayerEl = document.getElementById('notAboutPlayer');
     const playerFields = document.getElementById('playerFields');
+    const programBoxes = form.querySelectorAll('input[name="programInterest"]');
+    const programError = document.getElementById('programError');
+    const setProgramError = (show) => { if (programError) programError.hidden = !show; };
     const syncPlayerFields = () => {
-      if (!subjectEl || !playerFields) return;
-      const showFor = (playerFields.dataset.showFor || '').split('|');
-      const show = showFor.indexOf(subjectEl.value) !== -1;
+      if (!playerFields) return;
+      const show = !(notPlayerEl && notPlayerEl.checked);
       playerFields.hidden = !show;
       // A hidden required field makes the browser block submit with no visible
       // reason, so required only ever applies while the fields are on screen.
-      playerFields.querySelectorAll('input, select').forEach(el => {
+      playerFields.querySelectorAll('input:not([type="checkbox"]), select').forEach(el => {
         el.required = show;
         if (!show) el.value = '';
       });
+      if (!show) programBoxes.forEach(box => { box.checked = false; });
+      setProgramError(false);
     };
-    if (subjectEl) subjectEl.addEventListener('change', syncPlayerFields);
+    if (notPlayerEl) notPlayerEl.addEventListener('change', syncPlayerFields);
+    programBoxes.forEach(box => box.addEventListener('change', () => setProgramError(false)));
     syncPlayerFields();
 
     loadChallenge();
@@ -646,6 +651,12 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       setVerifyError('');
 
+      if (playerFields && !playerFields.hidden && ![...programBoxes].some(box => box.checked)) {
+        setProgramError(true);
+        programBoxes[0].focus();
+        return;
+      }
+
       const btn = submitBtn;
       const originalText = btn.textContent;
       btn.textContent = 'Sending...';
@@ -653,11 +664,13 @@ document.addEventListener('DOMContentLoaded', () => {
       syncSubmit();
 
       const formData = new FormData(form);
+      const payload = Object.fromEntries(formData);
+      payload.programInterest = formData.getAll('programInterest');
       let refreshed = false;
 
       fetch(form.action, {
         method: 'POST',
-        body: JSON.stringify(Object.fromEntries(formData)),
+        body: JSON.stringify(payload),
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
       }).then(response => {
         if (response.ok) {

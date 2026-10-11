@@ -74,6 +74,7 @@
         <div class="dk-contact-info">
           <h2>Let's <span class="gradient-text">Connect</span></h2>
           <p>Our staff is here to help athletes and families every step of the way. Whether you're asking about tryouts, tournament schedules, or scholarship opportunities - don't hesitate to reach out.</p>
+          <p class="dk-contact-faq">Looking for tryout dates, costs, or what to bring? <a href="/faq/">Check our FAQ</a> for quick answers.</p>
 
           <div class="dk-contact-item">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -124,58 +125,60 @@
           <form id="contactForm" action="/api/contact" method="POST">
             <div class="form-group">
               <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" placeholder="Your name" required />
+              <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required />
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="you@email.com" required />
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" required />
             </div>
             <div class="form-group">
-              <label for="phone">Phone (optional)</label>
-              <input type="tel" id="phone" name="phone" placeholder="(503) 555-1234" />
+              <label for="phone">Phone Number (optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="(503) 555-1234" autocomplete="tel" />
             </div>
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <select id="subject" name="subject">
-                <option value="">Select a topic...</option>
-                <option>Tryout Information</option>
-                <option>Club Teams</option>
-                <option>HVVC Academy</option>
-                <option>Open Gyms</option>
-                <option>Scholarships</option>
-                <option>Payments &amp; Billing</option>
-                <option>Media &amp; Photos</option>
-                <option>General Question</option>
-              </select>
-            </div>
-            <!-- Shown and required only for player-related subjects (see js/main.js) -->
-            <div class="player-fields" id="playerFields" hidden
-                 data-show-for="Tryout Information|Club Teams|HVVC Academy|Open Gyms|Scholarships">
-              <p class="player-fields__hint">A couple of quick details so we can point you to the right program.</p>
+            <label class="check-option check-option--quiet" for="notAboutPlayer">
+              <input type="checkbox" id="notAboutPlayer" name="notAboutPlayer" value="1" />
+              <span>My message isn't about a player (coaching, sponsorship, or something else)</span>
+            </label>
+            <!-- Required unless "not about a player" is checked (see js/main.js) -->
+            <fieldset class="player-fields" id="playerFields">
+              <legend class="player-fields__legend">Player Information</legend>
+              <p class="player-fields__hint">These help us point you to the right program and get back to you faster.</p>
+              <div class="form-group">
+                <label for="playerName">Player Name</label>
+                <input type="text" id="playerName" name="playerName" placeholder="Player's full name" autocomplete="off" required />
+              </div>
               <div class="player-fields__grid">
                 <div class="form-group">
                   <label for="playerAge">Player Age</label>
-                  <input type="number" id="playerAge" name="playerAge" min="5" max="19" step="1"
-                         inputmode="numeric" placeholder="e.g. 13" />
+                  <input type="number" id="playerAge" name="playerAge" min="5" max="19" step="1" inputmode="numeric" placeholder="e.g. 13" required />
                 </div>
                 <div class="form-group">
-                  <label for="playerExperience">Volleyball Experience</label>
-                  <select id="playerExperience" name="playerExperience">
-                    <option value="">Select experience...</option>
-                    <option>New to volleyball</option>
-                    <option>Rec or school ball only</option>
-                    <option>1 season of club</option>
-                    <option>2+ seasons of club</option>
-                  </select>
+                  <label for="playerDob">Player Date of Birth</label>
+                  <input type="date" id="playerDob" name="playerDob" aria-describedby="playerDobHelp" required />
                 </div>
               </div>
-            </div>
-
+              <p class="player-fields__note" id="playerDobHelp">Date of birth helps us determine the right team division.</p>
+              <div class="form-group">
+                <label for="playerExperience">Player Experience</label>
+                <select id="playerExperience" name="playerExperience" required>
+                  <option value="">Select experience...</option>
+                  <option>New to volleyball</option>
+                  <option>Rec Experience</option>
+                  <option>Club Experience</option>
+                </select>
+              </div>
+              <fieldset class="form-group program-interest" id="programInterest" aria-describedby="programError">
+                <legend>Program Interest <span>(check all that apply)</span></legend>
+                <label class="check-option"><input type="checkbox" name="programInterest" value="Academy / Recreation" /> <span>Academy / Recreation</span></label>
+                <label class="check-option"><input type="checkbox" name="programInterest" value="Pre-Club Season Open Gyms" /> <span>Pre-Club Season Open Gyms</span></label>
+                <label class="check-option"><input type="checkbox" name="programInterest" value="Club Team Player" /> <span>Club Team Player</span></label>
+                <p class="form-field-error" id="programError" role="alert" hidden>Please check at least one program.</p>
+              </fieldset>
+            </fieldset>
             <div class="form-group">
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
             </div>
-
             <!-- Honeypot: hidden from people, irresistible to bots. Leave it empty. -->
             <div class="hp-field" aria-hidden="true">
               <label for="hp_ref_code">Leave this field empty</label>
@@ -237,7 +240,7 @@
           <div class="footer__col"><h4>Pages</h4><a href="/">Home</a><a href="/about-us/">About Us</a><a href="/programs/">Programs</a><div class="nav-dropdown"><button class="nav-dropdown__trigger">Teams <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l4 4 4-4"/></svg></button><div class="nav-dropdown__menu"><span class="nav-dropdown__section">16U</span><a href="hvvc-16-1/">HVVC 16-1</a><a href="hvvc-16-2/">HVVC 16-2</a><span class="nav-dropdown__section">14U</span><a href="hvvc-14-1/">HVVC 14-1</a><a href="hvvc-14-2/">HVVC 14-2</a><span class="nav-dropdown__section">12U</span><a href="hvvc-12-1/">HVVC 12-1</a><a href="hvvc-12-2/">HVVC 12-2</a><span class="nav-dropdown__section">Developmental</span><a href="hvvc-10u/">HVVC 10U</a></div></div></div>
           <div class="footer__col"><h4>Programs</h4><a href="/program-academy/">HVVC Academy</a><a href="/program-open-gyms/">Open Gyms</a></div>
           <div class="footer__col"><h4>Connect</h4><a href="/coaches/">Staff</a><a href="/coaches/#coach-with-us">Join Our Team</a><a href="/events/">Events</a>
-        <a href="/investment/">Investment</a><a href="/schedule/">Schedule</a><a href="/contact/">Contact Us</a></div>
+        <a href="/investment/">Investment</a><a href="/schedule/">Schedule</a><a href="/contact/">Contact Us</a><a href="/faq/">FAQ</a></div>
         </div>
       </div>
       <div class="footer__bottom">

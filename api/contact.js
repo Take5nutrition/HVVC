@@ -8,42 +8,70 @@ const {
   hasValidOrigin,
   looksLikeSpam,
 } = require('./_antispam');
+const { format, plain } = require('../js/format.js');
 
-// Subjects that require player details. Keep in sync with data-show-for on
-// #playerFields in contact/index.html.
-const PLAYER_SUBJECTS = [
-  'Tryout Information',
-  'Club Teams',
-  'HVVC Academy',
-  'Open Gyms',
-  'Scholarships',
-];
+// Keep in sync with the options in contact/index.html.
+const EXPERIENCE_OPTIONS = ['New to volleyball', 'Rec Experience', 'Club Experience'];
+const PROGRAM_OPTIONS = ['Academy / Recreation', 'Pre-Club Season Open Gyms', 'Club Team Player'];
 
-const EXPERIENCE_OPTIONS = [
-  'New to volleyball',
-  'Rec or school ball only',
-  '1 season of club',
-  '2+ seasons of club',
-];
+const CLUB_INBOX = 'Hvvc@Hvvcvolleyballclub.com';
+const REPLY_TO = 'hvvc@hvvcvolleyballclub.com';
+
+// The auto-reply is edited in the dashboard (Auto-reply tab).
+const DEFAULT_REPLY = {
+  subject: 'Thank you for contacting Happy Valley Volleyball Club',
+  message: 'Thank you for reaching out to Happy Valley Volleyball Club! Your message is important to us, and we will get back to you as soon as possible.\n\nSee You on The Court!\n~ Happy Valley Volleyball Club',
+  showCopy: true,
+};
+function autoReply() {
+  try {
+    const data = require('../data/autoreply.json');
+    return {
+      subject: String(data.subject || '').trim() || DEFAULT_REPLY.subject,
+      message: String(data.message || '').trim() || DEFAULT_REPLY.message,
+      showCopy: data.showCopy !== false,
+    };
+  } catch {
+    return DEFAULT_REPLY;
+  }
+}
+
+const EMAIL_STYLES = {
+  p: 'margin:0 0 16px;font-size:15px;line-height:1.6;color:#333;',
+  ul: 'margin:0 0 16px;padding-left:20px;',
+  li: 'margin:0 0 6px;font-size:15px;line-height:1.6;color:#333;',
+  a: 'color:#d81b86;font-weight:600;',
+  strong: 'color:#111;',
+  table: 'border-collapse:collapse;margin:0 0 16px;font-size:14px;',
+  th: 'text-align:left;padding:6px 10px;background:#1f2329;color:#fff;',
+  td: 'padding:6px 10px;border-bottom:1px solid #eee;',
+};
+
+function formatDob(iso) {
+  const d = new Date(iso + 'T00:00:00Z');
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+}
+
+function badRequest(res, error, message) {
+  return res.status(400).json({ error, message });
+}
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // The preview copy of the site must not send real messages to the club.
-  if (process.env.VERCEL_ENV === 'preview') {
-    return res.status(503).json({ error: 'preview', message: 'The contact form is turned off on this preview site. Use hvvcvolleyballclub.com to send a message.' });
-  }
+  // On the preview site both emails go only to the person testing the form,
+  // so trying it out never lands in the club inbox.
+  const isPreview = process.env.VERCEL_ENV === 'preview';
 
   let body = req.body;
-
   if (typeof body === 'string') {
     try { body = JSON.parse(body); } catch { body = {}; }
   }
   if (!body) body = {};
 
-  const { name, email, phone, subject, message, playerAge, playerExperience, hp_ref_code, captchaToken, captchaAnswer } = body;
+  const { name, email, phone, message, hp_ref_code, captchaToken, captchaAnswer } = body;
 
   // --- Layer 1: honeypot. Real people never see this field, so anything in it
   // is a bot. Answer 200 so the sender thinks it worked and moves on. ---
@@ -87,36 +115,39 @@ module.exports = async function handler(req, res) {
   }
 
   if (!name || !email || !message) {
-    return res.status(400).json({ error: 'Missing required fields', received: { name: !!name, email: !!email, message: !!message } });
+    return badRequest(res, 'missing', 'Please fill in your name, email address, and message.');
   }
-
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email)) || String(email).length > 254) {
-    return res.status(400).json({ error: 'Invalid email' });
+    return badRequest(res, 'email', 'Please check your email address.');
   }
 
-  // Player details are required for program-related subjects. The form hides
-  // these fields for other subjects, so validate against the subject, not blindly.
-  const needsPlayerInfo = PLAYER_SUBJECTS.indexOf(String(subject || '')) !== -1;
-  let ageValue = null;
+  // Player details are required unless the sender said the message isn't
+  // about a player.
+  const aboutPlayer = !body.notAboutPlayer;
+  let player = null;
+  if (aboutPlayer) {
+    const playerName = String(body.playerName || '').trim();
+    const age = Number(body.playerAge);
+    const dob = String(body.playerDob || '').trim();
+    const experience = String(body.playerExperience || '');
+    const programs = (Array.isArray(body.programInterest) ? body.programInterest : [body.programInterest])
+      .map(String).filter((p) => PROGRAM_OPTIONS.includes(p));
 
-  if (needsPlayerInfo) {
-    ageValue = Number(playerAge);
-    if (!Number.isInteger(ageValue) || ageValue < 5 || ageValue > 19) {
-      return res.status(400).json({
-        error: 'player-age',
-        message: 'Please enter a player age between 5 and 19.',
-      });
+    if (!playerName || playerName.length > 100) return badRequest(res, 'player-name', "Please enter the player's name.");
+    if (!Number.isInteger(age) || age < 5 || age > 19) return badRequest(res, 'player-age', 'Please enter a player age between 5 and 19.');
+    const dobDate = /^\d{4}-\d{2}-\d{2}$/.test(dob) ? new Date(dob + 'T00:00:00Z') : null;
+    const years = dobDate ? (Date.now() - dobDate.getTime()) / (365.25 * 24 * 3600 * 1000) : NaN;
+    if (!dobDate || Number.isNaN(dobDate.getTime()) || years < 3 || years > 21) {
+      return badRequest(res, 'player-dob', "Please check the player's date of birth.");
     }
-    if (EXPERIENCE_OPTIONS.indexOf(String(playerExperience || '')) === -1) {
-      return res.status(400).json({
-        error: 'player-experience',
-        message: "Please choose the player's volleyball experience.",
-      });
-    }
+    if (!EXPERIENCE_OPTIONS.includes(experience)) return badRequest(res, 'player-experience', "Please choose the player's experience.");
+    if (!programs.length) return badRequest(res, 'program-interest', 'Please check at least one program.');
+    player = { name: playerName, age, dob, experience, programs: [...new Set(programs)] };
   }
 
   // --- Layer 4: content heuristics. ---
-  const spamReason = looksLikeSpam({ name, email, phone, subject, message });
+  const topic = player ? player.programs.join(', ') : 'General question';
+  const spamReason = looksLikeSpam({ name, email, phone, subject: topic, message });
   if (spamReason) {
     console.log('Contact form: content rejected', { reason: spamReason, ip: getClientIp(req) });
     return res.status(200).json({ success: true });
@@ -137,16 +168,73 @@ module.exports = async function handler(req, res) {
   }
 
   // Everything below lands inside HTML email, so escape it all.
+  const row = (label, value) => `<tr><td style="padding:8px 12px 8px 0;color:#555;width:150px;vertical-align:top;"><strong>${label}</strong></td><td style="padding:8px 0;">${value}</td></tr>`;
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
-  const safePhone = escapeHtml(phone);
-  const safeSubject = escapeHtml(subject || 'General Question');
   const safeMessage = escapeHtml(message);
-  const safeExperience = escapeHtml(playerExperience);
-  const playerRows = needsPlayerInfo
-    ? `<tr><td style="padding:8px 0;color:#555;"><strong>Player Age</strong></td><td style="padding:8px 0;">${ageValue}</td></tr>
-       <tr><td style="padding:8px 0;color:#555;"><strong>Experience</strong></td><td style="padding:8px 0;">${safeExperience}</td></tr>`
+  const detailRows = [
+    row('Name', safeName),
+    row('Email', `<a href="mailto:${safeEmail}" style="color:#7b3fe4;">${safeEmail}</a>`),
+    phone ? row('Phone', escapeHtml(phone)) : '',
+    ...(player
+      ? [
+        row('Player Name', escapeHtml(player.name)),
+        row('Player Age', String(player.age)),
+        row('Date of Birth', escapeHtml(formatDob(player.dob))),
+        row('Experience', escapeHtml(player.experience)),
+        row('Program Interest', escapeHtml(player.programs.join(', '))),
+      ]
+      : [row('About', 'Not about a player')]),
+  ].join('');
+
+  // Program and player in the subject line make the inbox easy to sort.
+  const clubSubject = player
+    ? `Contact: ${player.programs.join(' + ')} — ${name} (${player.name}, ${player.age})`
+    : `Contact: General question — ${name}`;
+  const reply = autoReply();
+  const previewTag = isPreview ? '[Preview] ' : '';
+
+  const clubEmail = {
+    from: 'HVVC Contact Form <noreply@hvvcvolleyballclub.com>',
+    to: isPreview ? [email] : [CLUB_INBOX],
+    reply_to: email,
+    subject: previewTag + clubSubject,
+    html: `
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+        ${isPreview ? '<p style="background:#fff4d6;border:1px solid #f0d58a;border-radius:8px;padding:10px 12px;font-size:13px;color:#6b5200;">Preview test: on the live site this message goes to the HVVC inbox.</p>' : ''}
+        <h2 style="color:#7b3fe4;margin-bottom:4px;">New Contact Form Submission</h2>
+        <p style="color:#888;margin-top:0;font-size:14px;">Happy Valley Volleyball Club</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
+        <table style="width:100%;border-collapse:collapse;font-size:15px;">${detailRows}</table>
+        <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
+        <p style="color:#555;font-size:14px;margin-bottom:6px;"><strong>Message</strong></p>
+        <p style="font-size:15px;line-height:1.6;white-space:pre-wrap;">${safeMessage}</p>
+        <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
+        <p style="color:#aaa;font-size:12px;">Reply directly to this email to respond to ${safeName}.</p>
+      </div>
+    `,
+  };
+
+  const copy = reply.showCopy
+    ? `<hr style="border:none;border-top:1px solid #eee;margin:28px 0 20px;" />
+        <p style="color:#888;font-size:13px;margin:0 0 8px;">For your records, here's what you sent:</p>
+        <table style="width:100%;border-collapse:collapse;font-size:14px;color:#555;">${detailRows}</table>
+        <p style="font-size:14px;line-height:1.6;color:#555;white-space:pre-wrap;">${safeMessage}</p>`
     : '';
+  const autoReplyEmail = {
+    from: 'Happy Valley Volleyball Club <noreply@hvvcvolleyballclub.com>',
+    to: [email],
+    reply_to: REPLY_TO,
+    subject: previewTag + reply.subject,
+    html: `
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;">
+        ${format(reply.message, { styles: EMAIL_STYLES, absoluteLinks: true, email: true })}
+        ${copy}
+        <p style="color:#aaa;font-size:12px;margin-top:24px;">Happy Valley Volleyball Club &bull; Happy Valley, OR 97086</p>
+      </div>
+    `,
+    text: plain(reply.message) + '\n\nHappy Valley Volleyball Club • Happy Valley, OR 97086',
+  };
 
   try {
     const response = await fetch('https://api.resend.com/emails/batch', {
@@ -155,67 +243,19 @@ module.exports = async function handler(req, res) {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify([
-        // 1. Notification to HVVC staff
-        {
-          from: 'HVVC Contact Form <noreply@hvvcvolleyballclub.com>',
-          to: ['Hvvc@Hvvcvolleyballclub.com'],
-          reply_to: email,
-          subject: `Contact: ${subject || 'General Question'} — ${name}`,
-          html: `
-            <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-              <h2 style="color:#7b3fe4;margin-bottom:4px;">New Contact Form Submission</h2>
-              <p style="color:#888;margin-top:0;font-size:14px;">Happy Valley Volleyball Club</p>
-              <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
-              <table style="width:100%;border-collapse:collapse;font-size:15px;">
-                <tr><td style="padding:8px 0;color:#555;width:120px;"><strong>Name</strong></td><td style="padding:8px 0;">${safeName}</td></tr>
-                <tr><td style="padding:8px 0;color:#555;"><strong>Email</strong></td><td style="padding:8px 0;"><a href="mailto:${safeEmail}" style="color:#7b3fe4;">${safeEmail}</a></td></tr>
-                ${phone ? `<tr><td style="padding:8px 0;color:#555;"><strong>Phone</strong></td><td style="padding:8px 0;">${safePhone}</td></tr>` : ''}
-                <tr><td style="padding:8px 0;color:#555;"><strong>Subject</strong></td><td style="padding:8px 0;">${safeSubject}</td></tr>
-                ${playerRows}
-              </table>
-              <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
-              <p style="color:#555;font-size:14px;margin-bottom:6px;"><strong>Message</strong></p>
-              <p style="font-size:15px;line-height:1.6;white-space:pre-wrap;">${safeMessage}</p>
-              <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
-              <p style="color:#aaa;font-size:12px;">Reply directly to this email to respond to ${safeName}.</p>
-            </div>
-          `,
-        },
-        // 2. Confirmation to the person who submitted
-        {
-          from: 'Happy Valley Volleyball Club <noreply@hvvcvolleyballclub.com>',
-          to: [email],
-          subject: `We received your message, ${name}!`,
-          html: `
-            <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-              <h2 style="color:#7b3fe4;margin-bottom:4px;">Thanks for reaching out!</h2>
-              <p style="color:#555;font-size:15px;line-height:1.6;">Hi ${safeName},</p>
-              <p style="color:#555;font-size:15px;line-height:1.6;">We got your message and will get back to you as soon as possible. Here's a copy of what you sent:</p>
-              <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
-              <table style="width:100%;border-collapse:collapse;font-size:15px;">
-                <tr><td style="padding:8px 0;color:#555;width:120px;"><strong>Subject</strong></td><td style="padding:8px 0;">${safeSubject}</td></tr>
-              </table>
-              <p style="font-size:15px;line-height:1.6;color:#555;white-space:pre-wrap;">${safeMessage}</p>
-              <hr style="border:none;border-top:1px solid #eee;margin:20px 0;" />
-              <p style="color:#555;font-size:14px;">— The HVVC Team</p>
-              <p style="color:#aaa;font-size:12px;">Happy Valley Volleyball Club &bull; Happy Valley, OR 97086</p>
-            </div>
-          `,
-        },
-      ]),
+      body: JSON.stringify([clubEmail, autoReplyEmail]),
     });
 
     const resendBody = await response.json().catch(() => ({}));
 
     if (!response.ok) {
       console.error('Resend error:', resendBody);
-      return res.status(500).json({ error: 'Resend failed', detail: resendBody });
+      return res.status(500).json({ error: 'Resend failed', message: 'Your message could not be sent. Please try again, or email hvvc@hvvcvolleyballclub.com.' });
     }
 
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error('Contact handler error:', err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: 'send-failed', message: 'Your message could not be sent. Please try again, or email hvvc@hvvcvolleyballclub.com.' });
   }
 };

@@ -80,11 +80,11 @@ img { max-width: 100%; }
 
 /* ---- Tabs ---- */
 .tabs {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; padding: 4px; margin-bottom: 22px;
-  background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px; margin-bottom: 22px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
 }
 .tab {
-  min-height: 42px; border: 0; border-radius: 999px; background: none; cursor: pointer;
+  min-height: 42px; border: 0; border-radius: 14px; background: none; cursor: pointer;
   font-weight: 700; font-size: .92rem; color: var(--muted);
 }
 .tab:hover { color: var(--ink); }
@@ -221,7 +221,7 @@ img { max-width: 100%; }
 @media (max-width: 560px) {
   .topbar__title { font-size: 1.1rem; }
   .topbar__site { display: none; }
-  .tabs { grid-template-columns: repeat(3, 1fr); border-radius: 18px; }
+  .tabs { grid-template-columns: repeat(2, 1fr); border-radius: 18px; }
   .tab { border-radius: 14px; }
   .field-row { grid-template-columns: 1fr; }
   .savebar__inner { justify-content: center; }
@@ -244,3 +244,18 @@ img { max-width: 100%; }
 .copy-chooser { margin: 12px 0; padding: 16px; border: 1px solid #f5a3cf; border-radius: 12px; background: var(--pink-pale); }
 .copy-chooser__title { margin: 0 0 10px; font-weight: 700; color: var(--ink); }
 .copy-chooser__actions { display: flex; gap: 8px; margin-top: 12px; }
+
+/* ---- Single-page sections (FAQ, auto-reply) ---- */
+.card--single { box-shadow: none; }
+.card--single > .card__body { border-top: 0; padding-top: 0; }
+
+/* ---- Formatting preview ---- */
+.format-preview { margin-top: 8px; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+.format-preview > summary { cursor: pointer; padding: 8px 12px; font-size: .86rem; font-weight: 700; color: var(--pink-dark); }
+.format-preview__body { padding: 4px 14px 12px; font-size: .92rem; line-height: 1.6; color: var(--text); }
+.format-preview__body p { margin: 0 0 10px; }
+.format-preview__body ul { margin: 0 0 10px; padding-left: 20px; }
+.format-preview__body a { color: var(--pink-dark); }
+.format-preview__body table { border-collapse: collapse; margin: 0 0 10px; font-size: .86rem; }
+.format-preview__body th, .format-preview__body td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+.card--single .textarea:not(.textarea--short) { min-height: 340px; }

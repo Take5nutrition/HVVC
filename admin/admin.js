@@ -2,7 +2,7 @@
 // GitHub; Vercel then publishes the site. Forms are built from the field
 // definitions in api/_content-schema.js.
 (function () {
-  const TAB_ORDER = ['coaches', 'leaders', 'teams', 'tournaments', 'practices', 'events'];
+  const TAB_ORDER = ['coaches', 'leaders', 'teams', 'tournaments', 'practices', 'events', 'faq', 'autoreply'];
   const POLL_MS = 4000;
   const POLL_LIMIT = 60;
   const PHOTO_MAX_EDGE = 1400;
@@ -543,7 +543,19 @@
         if (slugInput) slugInput.value = item.slug;
       }
     };
-    return h('div', { class: 'field' }, labelFor(id, f), control(id, f, item[f.name], error, onValue), help, errorEl);
+    const ctl = control(id, f, item[f.name], error, onValue);
+    return h('div', { class: 'field' }, labelFor(id, f), ctl, help, errorEl, f.format ? formatPreview(ctl) : null);
+  }
+
+  // Live preview of **bold**, [links](…), bullets, and tables, using the
+  // same formatter as the website and the auto-reply email.
+  function formatPreview(textarea) {
+    const box = h('div', { class: 'format-preview__body' });
+    const draw = () => { box.innerHTML = window.HVVCFormat ? window.HVVCFormat.format(textarea.value, { absoluteLinks: false }) : ''; };
+    const details = h('details', { class: 'format-preview' }, h('summary', { text: 'Preview' }), box);
+    textarea.addEventListener('input', draw);
+    draw();
+    return details;
   }
 
   function renderPhotoField(type, item, f, id, help) {
@@ -632,7 +644,7 @@
         const error = errors[`${f.name}.${i}.${sub.name}`];
         grid.append(h('div', { class: `field field--sub${sub.type === 'textarea' ? ' field--wide' : ''}` },
           labelFor(id, sub),
-          control(id, sub, row[sub.name], error, (value) => { row[sub.name] = value; changed(type, item); }),
+          (() => { const ctl = control(id, sub, row[sub.name], error, (value) => { row[sub.name] = value; changed(type, item); }); return sub.format ? [ctl, formatPreview(ctl)] : ctl; })(),
           error ? h('p', { class: 'field__error', text: error }) : null));
       }
       rowEl.append(grid, h('div', { class: 'row__actions' },
@@ -676,6 +688,15 @@
       wrap.append(h('div', { class: 'notice notice--error', role: 'alert' },
         h('span', { class: 'notice__dot', 'aria-hidden': 'true' }),
         h('div', {}, data.error, ' ', h('button', { class: 'link-button', type: 'button', onclick: () => loadSection(type), text: 'Try again' }))));
+      return wrap;
+    }
+
+    if (s.single) {
+      const item = data.items[0];
+      const errors = state.errors[item._key] || {};
+      const body = h('div', { class: 'card card--open card--single' }, h('div', { class: 'card__body' }));
+      appendFields(body.firstChild, type, item, s.fields, errors);
+      wrap.append(body);
       return wrap;
     }
 

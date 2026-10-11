@@ -88,7 +88,7 @@ async function handleSave(body, res) {
     });
   }
 
-  const json = JSON.stringify(result.items, null, 2) + '\n';
+  const json = JSON.stringify(schema.single ? result.items[0] : result.items, null, 2) + '\n';
   files.push({ path: schema.path, content: json });
   const commit = await commitFiles(files, `Dashboard: update ${schema.label.toLowerCase()}`);
   return res.status(200).json({ commit, sha: gitBlobSha(json), items: result.items, photos: photoPaths });
@@ -135,9 +135,13 @@ module.exports = async function handler(req, res) {
       const schema = SCHEMAS[String(req.query.type || '')];
       if (!schema) return res.status(400).json({ error: 'Unknown section.' });
       const file = await readFile(schema.path);
-      let items = [];
-      try { items = file.text ? JSON.parse(file.text) : []; } catch { items = []; }
-      return res.status(200).json({ sha: file.sha, items: Array.isArray(items) ? items : [] });
+      let data = null;
+      try { data = file.text ? JSON.parse(file.text) : null; } catch { data = null; }
+      // Single-page sections (FAQ, auto-reply) are stored as one object.
+      const items = schema.single
+        ? [data && typeof data === 'object' && !Array.isArray(data) ? data : {}]
+        : (Array.isArray(data) ? data : []);
+      return res.status(200).json({ sha: file.sha, items });
     }
 
     if (req.method === 'GET' && action === 'status') {

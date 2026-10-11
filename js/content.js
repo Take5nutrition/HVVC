@@ -599,6 +599,32 @@ window.HVVC = (function () {
       });
   }
 
+  // ---------- FAQ page ----------
+  const PLUS = '<svg class="faq-question__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+
+  function renderFaq(root) {
+    const list = root.querySelector('[data-faq-list]');
+    const fmt = (t) => (window.HVVCFormat ? window.HVVCFormat.format(t) : `<p>${escapeHtml(text(t))}</p>`);
+    return fetch('/data/faq.json')
+      .then((res) => { if (!res.ok) throw new Error('faq'); return res.json(); })
+      .then((faq) => {
+        const title = text(faq.title);
+        if (title) {
+          root.querySelector('[data-faq-title]').textContent = title;
+          document.title = `${title} - HVVC`;
+        }
+        root.querySelector('[data-faq-intro]').innerHTML = fmt(faq.intro);
+        const questions = (Array.isArray(faq.questions) ? faq.questions : []).filter((q) => text(q.question));
+        list.innerHTML = questions.length
+          ? questions.map((q, i) => `<details class="faq-item" id="${escapeHtml(slug(q.question) || 'q' + (i + 1))}">
+          <summary class="faq-question">${escapeHtml(text(q.question))}${PLUS}</summary>
+          <div class="faq-answer">${fmt(q.answer)}</div>
+        </details>`).join('')
+          : '<p class="faq-page__loading">Questions are coming soon.</p>';
+      })
+      .catch(() => { list.innerHTML = '<p class="faq-page__loading">The FAQ could not load. Please refresh the page.</p>'; });
+  }
+
   // ---------- start ----------
   // Marks every page of the preview copy so it isn't mistaken for the live site.
   if (!/^(www\.)?hvvcvolleyballclub\.com$/.test(location.hostname)) {
@@ -614,11 +640,13 @@ window.HVVC = (function () {
   document.querySelectorAll('[data-tournament-list]').forEach((el) => renders.push(renderTournaments(el)));
   document.querySelectorAll('[data-practice-list]').forEach((el) => renders.push(renderPractices(el)));
   document.querySelectorAll('[data-team-page]').forEach((el) => renders.push(renderTeamPage(el)));
+  document.querySelectorAll('[data-faq]').forEach((el) => renders.push(renderFaq(el)));
   loadOptional('teams').then((teams) => {
     renderTeamMenus(teams);
     document.querySelectorAll('[data-team-divisions]').forEach((el) => renderTeamDivisions(el, teams));
   });
   if (renders.length) Promise.all(renders).then(scrollToHashTarget);
+  window.addEventListener('hashchange', scrollToHashTarget);
 
   return { loadEvents, escapeHtml };
 })();

@@ -3838,3 +3838,53 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 }
 .preview-ribbon strong { color: #ff6ec4; }
 .preview-ribbon a { color: #fff; text-decoration: underline; }
+
+/* ---- FAQ page (faq/index.html, data/faq.json) ---- */
+.faq-page__intro { max-width: 800px; margin: -24px auto 36px; color: var(--text-secondary); line-height: 1.75; }
+.faq-page__intro p { margin: 0 0 14px; }
+.faq-page__intro a, .faq-page .faq-answer a { color: var(--pink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.faq-page__loading { text-align: center; color: var(--muted); }
+.faq-page__more { max-width: 800px; margin: 28px auto 0; text-align: center; color: var(--muted); }
+.faq-page__more a { color: var(--pink); font-weight: 700; }
+.faq-page details.faq-item > summary { list-style: none; }
+.faq-page details.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-page details.faq-item[open] { border-color: var(--pink); box-shadow: var(--shadow-md); }
+.faq-page details.faq-item[open] .faq-question__icon { transform: rotate(45deg); }
+.faq-page details.faq-item .faq-answer { max-height: none; padding: 0 28px 24px; overflow: visible; }
+.faq-page .faq-answer p, .faq-page .faq-answer li { font-size: .95rem; color: var(--text-secondary); line-height: 1.7; }
+.faq-page .faq-answer p { margin: 0 0 12px; }
+.faq-page .faq-answer ul { margin: 0 0 12px; padding-left: 22px; list-style: disc; }
+.faq-page .faq-answer li { margin-bottom: 6px; }
+.faq-page .faq-answer strong, .faq-page__intro strong { color: var(--text); }
+.fmt-table { overflow-x: auto; margin: 0 0 14px; }
+.fmt-table table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.fmt-table th { background: #1f2329; color: #fff; text-align: left; padding: 10px 14px; font-weight: 700; }
+.fmt-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+.fmt-table tbody tr:nth-child(even) { background: #fce8f1; }
+@media (max-width: 560px) {
+  .faq-page details.faq-item .faq-answer { padding: 0 18px 18px; }
+  .fmt-table th, .fmt-table td { padding: 8px 10px; }
+}
+
+/* ---- Contact form: player section, checkboxes ---- */
+.dk-form fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.player-fields { margin: 4px 0 20px; padding: 20px; border: 1px solid rgba(255,255,255,.08) !important; border-radius: var(--radius-md); background: rgba(255,255,255,.015); }
+.player-fields__legend { padding: 0 6px; font-family: var(--font-heading); font-size: 1rem; font-weight: 600; color: #fff; letter-spacing: .02em; }
+.player-fields__note { margin: 8px 0 18px; font-size: .78rem; color: rgba(255,255,255,.45); }
+.dk-form .program-interest { margin-bottom: 0; }
+.dk-form .program-interest > legend { display: block; margin-bottom: 10px; font-size: .78rem; font-weight: 700; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .06em; }
+.dk-form .program-interest > legend span { text-transform: none; letter-spacing: 0; font-weight: 500; color: rgba(255,255,255,.4); }
+.dk-form .check-option {
+  display: flex; align-items: center; gap: 12px; margin: 0 0 8px; padding: 12px 14px; cursor: pointer;
+  text-transform: none; letter-spacing: 0; font-size: .92rem; font-weight: 500; color: #e2e8f0;
+  border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-md); background: rgba(255,255,255,.03);
+}
+.dk-form .check-option:has(input:checked) { border-color: var(--pink); background: rgba(255,42,161,.08); }
+.dk-form .check-option input { width: 18px; height: 18px; flex: none; margin: 0; padding: 0; accent-color: var(--pink); }
+.dk-form .check-option--quiet { padding: 4px 0; margin: -4px 0 16px; border: 0; background: none; font-size: .84rem; color: rgba(255,255,255,.55); }
+.dk-form .check-option--quiet:has(input:checked) { background: none; color: #fff; }
+.dk-form input[type="date"] { color-scheme: dark; }
+.form-field-error { margin: 6px 0 0; font-size: .82rem; font-weight: 600; color: #fda4af; }
+.dk-contact-faq { margin-top: 14px; font-size: .92rem; color: rgba(255,255,255,.6); }
+.dk-contact-faq a { color: var(--pink-light); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.faq-more { text-align: center; margin-top: 28px; }
