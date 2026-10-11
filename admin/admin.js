@@ -2,7 +2,7 @@
 // GitHub; Vercel then publishes the site. Forms are built from the field
 // definitions in api/_content-schema.js.
 (function () {
-  const TAB_ORDER = ['coaches', 'leaders', 'teams', 'tournaments', 'practices', 'events', 'faq', 'autoreply'];
+  const TAB_ORDER = ['coaches', 'sections', 'leaders', 'teams', 'tournaments', 'practices', 'events', 'faq', 'autoreply'];
   const POLL_MS = 4000;
   const POLL_LIMIT = 60;
   const PHOTO_MAX_EDGE = 1400;
@@ -180,6 +180,7 @@
     const saved = JSON.parse(s.original);
     if (source === 'coaches') return saved.map((c) => ({ value: slug(c.id) || slug(c.name), label: c.name })).filter((o) => o.value);
     if (source === 'teams') return saved.map((t) => ({ value: slug(t.slug), label: t.name || t.slug })).filter((o) => o.value);
+    if (source === 'sections') return saved.map((x) => ({ value: slug(x.id) || slug(x.name), label: x.name || x.id })).filter((o) => o.value);
     return [];
   }
 
@@ -295,7 +296,7 @@
     }
     if (type === 'tournaments' && item.location) secondary = [secondary, item.location].filter(Boolean).join(' · ');
     if (type === 'teams' && item.slug) secondary = [item.group, `/hvvc-${slug(item.slug)}/`].filter(Boolean).join(' · ');
-    if (type === 'coaches') secondary = [item.section === 'head' ? 'Head Coaches' : 'Coaching Staff', String(item.role || '').trim()].filter(Boolean).join(' · ');
+    if (type === 'coaches') secondary = String(item.role || '').trim();
     return { primary, secondary: String(secondary || '').trim() };
   }
 
@@ -372,39 +373,52 @@
 
     const actions = h('div', { class: 'card__actions' });
     if (s.ordered) {
+      // In a grouped view, move past items from other groups to the next visible one.
+      const group = s.groupBy ? state.groupFilter[type] : null;
+      const visible = (j) => !group || inGroup(type, items[j], group);
+      let prev = -1;
+      for (let j = index - 1; j >= 0; j--) if (visible(j)) { prev = j; break; }
+      let next = -1;
+      for (let j = index + 1; j < items.length; j++) if (visible(j)) { next = j; break; }
       actions.append(
-        h('button', { class: 'button button--ghost button--small', type: 'button', disabled: index === 0, onclick: () => move(type, index, -1), text: '↑ Move up' }),
-        h('button', { class: 'button button--ghost button--small', type: 'button', disabled: index === items.length - 1, onclick: () => move(type, index, 1), text: '↓ Move down' }));
+        h('button', { class: 'button button--ghost button--small', type: 'button', disabled: prev < 0, onclick: () => swap(type, index, prev), text: '↑ Move up' }),
+        h('button', { class: 'button button--ghost button--small', type: 'button', disabled: next < 0, onclick: () => swap(type, index, next), text: '↓ Move down' }));
     }
     if (type === 'teams' && !item._new && item.slug) {
       actions.append(h('a', { class: 'button button--ghost button--small', href: `/hvvc-${slug(item.slug)}/`, target: '_blank', rel: 'noopener', text: 'View team page ↗' }));
       actions.append(h('button', { class: 'button button--ghost button--small', type: 'button', text: 'Edit schedule', onclick: () => { state.groupFilter.tournaments = slug(item.slug); switchTab('tournaments'); } }));
     }
-    if (s.groupBy) {
-      actions.append(h('button', { class: 'button button--ghost button--small', type: 'button', text: 'Copy to other teams…', onclick: () => { state.copying = state.copying === item._key ? null : item._key; render(); } }));
+    if (s.groupCopy) {
+      actions.append(h('button', { class: 'button button--ghost button--small', type: 'button', text: `Copy to other ${s.groupNoun}s…`, onclick: () => { state.copying = state.copying === item._key ? null : item._key; render(); } }));
     }
     actions.append(h('span', { class: 'spacer' }),
       h('button', { class: 'button button--danger button--small', type: 'button', onclick: () => removeItem(type, index), text: `Remove ${s.itemLabel}` }));
     body.append(actions);
-    if (s.groupBy && state.copying === item._key) body.append(copyChooser(type, [item], `Copy "${primary}" to:`));
+    if (s.groupCopy && state.copying === item._key) body.append(copyChooser(type, [item], `Copy "${primary}" to:`));
     card.append(body);
     return card;
   }
 
-  // ---------- per-team schedules ----------
+  // ---------- grouped views (tournaments by team, coaches by section) ----------
+  function groupSource(type) {
+    const s = schema(type);
+    const f = s.fields.find((x) => x.name === s.groupBy);
+    return f && f.optionsFrom;
+  }
+
   function groupOptions(type) {
     const s = schema(type);
-    const opts = dynamicOptions('teams');
+    const opts = dynamicOptions(groupSource(type));
     if (opts === null) return null;
     const known = new Set(opts.map((o) => o.value));
     const orphan = section(type).items.some((i) => !known.has(i[s.groupBy]));
-    return orphan ? [...opts, { value: '__other', label: 'No team (removed teams)' }] : opts;
+    return orphan ? [...opts, { value: '__other', label: `No ${schema(type).groupNoun} (removed)` }] : opts;
   }
 
   function inGroup(type, item, value) {
     const key = schema(type).groupBy;
     if (value !== '__other') return item[key] === value;
-    const known = new Set((dynamicOptions('teams') || []).map((o) => o.value));
+    const known = new Set((dynamicOptions(groupSource(type)) || []).map((o) => o.value));
     return !known.has(item[key]);
   }
 
@@ -421,7 +435,7 @@
   function copyChooser(type, sourceItems, title) {
     const s = schema(type);
     const from = state.groupFilter[type];
-    const targets = (dynamicOptions('teams') || []).filter((o) => o.value !== from);
+    const targets = (dynamicOptions(groupSource(type)) || []).filter((o) => o.value !== from);
     const picked = new Set();
     const message = h('p', { class: 'field__error', hidden: true });
     return h('div', { class: 'copy-chooser' },
@@ -724,11 +738,11 @@
 
     if (s.groupBy) {
       const opts = groupOptions(type);
-      if (opts === null) { wrap.append(h('p', { class: 'loading', text: 'Loading teams…' })); return wrap; }
-      if (!opts.length) { wrap.append(h('p', { class: 'empty', text: 'Add a team in the Teams tab first.' })); return wrap; }
+      if (opts === null) { wrap.append(h('p', { class: 'loading', text: `Loading ${s.groupNoun}s…` })); return wrap; }
+      if (!opts.length) { wrap.append(h('p', { class: 'empty', text: s.groupEmpty })); return wrap; }
       const current = currentGroup(type, opts);
       const label = (opts.find((o) => o.value === current) || {}).label || current;
-      wrap.append(h('div', { class: 'group-picker', role: 'tablist', 'aria-label': 'Team' }, opts.map((o) => {
+      wrap.append(h('div', { class: 'group-picker', role: 'tablist', 'aria-label': s.groupNoun }, opts.map((o) => {
         const count = data.items.filter((i) => inGroup(type, i, o.value)).length;
         return h('button', {
           class: 'group-picker__item', type: 'button', role: 'tab', 'aria-selected': String(o.value === current),
@@ -741,12 +755,12 @@
       })));
       const shown = data.items.map((item, index) => ({ item, index })).filter(({ item }) => inGroup(type, item, current));
       const toolbar = h('div', { class: 'group-toolbar' },
-        current === '__other' ? null : h('button', { class: 'button button--add', type: 'button', onclick: () => addItem(type), disabled: data.items.length >= s.maxItems }, `+ Add ${s.itemLabel} for ${label}`),
-        shown.length && current !== '__other' ? h('button', { class: 'button button--ghost button--small', type: 'button', text: `Copy ${label}'s whole schedule to…`, onclick: () => { state.copying = state.copying === '__all' ? null : '__all'; render(); } }) : null);
+        current === '__other' ? null : h('button', { class: 'button button--add', type: 'button', onclick: () => addItem(type), disabled: data.items.length >= s.maxItems }, `+ Add ${s.itemLabel} ${s.groupNoun === 'team' ? 'for' : 'to'} ${label}`),
+        s.groupCopy && shown.length && current !== '__other' ? h('button', { class: 'button button--ghost button--small', type: 'button', text: `Copy ${label}'s whole schedule to…`, onclick: () => { state.copying = state.copying === '__all' ? null : '__all'; render(); } }) : null);
       wrap.append(toolbar);
       if (state.copying === '__all') wrap.append(copyChooser(type, shown.map((x) => x.item), `Copy all ${shown.length} of ${label}'s ${s.itemLabel}s to:`));
       if (!shown.length) {
-        wrap.append(h('p', { class: 'empty', text: `No ${s.itemLabel}s for ${label} yet. Add one above, or copy another team's schedule from its view.` }));
+        wrap.append(h('p', { class: 'empty', text: `No ${s.itemLabel}s ${s.groupNoun === 'team' ? 'for' : 'in'} ${label} yet. Add one above${s.groupCopy ? ', or copy another team\'s schedule from its view' : ''}.` }));
       } else {
         wrap.append(h('ul', { class: 'items' }, shown.map(({ item, index }) => renderCard(type, item, index, data.items))));
       }
@@ -844,10 +858,11 @@
     render();
   }
 
-  function move(type, index, delta) {
+  function swap(type, index, other) {
     const items = section(type).items;
-    const [item] = items.splice(index, 1);
-    items.splice(index + delta, 0, item);
+    const item = items[index];
+    items[index] = items[other];
+    items[other] = item;
     render();
     const button = document.querySelector(`[aria-controls="body-${item._key}"]`);
     if (button) button.scrollIntoView({ block: 'nearest' });

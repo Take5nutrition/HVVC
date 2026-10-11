@@ -3889,3 +3889,4 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-contact-faq a { color: var(--pink-light); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 .faq-more { text-align: center; margin-top: 28px; }
 .form-submit-error { margin: 0 0 14px; padding: 12px 14px; border: 1px solid rgba(253,164,175,.45); border-radius: var(--radius-md); background: rgba(239,68,68,.12); color: #fecdd3; font-size: .9rem; font-weight: 600; line-height: 1.5; }
+.dk-coach-list__intro { max-width: 640px; margin: 14px auto 0; color: #94a3b8; line-height: 1.7; }

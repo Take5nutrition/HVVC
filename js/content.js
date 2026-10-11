@@ -170,19 +170,36 @@ window.HVVC = (function () {
         </details>`;
   }
 
-  function renderCoaches(el) {
-    const wanted = el.getAttribute('data-coach-section');
-    const section = el.closest('[data-hide-when-empty]');
-    return Promise.all([load('coaches'), loadOptional('teams')])
-      .then(([coaches, teams]) => {
+  // Staff page coach sections come from data/staff-sections.json, in order.
+  // Coaches whose section was removed land in the last section; empty
+  // sections stay hidden.
+  function renderStaffSections(el) {
+    return Promise.all([load('coaches'), loadOptional('staff-sections'), loadOptional('teams')])
+      .then(([coaches, sections, teams]) => {
         const roles = coachRoles(teams);
-        const inSection = wanted ? coaches.filter((c) => (c.section === 'staff' ? 'staff' : 'head') === wanted) : coaches;
-        const items = inSection.map((c) => coachItem(c, roles)).filter(Boolean);
-        if (section) section.hidden = !items.length;
-        el.innerHTML = items.length ? items.join('') : '<p class="dk-content-note">Coach bios are coming soon.</p>';
+        const list = sections.filter((x) => text(x.name)).map((x) => ({ ...x, id: slug(x.id) || slug(x.name), members: [] }));
+        if (!list.length) list.push({ id: '', name: 'Our Coaches', kicker: 'Coaching Staff', members: [] });
+        const byId = Object.fromEntries(list.map((x) => [x.id, x]));
+        coaches.forEach((c) => (byId[slug(c.section)] || list[list.length - 1]).members.push(c));
+        const html = list.map((x) => {
+          const items = x.members.map((c) => coachItem(c, roles)).filter(Boolean);
+          if (!items.length) return '';
+          return `<section class="dk-section grain-overlay" id="coaches-${escapeHtml(x.id || 'all')}">
+    <div class="dk-section__bg"></div>
+    <div class="container">
+      <div class="section__header dk-coach-list__header">
+        ${text(x.kicker) ? `<span class="dk-split__kicker"><span class="dk-split__kicker-bar"></span>${escapeHtml(text(x.kicker))}</span>` : ''}
+        <h2 class="dk-split__heading">${escapeHtml(text(x.name))}</h2>
+        ${text(x.intro) ? `<p class="dk-coach-list__intro">${escapeHtml(text(x.intro))}</p>` : ''}
+      </div>
+      <div class="dk-coach-list">${items.join('')}</div>
+    </div>
+  </section>`;
+        }).join('');
+        el.innerHTML = html || '<section class="dk-section"><div class="container"><p class="dk-content-note">Coach bios are coming soon.</p></div></section>';
       })
       .catch(() => {
-        el.innerHTML = '<p class="dk-content-note">The coach list could not load. Please refresh the page.</p>';
+        el.innerHTML = '<section class="dk-section"><div class="container"><p class="dk-content-note">The coach list could not load. Please refresh the page.</p></div></section>';
       });
   }
 
@@ -640,7 +657,7 @@ window.HVVC = (function () {
 
   const renders = [];
   document.querySelectorAll('[data-leaders]').forEach((el) => renders.push(renderLeaders(el)));
-  document.querySelectorAll('[data-coach-list]').forEach((el) => renders.push(renderCoaches(el)));
+  document.querySelectorAll('[data-staff-sections]').forEach((el) => renders.push(renderStaffSections(el)));
   document.querySelectorAll('[data-tournament-list]').forEach((el) => renders.push(renderTournaments(el)));
   document.querySelectorAll('[data-practice-list]').forEach((el) => renders.push(renderPractices(el)));
   document.querySelectorAll('[data-team-page]').forEach((el) => renders.push(renderTeamPage(el)));

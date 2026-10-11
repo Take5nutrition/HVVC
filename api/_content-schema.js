@@ -18,21 +18,40 @@ const SCHEMAS = {
     path: 'data/coaches.json',
     page: '/coaches/',
     pageLabel: 'Staff page',
-    intro: 'Coaches show on the Staff page in two sections, Head Coaches and Coaching Staff, in this order. Assign coaches to a team from the Teams tab.',
+    intro: 'Pick a section to see its coaches, in the order they show on the Staff page. Rename or add sections in the Staff Sections tab.',
     ordered: true,
-    maxItems: 60,
+    groupBy: 'section',
+    groupNoun: 'section',
+    groupEmpty: 'Add a section in the Staff Sections tab first.',
+    maxItems: 80,
     summary: ['name', 'role'],
     idField: 'id',
     fields: [
       { name: 'name', label: 'Name', type: 'text', required: true, max: 80 },
-      {
-        name: 'section', label: 'Staff page section', type: 'select', default: 'staff',
-        options: [{ value: 'head', label: 'Head Coaches' }, { value: 'staff', label: 'Coaching Staff' }],
-      },
-      { name: 'role', label: 'Title', type: 'text', max: 80, placeholder: '16-1 Head Coach', help: 'Leave blank to show their team role automatically (from the Teams tab).' },
+      { name: 'section', label: 'Staff page section', type: 'select', required: true, optionsFrom: 'sections', help: 'Change this to move the coach to another section.' },
+      { name: 'role', label: 'Title', type: 'text', max: 80, placeholder: '16-1 Head Coach', help: 'Optional. Leave blank to show no title, or their team role if they\'re linked to a team in the Teams tab.' },
       { name: 'photo', label: 'Photo', type: 'photo', crop: true, frame: 'circle', help: 'Drag the photo or use the sliders to frame their face. Without a photo, their initials show.' },
       { name: 'bio', label: 'Bio', type: 'textarea', max: 4000, help: 'Start each new paragraph on a new line.' },
       { name: 'id', label: 'Link name', type: 'text', max: 60, advanced: true, help: 'Used in links to this coach. Filled in automatically.' },
+    ],
+  },
+
+  sections: {
+    label: 'Staff Sections',
+    itemLabel: 'section',
+    path: 'data/staff-sections.json',
+    page: '/coaches/',
+    pageLabel: 'Staff page',
+    intro: 'The coach sections on the Staff page, in this order. Rename a section, add a short intro, or add a new one, then put coaches in it from the Coaches tab. Sections with no coaches stay hidden.',
+    ordered: true,
+    maxItems: 12,
+    summary: ['name', 'kicker'],
+    idField: 'id',
+    fields: [
+      { name: 'name', label: 'Section name', type: 'text', required: true, max: 60, placeholder: 'Head Coaches' },
+      { name: 'kicker', label: 'Small heading above the name', type: 'text', max: 40, placeholder: '2026–27 Season' },
+      { name: 'intro', label: 'Intro', type: 'textarea', max: 600, help: 'Optional sentence under the section name.' },
+      { name: 'id', label: 'Link name', type: 'text', max: 40, advanced: true, help: 'Connects coaches to this section. Filled in automatically. Changing it moves this section\'s coaches to "No section".' },
     ],
   },
 
@@ -127,6 +146,9 @@ const SCHEMAS = {
     intro: 'Each team has its own schedule. Pick a team to see and edit its tournaments; changes only affect that team. Past tournaments stay on the team\'s page, grayed out, until you remove them.',
     sortBy: 'start',
     groupBy: 'team',
+    groupNoun: 'team',
+    groupCopy: true,
+    groupEmpty: 'Add a team in the Teams tab first.',
     maxItems: 600,
     summary: ['name', 'start'],
     fields: [
@@ -336,6 +358,7 @@ function cleanItems(type, items, options = {}) {
     const which = `${schema.itemLabel} #${i + 1}`;
     if (type === 'events') out.id = slug(out.id);
     if (type === 'coaches') out.id = slug(out.id) || slug(out.name);
+    if (type === 'sections') out.id = slug(out.id) || slug(out.name);
     if (type === 'teams') {
       out.slug = slug(out.slug);
       if (!SLUG_RE.test(out.slug)) return { error: `"Web address name" on ${which} needs letters or numbers, like 16-1.` };
@@ -371,6 +394,7 @@ function dependencies(type) {
 function optionValues(source, items) {
   if (source === 'coaches') return items.map((c) => slug(c.id) || slug(c.name)).filter(Boolean);
   if (source === 'teams') return items.map((t) => slug(t.slug)).filter(Boolean);
+  if (source === 'sections') return items.map((x) => slug(x.id) || slug(x.name)).filter(Boolean);
   return [];
 }
 
@@ -380,7 +404,8 @@ function publicSchemas() {
   for (const [key, s] of Object.entries(SCHEMAS)) {
     out[key] = {
       label: s.label, itemLabel: s.itemLabel, page: s.page, pageLabel: s.pageLabel, intro: s.intro,
-      ordered: !!s.ordered, sortBy: s.sortBy || null, groupBy: s.groupBy || null, single: !!s.single, maxItems: s.maxItems, summary: s.summary, fields: s.fields,
+      ordered: !!s.ordered, sortBy: s.sortBy || null, groupBy: s.groupBy || null, groupNoun: s.groupNoun || null, groupCopy: !!s.groupCopy, groupEmpty: s.groupEmpty || null,
+      single: !!s.single, maxItems: s.maxItems, summary: s.summary, fields: s.fields,
     };
   }
   return out;

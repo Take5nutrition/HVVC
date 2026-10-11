@@ -80,7 +80,7 @@ img { max-width: 100%; }
 
 /* ---- Tabs ---- */
 .tabs {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px; margin-bottom: 22px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; padding: 4px; margin-bottom: 22px;
   background: var(--surface); border: 1px solid var(--border); border-radius: 18px;
 }
 .tab {
@@ -221,7 +221,8 @@ img { max-width: 100%; }
 @media (max-width: 560px) {
   .topbar__title { font-size: 1.1rem; }
   .topbar__site { display: none; }
-  .tabs { grid-template-columns: repeat(2, 1fr); border-radius: 18px; }
+  .tabs { grid-template-columns: repeat(3, 1fr); border-radius: 18px; }
+  .tab { font-size: .84rem; }
   .tab { border-radius: 14px; }
   .field-row { grid-template-columns: 1fr; }
   .savebar__inner { justify-content: center; }
