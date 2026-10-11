@@ -2,7 +2,7 @@
   {
     "name": "Nicole Warren",
     "section": "head",
-    "role": "18-1 Head Coach",
+    "role": "",
     "photo": "/img/coach-nicole.jpg",
     "photoX": 50,
     "photoY": 21,
@@ -13,7 +13,7 @@
   {
     "name": "Kanoelani Shadron",
     "section": "head",
-    "role": "16-1 Head Coach",
+    "role": "",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
@@ -24,7 +24,7 @@
   {
     "name": "Charles Awounor",
     "section": "head",
-    "role": "Head Coach",
+    "role": "",
     "photo": "/img/coach-charles.jpg",
     "photoX": 50,
     "photoY": 17,
@@ -35,7 +35,7 @@
   {
     "name": "Mallory Cooper",
     "section": "head",
-    "role": "15-1 Head Coach",
+    "role": "",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
@@ -46,7 +46,7 @@
   {
     "name": "Megan Reynolds",
     "section": "head",
-    "role": "14-1 Head Coach",
+    "role": "",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
@@ -57,7 +57,7 @@
   {
     "name": "Kendal Ishida",
     "section": "head",
-    "role": "13-1 Head Coach",
+    "role": "",
     "photo": "/img/coach-kendal.jpg",
     "photoX": 50,
     "photoY": 21,
@@ -68,7 +68,7 @@
   {
     "name": "Christina Braks",
     "section": "head",
-    "role": "11-1 Head Coach",
+    "role": "",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
