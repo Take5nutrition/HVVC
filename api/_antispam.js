@@ -9,6 +9,7 @@ const SECRET = process.env.FORM_SECRET || process.env.RESEND_API_KEY || 'hvvc-de
 const ALLOWED_HOSTS = [
   'hvvcvolleyballclub.com',
   'www.hvvcvolleyballclub.com',
+  'preview.hvvcvolleyballclub.com',
   'localhost',
   '127.0.0.1',
 ];
