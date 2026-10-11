@@ -158,6 +158,26 @@
     "id": "pre-season-open-gyms-2026"
   },
   {
+    "title": "Pre-Tryout Parent Meeting",
+    "tag": "Tryouts",
+    "dateISO": "2026-10-20",
+    "endISO": "",
+    "dateDisplay": "Tuesday, October 20, 2026",
+    "time": "6:30 – 8:00 PM",
+    "location": "Beatrice Cannady Elementary, Gym",
+    "description": "Join us in the gym at Beatrice Cannady Elementary to learn more about HVVC, upcoming tryouts, and what to expect for the club season! Meet our staff, ask questions, and feel prepared as your family heads into tryouts.",
+    "registerUrl": "",
+    "registerLabel": "Register Now →",
+    "pinBanner": false,
+    "bannerTitle": "",
+    "dateRange": "",
+    "schedule": [],
+    "expect": [],
+    "notes": "",
+    "comingSoon": false,
+    "id": "pre-tryout-parent-meeting-2026"
+  },
+  {
     "title": "11U–14U — 2026–2027 Tryouts",
     "tag": "Tryouts",
     "dateISO": "2026-11-08",
