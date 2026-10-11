@@ -8,7 +8,7 @@ const {
   hasValidOrigin,
   looksLikeSpam,
 } = require('./_antispam');
-const { format, plain } = require('../js/format.js');
+const { build: buildAutoReply } = require('../js/autoreply-email.js');
 
 // Keep in sync with the options in contact/index.html.
 const EXPERIENCE_OPTIONS = ['New to volleyball', 'Rec Experience', 'Club Experience'];
@@ -20,7 +20,9 @@ const REPLY_TO = 'hvvc@hvvcvolleyballclub.com';
 // The auto-reply is edited in the dashboard (Auto-reply tab).
 const DEFAULT_REPLY = {
   subject: 'Thank you for contacting Happy Valley Volleyball Club',
-  message: 'Thank you for reaching out to Happy Valley Volleyball Club! Your message is important to us, and we will get back to you as soon as possible.\n\nSee You on The Court!\n~ Happy Valley Volleyball Club',
+  message: 'Thank you for reaching out to Happy Valley Volleyball Club! Your message is important to us, and we will get back to you as soon as possible.',
+  announcements: [],
+  closing: 'See You on The Court!\n~ Happy Valley Volleyball Club',
   showCopy: true,
 };
 function autoReply() {
@@ -29,23 +31,14 @@ function autoReply() {
     return {
       subject: String(data.subject || '').trim() || DEFAULT_REPLY.subject,
       message: String(data.message || '').trim() || DEFAULT_REPLY.message,
+      announcements: Array.isArray(data.announcements) ? data.announcements : [],
+      closing: String(data.closing || '').trim(),
       showCopy: data.showCopy !== false,
     };
   } catch {
     return DEFAULT_REPLY;
   }
 }
-
-const EMAIL_STYLES = {
-  p: 'margin:0 0 16px;font-size:15px;line-height:1.6;color:#333;',
-  ul: 'margin:0 0 16px;padding-left:20px;',
-  li: 'margin:0 0 6px;font-size:15px;line-height:1.6;color:#333;',
-  a: 'color:#d81b86;font-weight:600;',
-  strong: 'color:#111;',
-  table: 'border-collapse:collapse;margin:0 0 16px;font-size:14px;',
-  th: 'text-align:left;padding:6px 10px;background:#1f2329;color:#fff;',
-  td: 'padding:6px 10px;border-bottom:1px solid #eee;',
-};
 
 function formatDob(iso) {
   const d = new Date(iso + 'T00:00:00Z');
@@ -216,24 +209,19 @@ module.exports = async function handler(req, res) {
   };
 
   const copy = reply.showCopy
-    ? `<hr style="border:none;border-top:1px solid #eee;margin:28px 0 20px;" />
-        <p style="color:#888;font-size:13px;margin:0 0 8px;">For your records, here's what you sent:</p>
-        <table style="width:100%;border-collapse:collapse;font-size:14px;color:#555;">${detailRows}</table>
-        <p style="font-size:14px;line-height:1.6;color:#555;white-space:pre-wrap;">${safeMessage}</p>`
+    ? `<div style="border-top:1px solid #eeeeee;margin:8px 0 18px;height:1px;line-height:1px;font-size:0;">&nbsp;</div>
+        <p style="font-family:Arial,Helvetica,sans-serif;color:#888888;font-size:13px;margin:0 0 8px;">For your records, here's what you sent:</p>
+        <table style="width:100%;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#555555;">${detailRows}</table>
+        <p style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;color:#555555;white-space:pre-wrap;">${safeMessage}</p>`
     : '';
+  const branded = buildAutoReply(reply, { copyHtml: copy });
   const autoReplyEmail = {
     from: 'Happy Valley Volleyball Club <noreply@hvvcvolleyballclub.com>',
     to: [email],
     reply_to: REPLY_TO,
     subject: previewTag + reply.subject,
-    html: `
-      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;">
-        ${format(reply.message, { styles: EMAIL_STYLES, absoluteLinks: true, email: true })}
-        ${copy}
-        <p style="color:#aaa;font-size:12px;margin-top:24px;">Happy Valley Volleyball Club &bull; Happy Valley, OR 97086</p>
-      </div>
-    `,
-    text: plain(reply.message) + '\n\nHappy Valley Volleyball Club • Happy Valley, OR 97086',
+    html: branded.html,
+    text: branded.text,
   };
 
   try {

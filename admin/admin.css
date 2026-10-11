@@ -259,3 +259,9 @@ img { max-width: 100%; }
 .format-preview__body table { border-collapse: collapse; margin: 0 0 10px; font-size: .86rem; }
 .format-preview__body th, .format-preview__body td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
 .card--single .textarea:not(.textarea--short) { min-height: 340px; }
+
+/* ---- Auto-reply email preview ---- */
+.email-preview { margin-top: 18px; border: 1px solid var(--border); border-radius: var(--radius); background: #f4f4f5; overflow: hidden; }
+.email-preview > summary { cursor: pointer; padding: 14px 16px; font-weight: 700; color: var(--ink); background: var(--surface); }
+.email-preview__note { margin: 0; padding: 10px 16px; font-size: .86rem; color: var(--muted); background: var(--surface); border-top: 1px solid var(--border); }
+.email-preview__frame { max-height: 760px; overflow: auto; }

@@ -558,6 +558,26 @@
     return details;
   }
 
+  // The branded auto-reply as a family would get it today. Uses the same
+  // template as the server (js/autoreply-email.js).
+  let drawEmail = null;
+  function emailPreview(item) {
+    const note = h('p', { class: 'email-preview__note' });
+    const frame = h('div', { class: 'email-preview__frame' });
+    drawEmail = () => {
+      if (!window.HVVCAutoReply) return;
+      const today = window.HVVCAutoReply.todayInOregon();
+      const all = (item.announcements || []).filter((a) => String(a.text || '').trim());
+      const hidden = all.length - window.HVVCAutoReply.activeAnnouncements(item, today).length;
+      const day = new Date(today + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+      note.textContent = `As a family would receive it today (${day}).` + (hidden ? ` ${hidden} announcement${hidden === 1 ? ' is' : 's are'} past ${hidden === 1 ? 'its' : 'their'} "Show until" date and hidden.` : '');
+      frame.innerHTML = window.HVVCAutoReply.build(item, { today, copyHtml: '<p style="font-family:Arial,Helvetica,sans-serif;color:#9ca3af;font-size:13px;margin:0;">A copy of what they sent appears here.</p>' }).html
+        .replace(/https:\/\/www\.hvvcvolleyballclub\.com\/img\//g, '/img/');
+    };
+    drawEmail();
+    return h('details', { class: 'email-preview', open: true }, h('summary', { text: 'Preview the email' }), note, frame);
+  }
+
   function renderPhotoField(type, item, f, id, help) {
     const fileInput = h('input', { type: 'file', accept: 'image/*', class: 'photo__file', id, onchange: (e) => pickPhoto(type, item, f, e.target) });
     const has = Boolean(item[f.name]);
@@ -697,6 +717,7 @@
       const body = h('div', { class: 'card card--open card--single' }, h('div', { class: 'card__body' }));
       appendFields(body.firstChild, type, item, s.fields, errors);
       wrap.append(body);
+      if (type === 'autoreply') wrap.append(emailPreview(item));
       return wrap;
     }
 
@@ -765,6 +786,7 @@
 
   // ---------- edits ----------
   function changed(type, item) {
+    if (type === 'autoreply' && drawEmail) drawEmail();
     if (state.errors[item._key]) {
       const now = validate(type, item);
       for (const name of Object.keys(state.errors[item._key])) {
