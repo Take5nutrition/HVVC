@@ -18,13 +18,17 @@ const SCHEMAS = {
     path: 'data/coaches.json',
     page: '/coaches/',
     pageLabel: 'Staff page',
-    intro: 'Coaches show in the "Our Coaches" list on the Staff page, in this order. Assign coaches to a team from the Teams tab.',
+    intro: 'Coaches show on the Staff page in two sections, Head Coaches and Coaching Staff, in this order. Assign coaches to a team from the Teams tab.',
     ordered: true,
     maxItems: 60,
     summary: ['name', 'role'],
     idField: 'id',
     fields: [
       { name: 'name', label: 'Name', type: 'text', required: true, max: 80 },
+      {
+        name: 'section', label: 'Staff page section', type: 'select', default: 'staff',
+        options: [{ value: 'head', label: 'Head Coaches' }, { value: 'staff', label: 'Coaching Staff' }],
+      },
       { name: 'role', label: 'Title', type: 'text', max: 80, placeholder: '16-1 Head Coach', help: 'Leave blank to show their team role automatically (from the Teams tab).' },
       { name: 'photo', label: 'Photo', type: 'photo', crop: true, frame: 'circle', help: 'Drag the photo or use the sliders to frame their face. Without a photo, their initials show.' },
       { name: 'bio', label: 'Bio', type: 'textarea', max: 4000, help: 'Start each new paragraph on a new line.' },

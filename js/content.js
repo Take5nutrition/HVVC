@@ -171,10 +171,14 @@ window.HVVC = (function () {
   }
 
   function renderCoaches(el) {
+    const wanted = el.getAttribute('data-coach-section');
+    const section = el.closest('[data-hide-when-empty]');
     return Promise.all([load('coaches'), loadOptional('teams')])
       .then(([coaches, teams]) => {
         const roles = coachRoles(teams);
-        const items = coaches.map((c) => coachItem(c, roles)).filter(Boolean);
+        const inSection = wanted ? coaches.filter((c) => (c.section === 'staff' ? 'staff' : 'head') === wanted) : coaches;
+        const items = inSection.map((c) => coachItem(c, roles)).filter(Boolean);
+        if (section) section.hidden = !items.length;
         el.innerHTML = items.length ? items.join('') : '<p class="dk-content-note">Coach bios are coming soon.</p>';
       })
       .catch(() => {

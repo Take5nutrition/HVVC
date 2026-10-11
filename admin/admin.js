@@ -295,6 +295,7 @@
     }
     if (type === 'tournaments' && item.location) secondary = [secondary, item.location].filter(Boolean).join(' · ');
     if (type === 'teams' && item.slug) secondary = [item.group, `/hvvc-${slug(item.slug)}/`].filter(Boolean).join(' · ');
+    if (type === 'coaches') secondary = [item.section === 'head' ? 'Head Coaches' : 'Coaching Staff', String(item.role || '').trim()].filter(Boolean).join(' · ');
     return { primary, secondary: String(secondary || '').trim() };
   }
 
