@@ -2900,7 +2900,8 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .dk-split--compact .dk-split__photo-wrap { aspect-ratio: 4 / 3; }
 .dk-split--compact .dk-split__img { height: 100%; object-fit: cover; object-position: 50% 12%; }
 @media (min-width: 900px) {
-  .dk-split--compact .dk-split__inner { grid-template-columns: .8fr 1.2fr; gap: 56px; }
+  /* Top-aligned so the photo stays put when "Read full story" opens */
+  .dk-split--compact .dk-split__inner { grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; }
   .dk-split--compact .dk-split__photo-wrap { aspect-ratio: 4 / 5; max-height: 460px; }
 }
 
