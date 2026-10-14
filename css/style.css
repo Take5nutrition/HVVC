@@ -764,6 +764,8 @@ body.dark-mode .hero__bg {
   background: #000;
   padding: 0;
 }
+/* Room to breathe before the light sections while the stats section after it is hidden */
+.ql-section:has(+ .stats-dark[hidden]) { padding-bottom: clamp(64px, 8vw, 110px); }
 .ql-big-title {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 4.5vw, 4.5rem);
