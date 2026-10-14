@@ -3890,3 +3890,21 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .faq-more { text-align: center; margin-top: 28px; }
 .form-submit-error { margin: 0 0 14px; padding: 12px 14px; border: 1px solid rgba(253,164,175,.45); border-radius: var(--radius-md); background: rgba(239,68,68,.12); color: #fecdd3; font-size: .9rem; font-weight: 600; line-height: 1.5; }
 .dk-coach-list__intro { max-width: 640px; margin: 14px auto 0; color: #94a3b8; line-height: 1.7; }
+
+/* ---- Leadership: highlights timeline + "Read full story" ---- */
+.leader-highlights { margin: 6px 0 22px; padding: 18px 20px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(255,255,255,.02); }
+.leader-highlights__title { margin: 0 0 12px; font-family: var(--font-heading); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--pink-light); }
+.leader-timeline { display: grid; gap: 10px; margin: 0; }
+.leader-timeline__row { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: baseline; }
+.leader-timeline dt { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #fff; }
+.leader-timeline dd { margin: 0; }
+.leader-timeline ul { list-style: none; margin: 0; padding: 0; }
+.leader-timeline li { font-size: .9rem; line-height: 1.55; color: #cbd5e1; }
+.leader-timeline li + li { margin-top: 3px; }
+.leader-more > summary { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 16px; cursor: pointer; list-style: none; font-weight: 700; color: var(--pink-light); }
+.leader-more > summary::-webkit-details-marker { display: none; }
+.leader-more > summary::after { content: ''; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s ease; }
+.leader-more[open] > summary::after { transform: rotate(-135deg) translateY(-2px); }
+.leader-more__close, .leader-more[open] .leader-more__open { display: none; }
+.leader-more[open] .leader-more__close { display: inline; }
+.leader-more p { font-size: .95rem; color: #94a3b8; line-height: 1.8; margin: 0 0 18px; }

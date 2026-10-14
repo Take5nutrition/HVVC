@@ -1,13 +1,36 @@
 [
   {
     "name": "Sarah Borski",
-    "title": "Founder and Club Director",
+    "title": "Founder & Director, Happy Valley Volleyball Club & HVVC Academy",
     "label": "Leadership",
     "photo": "/img/coach-sarah.jpg",
     "photoX": 50,
     "photoY": 12,
     "photoZoom": 1,
-    "bio": "Sarah founded Happy Valley Volleyball Club in 2023 with a vision to give local athletes more opportunities to learn, compete, and belong. As HVVC enters its fourth season, she leads its competitive teams, Academy, and developmental programs, working to make quality training accessible through year round opportunities and scholarships.\n\nSarah’s volleyball journey began in sixth grade. She played seven seasons with Nike NW Juniors and helped Gresham High School win back to back 4A OSAA State Championships in 2001 and 2002. After graduating in 2003, she attended Boise State University on a full athletic scholarship.\n\nCoaching her daughter’s recreational team in 2016 brought Sarah back to the sport and planted the seed for HVVC. She now has more than 10 years of coaching experience across recreational and competitive volleyball. Outside the gym, Sarah works as a Director of Marketing, experience she brings to building connections among HVVC’s athletes, families, coaches, and community partners.\n\nAs a mother of three, Sarah understands how much a positive team experience can mean to a family. She strives to make HVVC a place where athletes build skills and confidence, form lasting friendships, and discover what they’re capable of.",
+    "bio": "Sarah Borski brings state championship, national club, and NCAA Division I playing experience to her leadership of Happy Valley Volleyball Club and HVVC Academy. Her approach combines a lifelong connection to volleyball with a commitment to helping young athletes grow as players, teammates, and people.\n\nA 2003 graduate of Gresham High School, Sarah played under Lori Anderson on teams that placed third at the Oregon 4A state tournament in 2000 before winning back to back state championships in 2001 and 2002. The 2001 team finished undefeated at 29–0, while the 2002 team was ranked No. 12 nationally.\n\nSarah began her club career as a sixth grade 12U player with Nike Northwest Juniors and continued through 18U, competing in tournaments across the country, including the Volleyball Festival and Junior Olympics. Under Michael Seemann, now Portland State University’s head women’s volleyball coach, her 16U team earned a national runner up finish at the 2001 Davis Volleyball Festival in California. She completed her club career under Rod Jones as a member of the 2003 CEVA regional champion 18U Air Elite team.\n\nSarah earned a full athletic scholarship to Boise State University, where she competed as an NCAA Division I outside hitter during the 2003 and 2004 seasons.\n\nIn October 2023, Sarah founded Happy Valley Volleyball Club with one team and a vision to create meaningful opportunities for local athletes. Today, she leads HVVC’s club teams, academy, camps, clinics, and developmental programs, drawing on her volleyball background and professional experience in marketing and communications.\n\nSarah’s “Warm Demander” philosophy pairs high expectations with encouragement and care. Through HVVC’s WOW values, Work, Ownership, and Will, she emphasizes purposeful effort, personal responsibility, and a commitment to the team. As both a club director and volleyball parent, she is dedicated to balancing quality coaching and meaningful competition with affordability.\n\nIn just three years, HVVC has reached more than 400 athletes through its club teams, HVVC Academy, and developmental programs. As it enters its fourth season, the club is building more than volleyball players, it is shaping confident, accountable, and resilient athletes who understand that success is measured not only by wins, but by growth, character, and the ability to contribute to something greater than themselves. Through a positive athletic mindset and a commitment to purposeful practice, consistent effort, and shared team goals, HVVC helps every athlete pursue meaningful progress on the court while developing the discipline, confidence, and life skills to thrive beyond it.",
+    "highlightsTitle": "Volleyball Achievements",
+    "highlights": [
+      {
+        "year": "2000",
+        "items": "Third place at the OSAA 4A state volleyball tournament"
+      },
+      {
+        "year": "2001",
+        "items": "Conference Champion, 29–0 undefeated season, Gresham High School\nOSAA 4A State Champion, Gresham High School\n16U 2nd place finish at National Davis Volleyball Festival, Nike NW Juniors"
+      },
+      {
+        "year": "2002",
+        "items": "OSAA 4A State Champion, Gresham High School\nMember of Gresham High School Roster Ranked No. 12 nationally\nAccepted full athletic volleyball scholarship, Boise State University"
+      },
+      {
+        "year": "2003",
+        "items": "18U CEVA Regional Champion, Nike NW Juniors\nNCAA Division I outside hitter at Boise State"
+      },
+      {
+        "year": "2023",
+        "items": "Founded Happy Valley Volleyball Club in October 2023"
+      }
+    ],
     "buttonLabel": "Contact Sarah →",
     "buttonLink": "/contact/"
   }

@@ -204,6 +204,29 @@ window.HVVC = (function () {
   }
 
   // ---------- leadership (Staff page) ----------
+  // First paragraph up front, then the highlights timeline; long bios tuck
+  // the rest under a "Read full story" button.
+  function leaderBio(leader) {
+    const paras = text(leader.bio).split(/\n\s*\n/).map((p) => text(p).replace(/\s*\n\s*/g, ' ')).filter(Boolean);
+    const rows = (Array.isArray(leader.highlights) ? leader.highlights : [])
+      .map((h) => ({ year: text(h.year), items: text(h.items).split('\n').map(text).filter(Boolean) }))
+      .filter((h) => h.year && h.items.length);
+    const timeline = rows.length
+      ? `<div class="leader-highlights">
+          <h3 class="leader-highlights__title">${escapeHtml(text(leader.highlightsTitle) || 'Highlights')}</h3>
+          <dl class="leader-timeline">${rows.map((h) => `<div class="leader-timeline__row"><dt>${escapeHtml(h.year)}</dt><dd><ul>${h.items.map((i) => `<li>${escapeHtml(i)}</li>`).join('')}</ul></dd></div>`).join('')}</dl>
+        </div>`
+      : '';
+    const first = paras.length ? `<p>${escapeHtml(paras[0])}</p>` : '';
+    const rest = paras.slice(1);
+    const restHtml = rest.map((p) => `<p>${escapeHtml(p)}</p>`).join('');
+    const firstName = escapeHtml(text(leader.name).split(/\s+/)[0] || '');
+    const more = rest.length > 1
+      ? `<details class="leader-more"><summary><span class="leader-more__open">Read ${firstName}'s full story</span><span class="leader-more__close">Show less</span></summary>${restHtml}</details>`
+      : restHtml;
+    return first + timeline + more;
+  }
+
   function leaderSection(leader, index) {
     const name = text(leader.name);
     if (!name) return '';
@@ -222,7 +245,7 @@ window.HVVC = (function () {
         <span class="dk-split__kicker"><span class="dk-split__kicker-bar"></span>${escapeHtml(text(leader.label) || 'Leadership')}</span>
         <h2 class="dk-split__heading">${escapeHtml(name)}</h2>
         ${text(leader.title) ? `<span class="dk-coach-card__title" style="display:block;margin-bottom:16px;">${escapeHtml(text(leader.title))}</span>` : ''}
-        ${paragraphs(leader.bio).map((p) => `<p>${escapeHtml(p)}</p>`).join('')}
+        ${leaderBio(leader)}
         ${button}
       </div>
     </div>

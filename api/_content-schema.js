@@ -67,10 +67,16 @@ const SCHEMAS = {
     summary: ['name', 'title'],
     fields: [
       { name: 'name', label: 'Name', type: 'text', required: true, max: 80 },
-      { name: 'title', label: 'Title', type: 'text', max: 80, placeholder: 'Club Director' },
+      { name: 'title', label: 'Title', type: 'text', max: 120, placeholder: 'Club Director' },
       { name: 'label', label: 'Small heading above the name', type: 'text', max: 40, default: 'Leadership', placeholder: 'Leadership' },
       { name: 'photo', label: 'Photo', type: 'photo', crop: true, frame: 'portrait', help: 'Drag the photo or use the sliders to frame it.' },
-      { name: 'bio', label: 'Bio', type: 'textarea', max: 5000, help: 'Start each new paragraph on a new line. The first paragraph shows slightly larger.' },
+      { name: 'bio', label: 'Bio', type: 'textarea', max: 9000, help: 'Leave a blank line between paragraphs. The first paragraph shows up front; when there are more than two, the rest go under a "Read full story" button.' },
+      { name: 'highlightsTitle', label: 'Highlights heading', type: 'text', max: 60, placeholder: 'Volleyball Achievements' },
+      { name: 'highlights', label: 'Highlights timeline', type: 'list', itemLabel: 'year', max: 30, help: 'Optional. Shown after the first paragraph. Put each achievement on its own line.',
+        fields: [
+          { name: 'year', label: 'Year', type: 'text', required: true, max: 12, placeholder: '2001' },
+          { name: 'items', label: 'Achievements', type: 'textarea', required: true, max: 1000 },
+        ] },
       { name: 'buttonLabel', label: 'Button text', type: 'text', max: 40, placeholder: 'Contact Sarah →', help: 'Optional. Leave blank for no button.' },
       { name: 'buttonLink', label: 'Button link', type: 'link', help: 'A page on the site like /contact/, or a full web address.' },
     ],
