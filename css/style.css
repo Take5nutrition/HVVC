@@ -3117,10 +3117,9 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 /* Staff page: big photo cards; coaches with a bio open their own page */
 .dk-coach-list__header { margin-bottom: 40px; }
 .staff-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;
   max-width: 1180px; margin: 0 auto;
 }
-@media (min-width: 700px) { .staff-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; } }
 @media (min-width: 1024px) { .staff-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; } }
 .staff-card {
   display: flex; flex-direction: column; overflow: hidden;
@@ -3147,11 +3146,15 @@ a.staff-card:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px
 .staff-card__title { font-size: .74rem; font-weight: 700; line-height: 1.4; color: var(--pink-light); text-transform: uppercase; letter-spacing: .05em; }
 .staff-card__more { margin-top: auto; padding-top: 10px; font-size: .82rem; font-weight: 600; color: #94a3b8; transition: color .25s ease; }
 a.staff-card:hover .staff-card__more { color: #fff; }
+/* Phones: three small cards per row; the whole card is the link, so "Read bio" goes */
 @media (max-width: 599px) {
-  .staff-card__body { padding: 12px 12px 14px; gap: 4px; }
-  .staff-card__name { font-size: 1.05rem; }
-  .staff-card__title { font-size: .66rem; }
-  .staff-card__more { font-size: .76rem; padding-top: 8px; }
+  .staff-grid { gap: 8px; }
+  .staff-card { border-radius: 10px; }
+  .staff-card__photo--initials { font-size: 1.7rem; }
+  .staff-card__body { padding: 8px 8px 10px; gap: 3px; }
+  .staff-card__name { font-size: .88rem; line-height: 1.15; }
+  .staff-card__title { font-size: .56rem; line-height: 1.3; letter-spacing: .03em; }
+  .staff-card__more { display: none; }
 }
 
 /* Coach bio page */
