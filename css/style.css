@@ -64,10 +64,10 @@
   --font-heading: 'Oswald', 'Inter Tight', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
   --radius-full: 9999px;
 
   --shadow-xs: 0 1px 2px rgba(0,0,0,.04);
@@ -719,7 +719,7 @@ body.dark-mode .hero__bg {
 }
 .stats-bar__card {
   background: #fff;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -795,7 +795,7 @@ body.dark-mode .hero__bg {
 .ql-card__img-wrap {
   width: 100%;
   aspect-ratio: 2/3.8;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
 }
@@ -945,7 +945,7 @@ body.dark-mode .hero__bg {
   line-height: 1.6; margin-bottom: 18px;
 }
 .purpose-feature__photo {
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   aspect-ratio: 3/4;
 }
@@ -3039,7 +3039,7 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 .coach-lightbox.is-active { opacity: 1; visibility: visible; }
 .coach-lightbox img {
   max-width: 90vw; max-height: 90vh; object-fit: contain;
-  border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  border-radius: var(--radius-md); box-shadow: 0 20px 60px rgba(0,0,0,.5);
   transform: scale(0.92); transition: transform 0.3s ease;
 }
 .coach-lightbox.is-active img { transform: scale(1); }
@@ -3123,7 +3123,7 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 @media (min-width: 1024px) { .staff-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; } }
 .staff-card {
   display: flex; flex-direction: column; overflow: hidden;
-  background: #0e0e11; border: 1px solid rgba(255,255,255,.08); border-radius: 16px;
+  background: #0e0e11; border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-lg);
   color: #fff; text-decoration: none;
   transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
 }
@@ -3149,7 +3149,7 @@ a.staff-card:hover .staff-card__more { color: #fff; }
 /* Phones: three small cards per row; the whole card is the link, so "Read bio" goes */
 @media (max-width: 599px) {
   .staff-grid { gap: 8px; }
-  .staff-card { border-radius: 10px; }
+  .staff-card { border-radius: var(--radius-md); }
   .staff-card__photo--initials { font-size: 1.7rem; }
   .staff-card__body { padding: 8px 8px 10px; gap: 3px; }
   .staff-card__name { font-size: .88rem; line-height: 1.15; }
@@ -3203,7 +3203,7 @@ a.staff-card:hover .staff-card__more { color: #fff; }
 .dk-split__photo-wrap--empty { background: rgba(255,255,255,.04); display: flex; align-items: center; justify-content: center; min-height: 360px; }
 
 /* ---- Tournament schedule table (team pages + Schedule page) ---- */
-.schedule-table-wrap { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(15,23,42,.08); max-width: 1000px; margin: 0 auto; }
+.schedule-table-wrap { background: #fff; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 10px 30px rgba(15,23,42,.08); max-width: 1000px; margin: 0 auto; }
 .schedule-table { width: 100%; border-collapse: collapse; font-size: .97rem; color: #1e293b; }
 .schedule-table thead th { background: #1f2329; color: #fff; font-weight: 700; text-align: left; padding: 18px 22px; border-bottom: 4px solid #c9ccd1; white-space: nowrap; }
 .schedule-table td { padding: 18px 22px; vertical-align: top; }
@@ -3214,7 +3214,7 @@ a.staff-card:hover .staff-card__more { color: #fff; }
 .schedule-table__note { display: block; margin-top: 2px; font-size: .84rem; color: #64748b; }
 .schedule-table__done { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: #e2e8f0; color: #64748b; font-size: .68rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; vertical-align: middle; }
 .team-schedule__note { margin-top: 18px; text-align: center; color: #64748b; font-size: .85rem; }
-.schedule-pending { max-width: 640px; margin: 0 auto; padding: 40px 28px; text-align: center; background: #fff; border: 1px dashed #f5a3cf; border-radius: 16px; box-shadow: 0 10px 30px rgba(15,23,42,.06); color: var(--pink); }
+.schedule-pending { max-width: 640px; margin: 0 auto; padding: 40px 28px; text-align: center; background: #fff; border: 1px dashed #f5a3cf; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(15,23,42,.06); color: var(--pink); }
 .schedule-pending svg { display: block; margin: 0 auto; }
 .schedule-pending__title { margin: 14px 0 6px; font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; color: var(--ink); }
 .schedule-pending__text { margin: 0; color: #64748b; line-height: 1.7; }
@@ -3246,8 +3246,8 @@ a.staff-card:hover .staff-card__more { color: #fff; }
 
 /* ---- Team page: roster ---- */
 .roster { list-style: none; margin: 0 auto; padding: 0; max-width: 960px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-.roster__player { display: grid; grid-template-columns: 52px 1fr; column-gap: 14px; align-items: center; padding: 14px 16px; background: #fff; border: 1px solid var(--border); border-radius: 14px; }
-.roster__number { grid-row: span 2; width: 52px; height: 52px; border-radius: 12px; background: var(--gradient); color: #fff; font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.roster__player { display: grid; grid-template-columns: 52px 1fr; column-gap: 14px; align-items: center; padding: 14px 16px; background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); }
+.roster__number { grid-row: span 2; width: 52px; height: 52px; border-radius: var(--radius-md); background: var(--gradient); color: #fff; font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
 .roster__name { font-weight: 700; color: var(--ink); }
 .roster__meta { grid-column: 2; font-size: .86rem; color: var(--muted); }
 .dk-content-note a { color: var(--pink-light); }
@@ -3688,7 +3688,7 @@ a.staff-card:hover .staff-card__more { color: #fff; }
 @media (max-width: 600px) {
   #hvvcEventBanner {
     bottom: 1rem; left: .75rem; right: 74px; transform: none;
-    border-radius: 12px; white-space: normal;
+    border-radius: var(--radius-md); white-space: normal;
     padding: .55rem .8rem;
   }
   .hvvc-banner__badge { display: none; }
@@ -3937,7 +3937,7 @@ a.staff-card:hover .staff-card__more { color: #fff; }
 .dk-coach-list__intro { max-width: 640px; margin: 14px auto 0; color: #94a3b8; line-height: 1.7; }
 
 /* ---- Leadership: highlights timeline + "Read full story" ---- */
-.leader-highlights { margin: 6px 0 22px; padding: 18px 20px; border: 1px solid rgba(255,255,255,.08); border-radius: 14px; background: rgba(255,255,255,.02); }
+.leader-highlights { margin: 6px 0 22px; padding: 18px 20px; border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-lg); background: rgba(255,255,255,.02); }
 .leader-highlights__title { margin: 0 0 12px; font-family: var(--font-heading); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--pink-light); }
 .leader-timeline { display: grid; gap: 10px; margin: 0; }
 .leader-timeline__row { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: baseline; }
@@ -3953,3 +3953,71 @@ a.staff-card:hover .staff-card__more { color: #fff; }
 .leader-more__close, .leader-more[open] .leader-more__open { display: none; }
 .leader-more[open] .leader-more__close { display: inline; }
 .leader-more p { font-size: .95rem; color: #94a3b8; line-height: 1.8; margin: 0 0 18px; }
+
+/* ===== LIGHT SECTION: the first section under the pink page banner =====
+   Pages open black hero → pink banner → white section. Add .is-light to
+   that section; these rules flip its dark-theme pieces to light. */
+.is-light {
+  background: #fff !important; color: var(--ink);
+  --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --card-bg: #fff; --card-border: #e2e8f0;
+}
+.is-light.grain-overlay::before, .is-light.has-spotlight::after,
+.is-light .dk-section__bg, .is-light .prog-training__bg { display: none; }
+
+/* Headings and names */
+.is-light :is(.dk-split__heading, .about-story__heading, .prog-training__title, .teams-division__title,
+  .dk-contact-info h2, .dk-invest-card h3, .dk-upload-zone h3, .prog-card__title, .dk-team-card__name,
+  .hvvc-event-title, .hvvc-event-date__dy, .leader-timeline dt, .about-story__cred strong,
+  .player-fields__legend, .dk-update-card h3) { color: var(--ink); }
+
+/* Body text */
+.is-light :is(.dk-split__text-col > p, .about-story__text-col > p, .dk-contact-info > p, .dk-upload-zone p,
+  .prog-card__desc, .dk-team-card__desc, .leader-more p, .dk-content-note, .dk-contact-mailing,
+  .dk-invest-card p, .dk-update-card p, .dk-contact-faq) { color: #475569; }
+.is-light :is(.dk-split__text-col > p:first-of-type, .about-story__lead, .about-story__quote,
+  .dk-contact-item a, .dk-contact-item p, .dk-contact-mailing strong, .leader-timeline li,
+  .prog-card__list li, .dk-invest-card li, .hvvc-event-detail-group li) { color: #334155; }
+
+/* Small pink labels: the light pink is too faint on white */
+.is-light :is(.dk-split__kicker, .about-story__kicker, .teams-division__kicker, .leader-highlights__title,
+  .leader-more > summary, .prog-card__link, .dk-contact-faq a, .dk-coach-card__title, .dk-content-note a,
+  .dk-contact-item svg, .about-story__cred svg) { color: #d81b86; }
+.is-light .prog-card__link:hover { color: var(--ink); }
+
+/* Cards and panels */
+.is-light :is(.dk-invest-card, .prog-card, .dk-team-card, .leader-highlights, .about-story__cred,
+  .dk-form, .dk-contact-mailing, .dk-update-card) {
+  background: #fff; border-color: #e2e8f0; box-shadow: 0 10px 30px rgba(15,23,42,.06);
+}
+.is-light .dk-invest-card--highlight { background: linear-gradient(135deg, #fff1f8 0%, #f5efff 100%); border-color: #f5c2df; }
+.is-light .dk-invest-card__note { border-top-color: #e2e8f0; color: #64748b; }
+.is-light .dk-upload-zone { background: #f8fafc; border-color: #cbd5e1; }
+.is-light .dk-upload-zone:hover { background: #fff1f8; border-color: var(--pink); }
+.is-light .dk-contact-item { border-bottom-color: #e2e8f0; }
+
+/* Events */
+.is-light .hvvc-event-card { background: #fff; border-color: #e2e8f0; border-left-color: var(--pink); box-shadow: 0 10px 30px rgba(15,23,42,.05); }
+.is-light .hvvc-event-date { background: #f8fafc; border-color: #e2e8f0; }
+.is-light .hvvc-event-details, .is-light .hvvc-events-past-header { border-top-color: #e2e8f0; }
+.is-light .hvvc-event-cta__soon { border-color: #cbd5e1; }
+
+/* Contact form */
+.is-light .dk-form label, .is-light .dk-form .program-interest > legend { color: #475569; }
+.is-light .dk-form :is(input, select, textarea), .is-light .form-verify__question {
+  background: #f8fafc; border-color: #e2e8f0; color: var(--ink);
+}
+.is-light .dk-form :is(input, textarea)::placeholder { color: #94a3b8; }
+.is-light .dk-form select option { background: #fff; color: var(--ink); }
+.is-light .dk-form input[type="date"] { color-scheme: light; }
+.is-light .player-fields { background: #fcfcfe; border-color: #e2e8f0 !important; }
+.is-light :is(.player-fields__note, .player-fields__hint, .dk-form .program-interest > legend span) { color: #64748b; }
+.is-light .dk-form .check-option { background: #f8fafc; border-color: #e2e8f0; color: #1e293b; }
+.is-light .dk-form .check-option:has(input:checked) { background: #fff1f8; border-color: var(--pink); }
+.is-light .dk-form .check-option--quiet { background: none; color: #64748b; }
+.is-light .dk-form .check-option--quiet:has(input:checked) { color: var(--ink); }
+.is-light :is(.form-field-error, .form-verify__error) { color: #dc2626; }
+.is-light .form-submit-error { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
+.is-light .section__tag--light {
+  background: linear-gradient(135deg, rgba(255,42,161,.12) 0%, rgba(123,63,228,.12) 100%);
+  border-color: rgba(255,42,161,.25); color: var(--pink); backdrop-filter: none;
+}

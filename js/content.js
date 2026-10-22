@@ -302,7 +302,7 @@ window.HVVC = (function () {
     const button = text(leader.buttonLabel) && safeUrl(leader.buttonLink)
       ? `<a href="${escapeHtml(safeUrl(leader.buttonLink))}" class="btn btn--primary" style="margin-top:24px;"${/^https?:/i.test(leader.buttonLink) ? ' target="_blank" rel="noopener"' : ''}>${escapeHtml(text(leader.buttonLabel))}</a>`
       : '';
-    return `<section class="dk-split dk-split--compact${index % 2 ? ' dk-split--reverse' : ''} grain-overlay">
+    return `<section class="dk-split dk-split--compact${index % 2 ? ' dk-split--reverse' : ''}${index ? '' : ' is-light'} grain-overlay">
     <div class="dk-section__bg"></div>
     <div class="dk-split__inner">
       ${media}
@@ -497,9 +497,9 @@ window.HVVC = (function () {
   }
 
   function renderTeamDivisions(el, teams) {
-    el.innerHTML = groupTeams(teams).map((g) => {
+    el.innerHTML = groupTeams(teams).map((g, i) => {
       const [kicker, title] = divisionHeading(g.name, g.teams);
-      return `<section class="teams-division">
+      return `<section class="teams-division${i ? '' : ' is-light'}">
     <div class="teams-division__inner">
       <div class="teams-division__header">
         <span class="teams-division__kicker"><span class="teams-division__kicker-bar"></span>${kicker}</span>
@@ -539,7 +539,7 @@ window.HVVC = (function () {
     const label = escapeHtml(text(team.scheduleLabel) || 'View Tournament Schedule');
     const photo = photoUrl(team.photo);
     if (photo) {
-      return `<section class="dk-split grain-overlay">
+      return `<section class="dk-split is-light grain-overlay">
     <div class="dk-section__bg"></div>
     <div class="dk-split__inner">
       <div class="dk-split__photo-wrap">
@@ -555,7 +555,7 @@ window.HVVC = (function () {
     </div>
   </section>`;
     }
-    return `<section class="dk-section grain-overlay">
+    return `<section class="dk-section is-light grain-overlay">
     <div class="dk-section__bg"></div>
     <div class="container">
       <div class="section__header">

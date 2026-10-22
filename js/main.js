@@ -563,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         turnstileId = window.turnstile.render(widgetEl, {
           sitekey: siteKey,
-          theme: 'dark',
+          theme: 'light',
           action: 'contact',
           callback: (token) => {
             tokenEl.value = token;
