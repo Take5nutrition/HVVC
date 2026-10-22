@@ -2,13 +2,24 @@
   {
     "name": "Nicole Warren",
     "section": "head",
-    "role": "",
+    "role": "18-1 Head Coach",
     "photo": "/img/coach-nicole.jpg",
     "photoX": 50,
     "photoY": 21,
     "photoZoom": 2.5,
     "bio": "Coach Nicole has been around volleyball nearly her entire life, starting club at just 8 years old and going on to play for more than 10 years. She played at Clackamas High School and also competed in beach volleyball around Oregon and California. Nicole earned a scholarship to continue her volleyball career at Blue Mountain Community College, but a back injury ultimately kept her from competing at the collegiate level.\n\nNow in her 6th year of coaching and 3rd season with HVVC, Nicole has found a new way to share her love for the game. She especially enjoys teaching the mental and strategic sides of volleyball while helping shape confident, competitive athletes both on and off the court.\n\nOutside of the gym, Nicole is probably still thinking about volleyball, or you can find her at a country concert, cheering on the Ducks, spending time on the lake in the summer, or hanging out with her dog and friends.",
     "id": "nicole-warren"
+  },
+  {
+    "name": "Mallory Cooper",
+    "section": "head",
+    "role": "16-1 Head Coach",
+    "photo": "",
+    "photoX": 50,
+    "photoY": 20,
+    "photoZoom": 1,
+    "bio": "Mallory played volleyball at West Linn High School and has continued her love for the sport primarily through beach volleyball. She has been coaching for several years, with 2026 marking her first season with HVVC. In the summer of 2026, she also created and hosted her own junior beach volleyball clinic on her home sand court, giving young athletes another opportunity to develop their skills and love for the game.\n\nAt just 20 years old, Mallory graduated with her bachelor’s degree in Psychology in June 2026 and is now continuing her education by pursuing a master’s degree in Mental Health Counseling. She enjoys bringing her background in psychology into her coaching and strives to create a positive, encouraging environment where athletes can build confidence both on and off the court.",
+    "id": "mallory-cooper"
   },
   {
     "name": "Kanoelani Shadron",
@@ -22,6 +33,17 @@
     "id": "kanoelani-shadron"
   },
   {
+    "name": "Megan Reynolds",
+    "section": "head",
+    "role": "14-1 Head Coach",
+    "photo": "",
+    "photoX": 50,
+    "photoY": 20,
+    "photoZoom": 1,
+    "bio": "Coach Megan brings several years of club volleyball coaching experience, working with athletes from 12U through 16U. Prior to joining Happy Valley Volleyball Club, she coached with Mt. Hood Volleyball Club and Eastside FCA Volleyball Club, developing athletes across multiple age groups and competitive levels.\n\nHer coaching philosophy focuses on strong fundamentals, discipline, confidence, teamwork, and game-focused training. Megan is passionate about developing the whole athlete and believes volleyball provides an incredible opportunity to teach accountability, resilience, leadership, communication, and what it means to be a great teammate.\n\nOutside of volleyball, Megan is a Human Resources executive with nearly 20 years of leadership experience and a mom of two. She is excited to bring her experience and passion for youth athletics to Happy Valley Volleyball Club and looks forward to creating a competitive, positive environment where athletes are challenged, supported, and inspired to grow.",
+    "id": "megan-reynolds"
+  },
+  {
     "name": "Charles Awounor",
     "section": "head",
     "role": "",
@@ -33,31 +55,9 @@
     "id": "charles-awounor"
   },
   {
-    "name": "Mallory Cooper",
-    "section": "head",
-    "role": "",
-    "photo": "",
-    "photoX": 50,
-    "photoY": 20,
-    "photoZoom": 1,
-    "bio": "Mallory played volleyball at West Linn High School and has continued her love for the sport primarily through beach volleyball. She has been coaching for several years, with 2026 marking her first season with HVVC. In the summer of 2026, she also created and hosted her own junior beach volleyball clinic on her home sand court, giving young athletes another opportunity to develop their skills and love for the game.\n\nAt just 20 years old, Mallory graduated with her bachelor’s degree in Psychology in June 2026 and is now continuing her education by pursuing a master’s degree in Mental Health Counseling. She enjoys bringing her background in psychology into her coaching and strives to create a positive, encouraging environment where athletes can build confidence both on and off the court.",
-    "id": "mallory-cooper"
-  },
-  {
-    "name": "Megan Reynolds",
-    "section": "head",
-    "role": "",
-    "photo": "",
-    "photoX": 50,
-    "photoY": 20,
-    "photoZoom": 1,
-    "bio": "Coach Megan brings several years of club volleyball coaching experience, working with athletes from 12U through 16U. Prior to joining Happy Valley Volleyball Club, she coached with Mt. Hood Volleyball Club and Eastside FCA Volleyball Club, developing athletes across multiple age groups and competitive levels.\n\nHer coaching philosophy focuses on strong fundamentals, discipline, confidence, teamwork, and game-focused training. Megan is passionate about developing the whole athlete and believes volleyball provides an incredible opportunity to teach accountability, resilience, leadership, communication, and what it means to be a great teammate.\n\nOutside of volleyball, Megan is a Human Resources executive with nearly 20 years of leadership experience and a mom of two. She is excited to bring her experience and passion for youth athletics to Happy Valley Volleyball Club and looks forward to creating a competitive, positive environment where athletes are challenged, supported, and inspired to grow.",
-    "id": "megan-reynolds"
-  },
-  {
     "name": "Kendal Ishida",
     "section": "head",
-    "role": "",
+    "role": "13-1 Head Coach",
     "photo": "/img/coach-kendal.jpg",
     "photoX": 50,
     "photoY": 21,
@@ -66,9 +66,20 @@
     "id": "kendal-ishida"
   },
   {
+    "name": "Maddy Abraham",
+    "section": "head",
+    "role": "13-2 Head Coach",
+    "photo": "",
+    "photoX": 50,
+    "photoY": 20,
+    "photoZoom": 1,
+    "bio": "",
+    "id": "maddy-abraham"
+  },
+  {
     "name": "Christina Braks",
     "section": "head",
-    "role": "",
+    "role": "11-1 Head Coach",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
@@ -77,42 +88,20 @@
     "id": "christina-braks"
   },
   {
-    "name": "Kat Gierek",
-    "section": "staff",
-    "role": "",
-    "photo": "/img/coach-kat.jpg",
-    "photoX": 56,
-    "photoY": 22,
+    "name": "Sarah Borski",
+    "section": "head",
+    "role": "10U Head Coach",
+    "photo": "/img/coach-sarah.jpg",
+    "photoX": 50,
+    "photoY": 21,
     "photoZoom": 2.5,
-    "bio": "Kat brings a versatile background in coaching, player development, and club operations to HVVC. She is highly involved in our Academy programming, clinics, camps, and individual skill work, helping athletes build their fundamentals and confidence on the court. She also serves as a Head Coach on Clackamas High School’s women's JV2 volleyball team.\n\nWith over ten years of accounting and administrative experience in higher education, Kat has worn many hats within club volleyball, including administrative operations, registrations, communications, organizational logistics, and event coordination. Her experience both on the court and behind the scenes support the athletes, coaches, and families of HVVC.",
-    "id": "kat-gierek"
-  },
-  {
-    "name": "Bayli Maude",
-    "section": "staff",
-    "role": "",
-    "photo": "",
-    "photoX": 50,
-    "photoY": 20,
-    "photoZoom": 1,
-    "bio": "",
-    "id": "bayli-maude"
-  },
-  {
-    "name": "Maddie Abraham",
-    "section": "staff",
-    "role": "",
-    "photo": "",
-    "photoX": 50,
-    "photoY": 20,
-    "photoZoom": 1,
-    "bio": "",
-    "id": "maddie-abraham"
+    "bio": "Sarah Borski brings state championship, national club, and NCAA Division I playing experience to her leadership of Happy Valley Volleyball Club and HVVC Academy. Her approach combines a lifelong connection to volleyball with a commitment to helping young athletes grow as players, teammates, and people.",
+    "id": "sarah-borski"
   },
   {
     "name": "Mackensie Wilson",
     "section": "staff",
-    "role": "",
+    "role": "18-1 Assistant Coach",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
@@ -123,46 +112,13 @@
   {
     "name": "Harley Combs",
     "section": "staff",
-    "role": "",
+    "role": "16-1 Assistant Coach",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
     "photoZoom": 1,
     "bio": "Coach Harley is entering her fifth year of coaching volleyball and her first season with HVVC! A former multisport athlete through high school and college, she brings a competitive spirit and a passion for helping young athletes build confidence, develop their skills, and reach their full potential.\n\nOutside of volleyball, she is the CFO of a commercial real estate company and enjoys running, staying active, and taking on new challenges. Most of all, she values time with her family and sharing her passion for sports with her daughter.",
     "id": "harley-combs"
-  },
-  {
-    "name": "Kaia Iranon",
-    "section": "staff",
-    "role": "",
-    "photo": "",
-    "photoX": 50,
-    "photoY": 20,
-    "photoZoom": 1,
-    "bio": "Kaia is going into her second year coaching at HVVC and has been playing volleyball since the age of 11. She currently plays on Nelson High School’s varsity volleyball team, where she continues to grow as both a player and a leader. Volleyball has become a huge part of her life, and she is passionate about sharing the knowledge, experiences, and love for the game that she has developed throughout her playing career.\n\nKaia especially loves having the opportunity to teach, encourage, and inspire young girls in the volleyball world. She believes that volleyball is about more than just developing skills on the court; it is also about building confidence, learning to be a great teammate, developing a strong work ethic, and growing as a person. She strives to create a positive and competitive environment where athletes feel supported, challenged, and motivated to become the best versions of themselves.\n\nOne of Kaia’s favorite parts of coaching is watching athletes gain confidence, overcome challenges, and discover what they are capable of achieving. She loves being someone her players can look up to and hopes to inspire them to work hard, believe in themselves, and continue pursuing their goals both on and off the court. She is excited to continue growing as a coach and helping the next generation of volleyball players develop their skills, build lasting connections, and create a genuine love for the game.",
-    "id": "kaia-iranon"
-  },
-  {
-    "name": "Kendel Redding",
-    "section": "staff",
-    "role": "",
-    "photo": "",
-    "photoX": 50,
-    "photoY": 20,
-    "photoZoom": 1,
-    "bio": "Kendel brings a strong volleyball background from her time with ABC Apollos VBC and Mountainside High School Volleyball where she learned to be a leader, as well as a technically skilled defensive player. She has worked with children in sports for multiple years now, helping young ones build a foundation and curiosity for volleyball. This is her first year as a coach and is so excited!\n\nKendel cannot stress enough how important it is to help young athletes build strong fundamentals, learn how to be a good teammate, and build confidence. She knows how these skills in sports translate not only on the court, but to the rest of your life. As a former libero, she is extremely competitive, understands the game well, and knows how to sacrifice for a team. She hopes to leave athletes with a new found love for the game, a better player and a great time.\n\nOutside of volleyball, Kendel works as a staff accountant at a public accounting firm where she is constantly learning, being pushed mentally, and managing balance. She has seen first-hand how her developed mental skills in sports has allowed herself to push for better jobs, opportunities and positions as she knows hard work and dedication pay off.",
-    "id": "kendel-redding"
-  },
-  {
-    "name": "Makayla Borski",
-    "section": "staff",
-    "role": "",
-    "photo": "",
-    "photoX": 50,
-    "photoY": 20,
-    "photoZoom": 1,
-    "bio": "",
-    "id": "makayla-borski"
   },
   {
     "name": "Hannah Brown",
@@ -176,15 +132,59 @@
     "id": "hannah-brown"
   },
   {
-    "name": "Sarah Sirianni",
+    "name": "Kaia Iranon",
     "section": "staff",
-    "role": "",
+    "role": "14-1 Assistant Coach",
     "photo": "",
     "photoX": 50,
     "photoY": 20,
     "photoZoom": 1,
-    "bio": "Sarah played club volleyball for Nike Northwest Juniors from 1995 through 2003. Her club teams were top finishers in tournaments across the U.S. She was a 4 year varsity letterman for Gresham High School volleyball and led her team to back to back State Championships (along with coach Sarah Borski!). She then played at Portland State University on a full ride volleyball scholarship. She played starting Outside Hitter and/or Libero all four years, and helped lead her team to a 2nd place finish in the Big Sky Conference Championship. She still holds a few program records for career total and per game service aces and digs.\n\nSarah has coached club at the 12U and 16U levels, JV2 high school, and at several high school camps, as well as college camps at PSU and UofP. Sarah gets excited about fine-tuning technical skills for precise ball control - there is nothing more satisfying than making the ball go exactly where you intended it to. And she loves instilling passionate, hard-working, positive competitive attitudes in young players. Attitude is Everything.\n\nAside from volleyball, Sarah is a mom of 3, a substitute teacher, and an occasional filmmaker/writer/actor and musician, and she enjoys hiking, and studying consciousness, quantum physics, and psychology.",
-    "id": "sarah-sirianni"
+    "bio": "Kaia is going into her second year coaching at HVVC and has been playing volleyball since the age of 11. She currently plays on Nelson High School’s varsity volleyball team, where she continues to grow as both a player and a leader. Volleyball has become a huge part of her life, and she is passionate about sharing the knowledge, experiences, and love for the game that she has developed throughout her playing career.\n\nKaia especially loves having the opportunity to teach, encourage, and inspire young girls in the volleyball world. She believes that volleyball is about more than just developing skills on the court; it is also about building confidence, learning to be a great teammate, developing a strong work ethic, and growing as a person. She strives to create a positive and competitive environment where athletes feel supported, challenged, and motivated to become the best versions of themselves.\n\nOne of Kaia’s favorite parts of coaching is watching athletes gain confidence, overcome challenges, and discover what they are capable of achieving. She loves being someone her players can look up to and hopes to inspire them to work hard, believe in themselves, and continue pursuing their goals both on and off the court. She is excited to continue growing as a coach and helping the next generation of volleyball players develop their skills, build lasting connections, and create a genuine love for the game.",
+    "id": "kaia-iranon"
+  },
+  {
+    "name": "Kendel Redding",
+    "section": "staff",
+    "role": "13-1 Assistant Coach",
+    "photo": "",
+    "photoX": 50,
+    "photoY": 20,
+    "photoZoom": 1,
+    "bio": "Kendel brings a strong volleyball background from her time with ABC Apollos VBC and Mountainside High School Volleyball where she learned to be a leader, as well as a technically skilled defensive player. She has worked with children in sports for multiple years now, helping young ones build a foundation and curiosity for volleyball. This is her first year as a coach and is so excited!\n\nKendel cannot stress enough how important it is to help young athletes build strong fundamentals, learn how to be a good teammate, and build confidence. She knows how these skills in sports translate not only on the court, but to the rest of your life. As a former libero, she is extremely competitive, understands the game well, and knows how to sacrifice for a team. She hopes to leave athletes with a new found love for the game, a better player and a great time.\n\nOutside of volleyball, Kendel works as a staff accountant at a public accounting firm where she is constantly learning, being pushed mentally, and managing balance. She has seen first-hand how her developed mental skills in sports has allowed herself to push for better jobs, opportunities and positions as she knows hard work and dedication pay off.",
+    "id": "kendel-redding"
+  },
+  {
+    "name": "Bayli Maude",
+    "section": "staff",
+    "role": "13-2 Assistant Coach",
+    "photo": "",
+    "photoX": 50,
+    "photoY": 20,
+    "photoZoom": 1,
+    "bio": "",
+    "id": "bayli-maude"
+  },
+  {
+    "name": "Makayla Borski",
+    "section": "staff",
+    "role": "11-1 Assistant Coach",
+    "photo": "",
+    "photoX": 50,
+    "photoY": 20,
+    "photoZoom": 1,
+    "bio": "",
+    "id": "makayla-borski"
+  },
+  {
+    "name": "Kat Gierek",
+    "section": "staff",
+    "role": "",
+    "photo": "/img/coach-kat.jpg",
+    "photoX": 56,
+    "photoY": 22,
+    "photoZoom": 2.5,
+    "bio": "Kat brings a versatile background in coaching, player development, and club operations to HVVC. She is highly involved in our Academy programming, clinics, camps, and individual skill work, helping athletes build their fundamentals and confidence on the court. She also serves as a Head Coach on Clackamas High School’s women's JV2 volleyball team.\n\nWith over ten years of accounting and administrative experience in higher education, Kat has worn many hats within club volleyball, including administrative operations, registrations, communications, organizational logistics, and event coordination. Her experience both on the court and behind the scenes support the athletes, coaches, and families of HVVC.",
+    "id": "kat-gierek"
   },
   {
     "name": "Eden Erickson",
