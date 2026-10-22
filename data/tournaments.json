@@ -50,16 +50,6 @@
     "link": ""
   },
   {
-    "name": "CEVA Power League Qualifier",
-    "start": "2027-01-09",
-    "end": "",
-    "team": "12-2",
-    "location": "TBD, assigned by CEVA",
-    "type": "regional",
-    "notes": "",
-    "link": ""
-  },
-  {
     "name": "CEVA Power League #1",
     "start": "2027-01-23",
     "end": "",
@@ -104,16 +94,6 @@
     "start": "2027-01-23",
     "end": "",
     "team": "12-1",
-    "location": "TBD, assigned by CEVA",
-    "type": "tournament",
-    "notes": "",
-    "link": ""
-  },
-  {
-    "name": "CEVA Power League #1",
-    "start": "2027-01-23",
-    "end": "",
-    "team": "12-2",
     "location": "TBD, assigned by CEVA",
     "type": "tournament",
     "notes": "",
@@ -170,16 +150,6 @@
     "link": ""
   },
   {
-    "name": "CEVA Power League #2",
-    "start": "2027-02-27",
-    "end": "",
-    "team": "12-2",
-    "location": "TBD, assigned by CEVA",
-    "type": "tournament",
-    "notes": "",
-    "link": ""
-  },
-  {
     "name": "TBD: Friendship Tournament / Game",
     "start": "2027-03-13",
     "end": "",
@@ -224,16 +194,6 @@
     "start": "2027-03-13",
     "end": "",
     "team": "12-1",
-    "location": "TBA",
-    "type": "tournament",
-    "notes": "",
-    "link": ""
-  },
-  {
-    "name": "TBD: Friendship Tournament / Game",
-    "start": "2027-03-13",
-    "end": "",
-    "team": "12-2",
     "location": "TBA",
     "type": "tournament",
     "notes": "",
@@ -290,16 +250,6 @@
     "link": ""
   },
   {
-    "name": "CEVA Power League #3",
-    "start": "2027-04-18",
-    "end": "",
-    "team": "12-2",
-    "location": "TBD, assigned by CEVA",
-    "type": "tournament",
-    "notes": "",
-    "link": ""
-  },
-  {
     "name": "CEVA Regionals *Pending Qualification*",
     "start": "2027-04-24",
     "end": "2027-04-25",
@@ -344,16 +294,6 @@
     "start": "2027-04-24",
     "end": "2027-04-25",
     "team": "12-1",
-    "location": "Expo / Olympus",
-    "type": "regional",
-    "notes": "",
-    "link": ""
-  },
-  {
-    "name": "CEVA Regionals *Pending Qualification*",
-    "start": "2027-04-24",
-    "end": "2027-04-25",
-    "team": "12-2",
     "location": "Expo / Olympus",
     "type": "regional",
     "notes": "",

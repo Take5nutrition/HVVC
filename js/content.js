@@ -431,6 +431,9 @@ window.HVVC = (function () {
   }
 
   // ---------- teams menu (every page) ----------
+  // HVVC Academy closes out the menu, under the last division.
+  const MENU_EXTRAS = [['Academy', '/program-academy/']];
+
   function groupTeams(teams) {
     const groups = [];
     for (const team of teams) {
@@ -447,7 +450,9 @@ window.HVVC = (function () {
     const groups = groupTeams(teams);
     if (!groups.length) return;
     const here = location.pathname.replace(/\/?$/, '/');
-    const html = groups.map((g) => `<span class="nav-dropdown__section">${escapeHtml(g.name)}</span>${g.teams.map((t) => `<a href="${teamPath(t)}"${teamPath(t) === here ? ' class="nav-active"' : ''}>${escapeHtml(text(t.name))}</a>`).join('')}`).join('');
+    const link = (label, href) => `<a href="${href}"${href === here ? ' class="nav-active"' : ''}>${escapeHtml(label)}</a>`;
+    const html = groups.map((g) => `<span class="nav-dropdown__section">${escapeHtml(g.name)}</span>${g.teams.map((t) => link(shortTeamName(t), teamPath(t))).join('')}`).join('')
+      + MENU_EXTRAS.map(([label, href]) => link(label, href)).join('');
     document.querySelectorAll('.nav-dropdown').forEach((dropdown) => {
       const trigger = dropdown.querySelector('.nav-dropdown__trigger');
       const menu = dropdown.querySelector('.nav-dropdown__menu');
@@ -459,6 +464,11 @@ window.HVVC = (function () {
   function divisionHeading(group, teamsInGroup) {
     const match = /^(\d+)U$/i.exec(group);
     if (match) return [`${match[1]} &amp; Under`, `${escapeHtml(group.toUpperCase())} Division`];
+    // Age-range divisions like "14U & Under" list their teams' ages above the name.
+    if (/^\d+U\b/i.test(group)) {
+      const ages = [...new Set(teamsInGroup.map((t) => text(t.badge)).filter(Boolean))];
+      return [escapeHtml(ages.join(' · ')), `${escapeHtml(group)} Division`];
+    }
     const badge = text(teamsInGroup[0].badge) || group;
     return [escapeHtml(group), `${escapeHtml(badge)} Program`];
   }
@@ -468,20 +478,14 @@ window.HVVC = (function () {
     const badge = escapeHtml(text(team.badge) || text(team.group));
     const desc = text(team.cardText) ? `<p class="dk-team-card__desc">${escapeHtml(text(team.cardText))}</p>` : '';
     const photo = photoUrl(team.photo);
-    if (!photo) {
-      return `<div class="dk-team-card dk-team-card--dev">
-          <div class="dk-team-card__body">
-            <span class="dk-team-card__age">${badge}</span>
-            <h3 class="dk-team-card__name">${name}</h3>
-            ${desc}
-            <a href="${teamPath(team)}" class="btn btn--primary btn--sm">View Team</a>
-          </div>
-        </div>`;
-    }
+    // Teams without a photo yet get a branded panel so cards line up.
+    const media = photo
+      ? `<img src="${escapeHtml(photo)}" alt="${name} Team Photo" loading="lazy" />
+            <div class="dk-team-card__photo-overlay"></div>`
+      : `<span class="dk-team-card__placeholder" aria-hidden="true">${escapeHtml(shortTeamName(team))}</span>`;
     return `<div class="dk-team-card">
-          <div class="dk-team-card__photo">
-            <img src="${escapeHtml(photo)}" alt="${name} Team Photo" loading="lazy" />
-            <div class="dk-team-card__photo-overlay"></div>
+          <div class="dk-team-card__photo${photo ? '' : ' dk-team-card__photo--empty'}">
+            ${media}
             <span class="dk-team-card__age">${badge}</span>
           </div>
           <div class="dk-team-card__body">
