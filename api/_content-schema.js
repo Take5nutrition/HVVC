@@ -30,8 +30,8 @@ const SCHEMAS = {
       { name: 'name', label: 'Name', type: 'text', required: true, max: 80 },
       { name: 'section', label: 'Staff page section', type: 'select', required: true, optionsFrom: 'sections', help: 'Change this to move the coach to another section.' },
       { name: 'role', label: 'Title', type: 'text', max: 80, placeholder: '16-1 Head Coach', help: 'Optional. Leave blank to show no title, or their team role if they\'re linked to a team in the Teams tab.' },
-      { name: 'photo', label: 'Photo', type: 'photo', crop: true, frame: 'circle', help: 'Drag the photo or use the sliders to frame their face. Without a photo, their initials show.' },
-      { name: 'bio', label: 'Bio', type: 'textarea', max: 4000, help: 'Start each new paragraph on a new line.' },
+      { name: 'photo', label: 'Photo', type: 'photo', crop: true, frame: 'square', help: 'Drag the photo or use the sliders to frame their head and shoulders. The square is their photo card on the Staff page. Without a photo, their initials show.' },
+      { name: 'bio', label: 'Bio', type: 'textarea', max: 4000, help: 'Start each new paragraph on a new line. Coaches with a bio get their own bio page that opens from their photo card.' },
       { name: 'id', label: 'Link name', type: 'text', max: 60, advanced: true, help: 'Used in links to this coach. Filled in automatically.' },
     ],
   },
@@ -338,7 +338,7 @@ function cleanFields(fields, raw, which, options) {
       out[f.name] = v;
       if (f.crop) {
         out[f.name + 'X'] = clampNumber(raw[f.name + 'X'], 0, 100, 50);
-        out[f.name + 'Y'] = clampNumber(raw[f.name + 'Y'], 0, 100, f.frame === 'circle' ? 20 : 30);
+        out[f.name + 'Y'] = clampNumber(raw[f.name + 'Y'], 0, 100, f.frame === 'circle' || f.frame === 'square' ? 20 : 30);
         out[f.name + 'Zoom'] = clampNumber(raw[f.name + 'Zoom'], 1, 4, 1);
       }
       continue;

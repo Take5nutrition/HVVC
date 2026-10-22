@@ -124,7 +124,7 @@
   function anyDirty() { return Object.keys(state.sections).some((t) => isDirty(t)); }
 
   function defaultCrop(f) {
-    return { X: 50, Y: f.frame === 'circle' ? 20 : 30, Zoom: 1 };
+    return { X: 50, Y: f.frame === 'circle' || f.frame === 'square' ? 20 : 30, Zoom: 1 };
   }
 
   function blankValue(f) {

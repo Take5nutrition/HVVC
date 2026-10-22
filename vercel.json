@@ -7,6 +7,14 @@
     {
       "source": "/hvvc-:slug/",
       "destination": "/team/index.html"
+    },
+    {
+      "source": "/coaches/:coach",
+      "destination": "/coach/index.html"
+    },
+    {
+      "source": "/coaches/:coach/",
+      "destination": "/coach/index.html"
     }
   ],
   "headers": [

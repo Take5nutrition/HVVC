@@ -173,6 +173,7 @@ img { max-width: 100%; }
 }
 .photo__preview img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; user-select: none; -webkit-user-drag: none; }
 .photo__preview--circle { width: 120px; height: 120px; border-radius: 50%; }
+.photo__preview--square { width: 150px; height: 150px; border-radius: 14px; }
 .photo__preview--portrait { width: 144px; height: 180px; border-radius: 14px; }
 .photo__preview--landscape { width: 210px; height: 140px; border-radius: 12px; }
 .photo__preview--whole { background: #0f172a; }

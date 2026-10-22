@@ -12,7 +12,6 @@ window.HVVC = (function () {
     event: ['Event', ' dk-schedule-item__badge--event'],
   };
   const LEGACY_FRAMING = { headshot: [20, 1], 'full-high': [17, 2.5], 'full-middle': [21, 2.5], 'full-low': [27, 2.5] };
-  const CHEVRON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><polyline points="6 9 12 15 18 9"/></svg>';
   const SILHOUETTE = '<svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
   const INSTAGRAM = '<a href="https://instagram.com/hvvc_volleyball" target="_blank" rel="noopener">Instagram</a>';
   const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -152,37 +151,49 @@ window.HVVC = (function () {
       : `<span class="dk-coach-item__photo dk-coach-item__photo--initials${size ? ' ' + size : ''}" aria-hidden="true">${escapeHtml(initials(coach.name))}</span>`;
   }
 
-  function coachItem(coach, roles) {
+  function coachRole(coach, roles) {
+    return text(coach.role) || (roles[coachId(coach)] || []).join(' · ');
+  }
+  function hasBio(coach) { return paragraphs(coach.bio).length > 0; }
+  function coachPagePath(coach) { return `/coaches/${coachId(coach)}/`; }
+
+  // Big photo card; coaches with a bio open their own page.
+  function coachCard(coach, roles) {
     const name = text(coach.name);
     if (!name) return '';
-    const role = text(coach.role) || (roles[coachId(coach)] || []).join(' · ');
-    const bio = paragraphs(coach.bio).map((p) => `<p>${escapeHtml(p)}</p>`).join('');
-    return `<details class="dk-coach-item" id="coach-${escapeHtml(coachId(coach))}">
-          <summary>
-            ${coachPhoto(coach)}
-            <span class="dk-coach-item__text">
-              <span class="dk-coach-item__name">${escapeHtml(name)}</span>
-              ${role ? `<span class="dk-coach-item__title">${escapeHtml(role)}</span>` : ''}
-            </span>
-            ${bio ? `<span class="dk-coach-item__toggle" aria-hidden="true">Bio ${CHEVRON}</span>` : ''}
-          </summary>
-          ${bio ? `<div class="dk-coach-item__bio">${bio}</div>` : ''}
-        </details>`;
+    const role = coachRole(coach, roles);
+    const photo = photoUrl(coach.photo);
+    const media = photo
+      ? `<span class="staff-card__photo"><img src="${escapeHtml(photo)}" alt="" loading="lazy" style="${cropStyle(coach)}" /></span>`
+      : `<span class="staff-card__photo staff-card__photo--initials" aria-hidden="true">${escapeHtml(initials(name))}</span>`;
+    const body = `<span class="staff-card__body">
+            <span class="staff-card__name">${escapeHtml(name)}</span>
+            ${role ? `<span class="staff-card__title">${escapeHtml(role)}</span>` : ''}
+            ${hasBio(coach) ? '<span class="staff-card__more">Read bio →</span>' : ''}
+          </span>`;
+    const id = `coach-${escapeHtml(coachId(coach))}`;
+    return hasBio(coach)
+      ? `<a class="staff-card" id="${id}" href="${coachPagePath(coach)}">${media}${body}</a>`
+      : `<div class="staff-card" id="${id}">${media}${body}</div>`;
   }
 
   // Staff page coach sections come from data/staff-sections.json, in order.
-  // Coaches whose section was removed land in the last section; empty
-  // sections stay hidden.
+  // Coaches whose section was removed land in the last section.
+  function staffGroups(coaches, sections) {
+    const list = sections.filter((x) => text(x.name)).map((x) => ({ ...x, id: slug(x.id) || slug(x.name), members: [] }));
+    if (!list.length) list.push({ id: '', name: 'Our Coaches', kicker: 'Coaching Staff', members: [] });
+    const byId = Object.fromEntries(list.map((x) => [x.id, x]));
+    coaches.forEach((c) => { if (text(c.name)) (byId[slug(c.section)] || list[list.length - 1]).members.push(c); });
+    return list;
+  }
+
+  // Empty sections stay hidden.
   function renderStaffSections(el) {
     return Promise.all([load('coaches'), loadOptional('staff-sections'), loadOptional('teams')])
       .then(([coaches, sections, teams]) => {
         const roles = coachRoles(teams);
-        const list = sections.filter((x) => text(x.name)).map((x) => ({ ...x, id: slug(x.id) || slug(x.name), members: [] }));
-        if (!list.length) list.push({ id: '', name: 'Our Coaches', kicker: 'Coaching Staff', members: [] });
-        const byId = Object.fromEntries(list.map((x) => [x.id, x]));
-        coaches.forEach((c) => (byId[slug(c.section)] || list[list.length - 1]).members.push(c));
-        const html = list.map((x) => {
-          const items = x.members.map((c) => coachItem(c, roles)).filter(Boolean);
+        const html = staffGroups(coaches, sections).map((x) => {
+          const items = x.members.map((c) => coachCard(c, roles)).filter(Boolean);
           if (!items.length) return '';
           return `<section class="dk-section grain-overlay" id="coaches-${escapeHtml(x.id || 'all')}">
     <div class="dk-section__bg"></div>
@@ -192,7 +203,7 @@ window.HVVC = (function () {
         <h2 class="dk-split__heading">${escapeHtml(text(x.name))}</h2>
         ${text(x.intro) ? `<p class="dk-coach-list__intro">${escapeHtml(text(x.intro))}</p>` : ''}
       </div>
-      <div class="dk-coach-list">${items.join('')}</div>
+      <div class="staff-grid">${items.join('')}</div>
     </div>
   </section>`;
         }).join('');
@@ -200,6 +211,60 @@ window.HVVC = (function () {
       })
       .catch(() => {
         el.innerHTML = '<section class="dk-section"><div class="container"><p class="dk-content-note">The coach list could not load. Please refresh the page.</p></div></section>';
+      });
+  }
+
+  // ---------- coach bio page (/coaches/<id>/, rewritten onto coach/index.html) ----------
+  function coachNavLink(coach, label, cls) {
+    return coach
+      ? `<a class="coach-profile__step ${cls}" href="${coachPagePath(coach)}">${label}<span>${escapeHtml(text(coach.name))}</span></a>`
+      : '<span></span>';
+  }
+
+  function renderCoachPage(root) {
+    const match = location.pathname.match(/^\/coaches\/([a-z0-9-]+)\/?$/i);
+    const wanted = match ? match[1].toLowerCase() : slug(new URLSearchParams(location.search).get('coach'));
+    return Promise.all([load('coaches'), loadOptional('staff-sections'), loadOptional('teams')])
+      .then(([coaches, sections, teams]) => {
+        const groups = staffGroups(coaches, sections);
+        const group = groups.find((g) => g.members.some((c) => coachId(c) === wanted));
+        const coach = group && group.members.find((c) => coachId(c) === wanted);
+        if (!coach) {
+          document.title = 'Coach not found - HVVC';
+          root.innerHTML = `<div class="container"><a class="coach-profile__back" href="/coaches/">← All Staff</a><p class="dk-content-note" style="text-align:left;">We couldn't find that coach. <a href="/coaches/">Meet the whole HVVC staff</a>.</p></div>`;
+          return;
+        }
+        const name = text(coach.name);
+        const role = coachRole(coach, coachRoles(teams));
+        const bio = paragraphs(coach.bio);
+        document.title = `${name} - HVVC`;
+        const meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute('content', `${name}${role ? ', ' + role : ''} at Happy Valley Volleyball Club.`);
+        // Previous/next walk the coaches with bios, in Staff page order.
+        const withBios = groups.flatMap((g) => g.members).filter(hasBio);
+        const at = withBios.indexOf(coach);
+        const photo = photoUrl(coach.photo);
+        root.innerHTML = `<div class="container">
+      <a class="coach-profile__back" href="/coaches/#coaches-${escapeHtml(group.id || 'all')}">← All Staff</a>
+      <div class="coach-profile__grid">
+        ${photo
+          ? `<div class="coach-profile__photo"><img src="${escapeHtml(photo)}" alt="${escapeHtml(name)}" style="${cropStyle(coach)}" /></div>`
+          : `<div class="coach-profile__photo coach-profile__photo--initials" aria-hidden="true">${escapeHtml(initials(name))}</div>`}
+        <div class="coach-profile__text">
+          <span class="dk-split__kicker"><span class="dk-split__kicker-bar"></span>${escapeHtml(text(group.name))}</span>
+          <h1 class="coach-profile__name">${escapeHtml(name)}</h1>
+          ${role ? `<span class="coach-profile__title">${escapeHtml(role)}</span>` : ''}
+          <div class="coach-profile__bio">${bio.length ? bio.map((p) => `<p>${escapeHtml(p)}</p>`).join('') : `<p>${escapeHtml(name.split(/\s+/)[0])}'s bio is coming soon.</p>`}</div>
+        </div>
+      </div>
+      ${at >= 0 && withBios.length > 1 ? `<nav class="coach-profile__nav" aria-label="More coaches">
+        ${coachNavLink(withBios[at - 1], '← Previous', 'coach-profile__step--prev')}
+        ${coachNavLink(withBios[at + 1], 'Next →', 'coach-profile__step--next')}
+      </nav>` : ''}
+    </div>`;
+      })
+      .catch(() => {
+        root.innerHTML = '<div class="container"><p class="dk-content-note">This coach page could not load. Please refresh.</p></div>';
       });
   }
 
@@ -570,11 +635,11 @@ window.HVVC = (function () {
         <h2 class="dk-split__heading">Meet the Coaches</h2>
       </div>
       <div class="team-coaches">
-        ${rows.map(({ coach, role }) => `<a class="team-coach" href="/coaches/#coach-${escapeHtml(coachId(coach))}">
+        ${rows.map(({ coach, role }) => `<a class="team-coach" href="${hasBio(coach) ? coachPagePath(coach) : `/coaches/#coach-${escapeHtml(coachId(coach))}`}">
           ${coachPhoto(coach, 'team-coach__photo')}
           <span class="team-coach__name">${escapeHtml(text(coach.name))}</span>
           <span class="team-coach__role">${escapeHtml(role)}</span>
-          <span class="team-coach__link">View bio →</span>
+          <span class="team-coach__link">${hasBio(coach) ? 'Read bio →' : 'Meet the staff →'}</span>
         </a>`).join('')}
       </div>
     </div>
@@ -681,6 +746,7 @@ window.HVVC = (function () {
   const renders = [];
   document.querySelectorAll('[data-leaders]').forEach((el) => renders.push(renderLeaders(el)));
   document.querySelectorAll('[data-staff-sections]').forEach((el) => renders.push(renderStaffSections(el)));
+  document.querySelectorAll('[data-coach-page]').forEach((el) => renders.push(renderCoachPage(el)));
   document.querySelectorAll('[data-tournament-list]').forEach((el) => renders.push(renderTournaments(el)));
   document.querySelectorAll('[data-practice-list]').forEach((el) => renders.push(renderPractices(el)));
   document.querySelectorAll('[data-team-page]').forEach((el) => renders.push(renderTeamPage(el)));
