@@ -2983,13 +2983,17 @@ body.dark-mode .toast { background: #fff; color: var(--ink); }
 }
 .dk-team-card .btn { font-size: .8rem; }
 
-/* Dev team (full-width single card) */
-.dk-team-card--dev {
-  background: linear-gradient(135deg, rgba(255,42,161,.04) 0%, rgba(123,63,228,.06) 100%);
-  border-color: rgba(255,42,161,.15);
+/* Team without a photo yet */
+.dk-team-card__photo--empty {
+  display: flex; align-items: center; justify-content: center; padding: 0 24px;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,42,161,.38), transparent 60%),
+    radial-gradient(circle at 85% 95%, rgba(123,63,228,.42), transparent 55%),
+    #111114;
 }
-.dk-team-card--dev .dk-team-card__body {
-  display: grid; gap: 16px;
+.dk-team-card__placeholder {
+  font-family: var(--font-heading); font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 700;
+  line-height: 1; text-align: center; text-transform: uppercase; color: rgba(255,255,255,.9);
 }
 @media (min-width: 768px) {
   .teams-division__grid--single { grid-template-columns: 1fr; max-width: 700px; }

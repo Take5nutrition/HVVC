@@ -88,7 +88,7 @@ const SCHEMAS = {
     path: 'data/teams.json',
     page: '/teams/',
     pageLabel: 'Teams page',
-    intro: 'Each team gets its own page, a card on the Teams page, and a spot in the Teams menu, in this order. Add a team and its page appears automatically.',
+    intro: 'Each team gets its own page, a card on the Teams page, and a spot in the Teams menu, in this order. Add a team and its page appears automatically. The menu shows team names without "HVVC" and always ends with an Academy link.',
     ordered: true,
     maxItems: 40,
     summary: ['name', 'group'],
@@ -96,7 +96,7 @@ const SCHEMAS = {
     fields: [
       { name: 'name', label: 'Team name', type: 'text', required: true, max: 60, placeholder: 'HVVC 16-1' },
       { name: 'slug', label: 'Web address name', type: 'text', required: true, max: 30, placeholder: '16-1', help: 'Short and lowercase, like 16-1. The page will be at /hvvc-16-1/. Changing it changes the page address.' },
-      { name: 'group', label: 'Division', type: 'text', required: true, max: 30, placeholder: '16U', help: 'Groups teams in the menu and on the Teams page, like 16U, 14U, 12U, or Developmental.' },
+      { name: 'group', label: 'Division', type: 'text', required: true, max: 30, placeholder: '16U', help: 'Groups teams in the menu and on the Teams page, like 15U & Older, 14U & Under, or Developmental.' },
       { name: 'badge', label: 'Age badge', type: 'text', max: 12, placeholder: '16U', help: 'Short label on the team card. Defaults to the division.' },
       { name: 'kicker', label: 'Small heading on the team page', type: 'text', max: 40, placeholder: '16U Division' },
       { name: 'tagline', label: 'Team page subtitle', type: 'text', max: 140 },

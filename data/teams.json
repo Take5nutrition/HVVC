@@ -1,8 +1,56 @@
 [
   {
+    "name": "HVVC 18-1",
+    "slug": "18-1",
+    "group": "15U & Older",
+    "badge": "18U",
+    "kicker": "18U Division",
+    "tagline": "18U club volleyball at Happy Valley Volleyball Club.",
+    "photo": "",
+    "cardText": "Our 18U team for the 2026–27 season. Team details are coming soon.",
+    "overview": "HVVC 18-1 competes at the 18U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
+    "scheduleDeveloping": true,
+    "coaches": [],
+    "players": [],
+    "seasonInfo": [
+      {
+        "label": "Contact",
+        "value": "HVVC@hvvcvolleyballclub.com"
+      }
+    ],
+    "scheduleUrl": "",
+    "scheduleLabel": "View Tournament Schedule",
+    "overviewHeading": "",
+    "overviewTitle": "",
+    "highlightsKicker": "",
+    "highlightsHeading": "",
+    "highlights": [],
+    "scheduleMessage": "",
+    "ctaText": "",
+    "hideTryoutButton": false,
+    "expectations": [
+      {
+        "title": "Represent",
+        "text": "Represent the club at all times, showing respect for yourself, your teammates, your coaches, and the organization."
+      },
+      {
+        "title": "Support",
+        "text": "Support and encourage teammates on and off the court. Foster teamwork and sportsmanship in every situation."
+      },
+      {
+        "title": "Commit",
+        "text": "Commit to regular attendance at practices and tournaments. Athletes are expected to attend all tournaments unless previously excused."
+      },
+      {
+        "title": "Communication",
+        "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
+      }
+    ]
+  },
+  {
     "name": "HVVC 16-1",
     "slug": "16-1",
-    "group": "16U",
+    "group": "15U & Older",
     "badge": "16U",
     "kicker": "16U Division",
     "tagline": "Competitive 16U volleyball at the highest level.",
@@ -78,7 +126,7 @@
   {
     "name": "HVVC 16-2",
     "slug": "16-2",
-    "group": "16U",
+    "group": "15U & Older",
     "badge": "16U",
     "kicker": "16U Division",
     "tagline": "Competitive 16U volleyball development and growth.",
@@ -154,7 +202,7 @@
   {
     "name": "HVVC 14-1",
     "slug": "14-1",
-    "group": "14U",
+    "group": "14U & Under",
     "badge": "14U",
     "kicker": "14U Division",
     "tagline": "Competitive 14U volleyball at the highest level.",
@@ -230,7 +278,7 @@
   {
     "name": "HVVC 14-2",
     "slug": "14-2",
-    "group": "14U",
+    "group": "14U & Under",
     "badge": "14U",
     "kicker": "14U Division",
     "tagline": "Competitive 14U volleyball development and growth.",
@@ -304,9 +352,105 @@
     ]
   },
   {
+    "name": "HVVC 13-1",
+    "slug": "13-1",
+    "group": "14U & Under",
+    "badge": "13U",
+    "kicker": "13U Division",
+    "tagline": "13U club volleyball at Happy Valley Volleyball Club.",
+    "photo": "",
+    "cardText": "Our 13U team for the 2026–27 season. Team details are coming soon.",
+    "overview": "HVVC 13-1 competes at the 13U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
+    "scheduleDeveloping": true,
+    "coaches": [],
+    "players": [],
+    "seasonInfo": [
+      {
+        "label": "Contact",
+        "value": "HVVC@hvvcvolleyballclub.com"
+      }
+    ],
+    "scheduleUrl": "",
+    "scheduleLabel": "View Tournament Schedule",
+    "overviewHeading": "",
+    "overviewTitle": "",
+    "highlightsKicker": "",
+    "highlightsHeading": "",
+    "highlights": [],
+    "scheduleMessage": "",
+    "ctaText": "",
+    "hideTryoutButton": false,
+    "expectations": [
+      {
+        "title": "Represent",
+        "text": "Represent the club at all times, showing respect for yourself, your teammates, your coaches, and the organization."
+      },
+      {
+        "title": "Support",
+        "text": "Support and encourage teammates on and off the court. Foster teamwork and sportsmanship in every situation."
+      },
+      {
+        "title": "Commit",
+        "text": "Commit to regular attendance at practices and tournaments. Athletes are expected to attend all tournaments unless previously excused."
+      },
+      {
+        "title": "Communication",
+        "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
+      }
+    ]
+  },
+  {
+    "name": "HVVC 13-2",
+    "slug": "13-2",
+    "group": "14U & Under",
+    "badge": "13U",
+    "kicker": "13U Division",
+    "tagline": "13U club volleyball at Happy Valley Volleyball Club.",
+    "photo": "",
+    "cardText": "Our 13U team for the 2026–27 season. Team details are coming soon.",
+    "overview": "HVVC 13-2 competes at the 13U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
+    "scheduleDeveloping": true,
+    "coaches": [],
+    "players": [],
+    "seasonInfo": [
+      {
+        "label": "Contact",
+        "value": "HVVC@hvvcvolleyballclub.com"
+      }
+    ],
+    "scheduleUrl": "",
+    "scheduleLabel": "View Tournament Schedule",
+    "overviewHeading": "",
+    "overviewTitle": "",
+    "highlightsKicker": "",
+    "highlightsHeading": "",
+    "highlights": [],
+    "scheduleMessage": "",
+    "ctaText": "",
+    "hideTryoutButton": false,
+    "expectations": [
+      {
+        "title": "Represent",
+        "text": "Represent the club at all times, showing respect for yourself, your teammates, your coaches, and the organization."
+      },
+      {
+        "title": "Support",
+        "text": "Support and encourage teammates on and off the court. Foster teamwork and sportsmanship in every situation."
+      },
+      {
+        "title": "Commit",
+        "text": "Commit to regular attendance at practices and tournaments. Athletes are expected to attend all tournaments unless previously excused."
+      },
+      {
+        "title": "Communication",
+        "text": "GameChanger is used for tracking schedules, results, athlete statistics, and team announcements."
+      }
+    ]
+  },
+  {
     "name": "HVVC 12-1",
     "slug": "12-1",
-    "group": "12U",
+    "group": "14U & Under",
     "badge": "12U",
     "kicker": "12U Division",
     "tagline": "Competitive 12U volleyball building strong foundations.",
@@ -380,47 +524,19 @@
     ]
   },
   {
-    "name": "HVVC 12-2",
-    "slug": "12-2",
-    "group": "12U",
-    "badge": "12U",
-    "kicker": "12U Division",
-    "tagline": "Competitive 12U volleyball development and growth.",
-    "photo": "/img/team-12-2.jpg",
-    "cardText": "A positive, teachable environment for young athletes to build fundamentals and discover their love for volleyball.",
-    "overview": "HVVC 12-2 provides a competitive and supportive environment for 12U athletes, focused on developing core volleyball skills, teamwork, and a passion for the sport.",
+    "name": "HVVC 11-1",
+    "slug": "11-1",
+    "group": "14U & Under",
+    "badge": "11U",
+    "kicker": "11U Division",
+    "tagline": "11U club volleyball at Happy Valley Volleyball Club.",
+    "photo": "",
+    "cardText": "Our 11U team for the 2026–27 season. Team details are coming soon.",
+    "overview": "HVVC 11-1 competes at the 11U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
     "scheduleDeveloping": true,
     "coaches": [],
     "players": [],
     "seasonInfo": [
-      {
-        "label": "Season",
-        "value": "November 2025 – April/May 2026"
-      },
-      {
-        "label": "Practice",
-        "value": "Tuesdays & Thursdays · 1.5–2 hours per session"
-      },
-      {
-        "label": "Tournaments",
-        "value": "1–2 per month · December 2025 – April/May 2026"
-      },
-      {
-        "label": "Roster",
-        "value": "12 athletes"
-      },
-      {
-        "label": "Team Dues",
-        "value": "$1,300 · Includes tournament fees, Power League, facility fees, coaching stipend, and full uniform package"
-      },
-      {
-        "label": "Uniform",
-        "value": "2 Game Jerseys\n2 Practice Shirts\nNike Spandex & Nike Knee Pads\nHVVC Sweatshirt\nTeam Ball Bag"
-      },
-      {
-        "label": "CEVA",
-        "value": "$70 membership required for all athletes"
-      },
       {
         "label": "Contact",
         "value": "HVVC@hvvcvolleyballclub.com"
@@ -456,7 +572,7 @@
     ]
   },
   {
-    "name": "HVVC 10U",
+    "name": "HVVC 10U Part Time",
     "slug": "10u",
     "group": "Developmental",
     "badge": "10U",
