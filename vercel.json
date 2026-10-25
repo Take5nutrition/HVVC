@@ -97,6 +97,16 @@
       ],
       "destination": "/admin/",
       "permanent": false
+    },
+    {
+      "source": "/family-guide",
+      "destination": "/docs/HVVC_2026_27_Family_Guide.pdf",
+      "permanent": false
+    },
+    {
+      "source": "/family-guide/",
+      "destination": "/docs/HVVC_2026_27_Family_Guide.pdf",
+      "permanent": false
     }
   ]
 }
