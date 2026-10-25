@@ -4022,23 +4022,44 @@ a.staff-card:hover .staff-card__more { color: #fff; }
   border-color: rgba(255,42,161,.25); color: var(--pink); backdrop-filter: none;
 }
 
-/* ---- Investment page: tuition & payment schedule ---- */
-.tuition__intro { max-width: 720px; color: #475569; font-size: 1rem; line-height: 1.7; }
-.tuition { overflow-x: auto; background: #fff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(15,23,42,.06); }
-.tuition__table { width: 100%; border-collapse: collapse; font-size: .95rem; color: #1e293b; font-variant-numeric: tabular-nums; }
-.tuition__table thead th { padding: 14px 14px; background: #16161a; color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; text-align: right; white-space: nowrap; }
-.tuition__table td, .tuition__table tbody th { padding: 13px 14px; text-align: right; white-space: nowrap; }
-.tuition__table thead th:first-child, .tuition__table tbody th { text-align: left; }
-.tuition__table tbody th { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--ink); }
-.tuition__table tbody tr:nth-child(odd) { background: #fff1f8; }
-.tuition__table td:last-child strong { color: var(--ink); }
-.tuition__narrow, .tuition__narrow-inline { display: none; }
-.tuition__note { margin-top: 14px; font-size: .88rem; color: #64748b; }
-/* Phones: one "Monthly × 5" column in place of the five dated columns */
-@media (max-width: 820px) {
-  .tuition__wide { display: none; }
-  .tuition__narrow { display: table-cell; }
-  .tuition__narrow-inline { display: inline; }
-  .tuition__table thead th { padding: 12px 10px; font-size: .64rem; }
-  .tuition__table td, .tuition__table tbody th { padding: 11px 10px; font-size: .9rem; }
+/* ---- Investment page: tuition table, what's included, tuition assistance ---- */
+.invest-head { margin-bottom: 36px; }
+.invest-head p { color: #475569; font-size: 1.05rem; }
+.tuition-card { padding: 28px; background: #fff; border: 1px solid #e2e8f0; border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(15,23,42,.06); }
+.tuition-card h3 { font-family: var(--font-heading); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--ink); }
+.tuition-card__sub { margin: 4px 0 20px; color: #475569; }
+.tuition-card__table { overflow-x: auto; border: 1px solid #e2e8f0; border-radius: var(--radius-md); }
+.tuition-table { width: 100%; border-collapse: collapse; color: #1e293b; font-variant-numeric: tabular-nums; }
+.tuition-table th, .tuition-table td { padding: 11px 14px; text-align: center; border-right: 1px solid #f1d5e4; }
+.tuition-table th:last-child, .tuition-table td:last-child { border-right: 0; }
+.tuition-table thead th { background: #16161a; color: #fff; font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-right-color: rgba(255,255,255,.12); }
+.tuition-table tbody th { font-weight: 800; color: var(--ink); }
+.tuition-table tbody td { font-weight: 600; }
+.tuition-table tbody tr:nth-child(odd) { background: #fff1f8; }
+.tuition-card__note { margin-top: 12px; text-align: center; font-size: .88rem; color: #64748b; }
+
+.invest-boxes { display: grid; gap: 24px; margin-top: 28px; }
+@media (min-width: 860px) { .invest-boxes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.invest-box__head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.invest-box__head h3 { margin: 0 !important; font-size: 1.3rem !important; line-height: 1.2; }
+.invest-box__icon { flex: none; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--gradient); color: #fff; }
+.invest-box__icon svg { width: 22px; height: 22px; }
+.invest-box p { margin: 0 0 12px; font-size: .92rem; line-height: 1.65; }
+.dk-invest-card.invest-box ul { margin-bottom: 12px; }
+.dk-invest-card.invest-box li { padding-left: 28px; margin-bottom: 8px; line-height: 1.55; font-size: .92rem; }
+.dk-invest-card.invest-box li::before {
+  top: .2em; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--pink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 11px no-repeat;
+}
+.invest-box__note { margin-top: 14px !important; padding-top: 12px; border-top: 1px solid #e2e8f0; font-size: .86rem !important; color: #64748b !important; }
+.invest-box__note strong { color: var(--ink); }
+
+.invest-assist { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 24px; padding: 18px 24px; background: #fff1f8; border: 1px solid #f5c2df; border-radius: var(--radius-lg); }
+.invest-assist__icon { color: var(--pink); width: 26px; height: 26px; flex: none; }
+.invest-assist p { flex: 1; min-width: 200px; margin: 0; font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--ink); }
+@media (max-width: 600px) {
+  .tuition-card { padding: 20px 16px; }
+  .tuition-table th, .tuition-table td { padding: 10px 6px; font-size: .88rem; }
+  .tuition-table thead th { font-size: .62rem; letter-spacing: .04em; }
+  .invest-assist .btn { width: 100%; justify-content: center; }
 }
