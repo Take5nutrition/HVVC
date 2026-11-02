@@ -4112,11 +4112,25 @@ a.staff-card:hover .staff-card__more { color: #fff; }
   mask-image: linear-gradient(to right, transparent 0, #000 12%, #000 100%), linear-gradient(to bottom, transparent 0, #000 12%, #000 86%, transparent 100%);
   -webkit-mask-composite: source-in; mask-composite: intersect;
 }
+/* Desktop: the photo fills the whole hero, with the text over it like the home page */
 @media (min-width: 960px) {
-  .staff-hero { min-height: min(88vh, 880px); display: flex; align-items: center; }
+  .staff-hero { min-height: min(92vh, 920px); display: flex; align-items: center; }
   .staff-hero__inner {
-    width: 100%; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 0;
-    padding-left: max(24px, calc((100vw - var(--container)) / 2 + 24px)); padding-right: 0;
+    position: static; width: 100%; grid-template-columns: minmax(0, 600px);
+    padding-left: max(24px, calc((100vw - var(--container)) / 2 + 24px)); padding-right: 24px;
+  }
+  .staff-hero__text { z-index: 2; text-shadow: 0 2px 18px rgba(0,0,0,.55); }
+  .staff-hero__photo { position: absolute; inset: 0; z-index: 0; }
+  .staff-hero__photo img {
+    width: 100%; height: 100%; object-fit: cover; object-position: 55% 36%;
+    -webkit-mask-image: none; mask-image: none;
+  }
+  /* Darkest behind the words, easing off so the coaches on the left still show */
+  .staff-hero__photo::after {
+    inset: 0; z-index: 1;
+    background:
+      linear-gradient(to right, rgba(14,14,16,.9) 0%, rgba(14,14,16,.78) 26%, rgba(14,14,16,.4) 44%, rgba(14,14,16,0) 60%),
+      linear-gradient(to bottom, rgba(14,14,16,.35) 0%, transparent 25%);
   }
 }
 @media (max-width: 959px) {
