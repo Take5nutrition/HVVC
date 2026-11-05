@@ -2,7 +2,7 @@
   {
     "name": "Nicole Warren",
     "section": "head",
-    "role": "18-1 Head Coach",
+    "role": "",
     "photo": "/img/staff/nicole-warren.jpg",
     "photoX": 74,
     "photoY": 33,
@@ -13,35 +13,13 @@
   {
     "name": "Mallory Cooper",
     "section": "head",
-    "role": "16-1 Head Coach",
+    "role": "",
     "photo": "/img/staff/mallory-cooper.jpg",
     "photoX": 42,
     "photoY": 29,
     "photoZoom": 1.22,
     "bio": "Mallory played volleyball at West Linn High School and has continued her love for the sport primarily through beach volleyball. She has been coaching for several years, with 2026 marking her first season with HVVC. In the summer of 2026, she also created and hosted her own junior beach volleyball clinic on her home sand court, giving young athletes another opportunity to develop their skills and love for the game.\n\nAt just 20 years old, Mallory graduated with her bachelor’s degree in Psychology in June 2026 and is now continuing her education by pursuing a master’s degree in Mental Health Counseling. She enjoys bringing her background in psychology into her coaching and strives to create a positive, encouraging environment where athletes can build confidence both on and off the court.",
     "id": "mallory-cooper"
-  },
-  {
-    "name": "Kanoelani Shadron",
-    "section": "head",
-    "role": "",
-    "photo": "/img/staff/kanoelani-shadron.jpg",
-    "photoX": 28,
-    "photoY": 19,
-    "photoZoom": 1.08,
-    "bio": "Kanoelani (or Kanoe) had an interest in volleyball before she even knew what sports were. Her next door neighbors would play in the front yard and her grandfather told her that one day she would play volleyball. She officially started playing club 12 years ago at the age of 12! Started as a middle and moved to full time setter. She has played for Clackamas High School, earning 3 varsity letters, Second Team All-American her junior year, and First Team All-American her senior year. As her grandfather predicted she went on to play volleyball to help support her dream of becoming a pediatric nurse at Briar Cliff University from 2021-2026.\n\nFrom there Kanoe always knew she wanted to go on and share what she has learned to the new generations that are going to take the sport to new heights. She has been a coach at Siouxland Volleyball club in Iowa for the past three years and has helped the Boys Adrian C. Nelson High School Volleyball team. She is excited to finally coach for a club where she grew up and for her first season to be at HVVC.",
-    "id": "kanoelani-shadron"
-  },
-  {
-    "name": "Megan Reynolds",
-    "section": "head",
-    "role": "14-1 Head Coach",
-    "photo": "/img/staff/megan-reynolds.jpg",
-    "photoX": 60,
-    "photoY": 35,
-    "photoZoom": 1.17,
-    "bio": "Coach Megan brings several years of club volleyball coaching experience, working with athletes from 12U through 16U. Prior to joining Happy Valley Volleyball Club, she coached with Mt. Hood Volleyball Club and Eastside FCA Volleyball Club, developing athletes across multiple age groups and competitive levels.\n\nHer coaching philosophy focuses on strong fundamentals, discipline, confidence, teamwork, and game-focused training. Megan is passionate about developing the whole athlete and believes volleyball provides an incredible opportunity to teach accountability, resilience, leadership, communication, and what it means to be a great teammate.\n\nOutside of volleyball, Megan is a Human Resources executive with nearly 20 years of leadership experience and a mom of two. She is excited to bring her experience and passion for youth athletics to Happy Valley Volleyball Club and looks forward to creating a competitive, positive environment where athletes are challenged, supported, and inspired to grow.",
-    "id": "megan-reynolds"
   },
   {
     "name": "Charles Awounor",
@@ -55,9 +33,31 @@
     "id": "charles-awounor"
   },
   {
+    "name": "Megan Reynolds",
+    "section": "head",
+    "role": "",
+    "photo": "/img/staff/megan-reynolds.jpg",
+    "photoX": 60,
+    "photoY": 35,
+    "photoZoom": 1.17,
+    "bio": "Coach Megan brings several years of club volleyball coaching experience, working with athletes from 12U through 16U. Prior to joining Happy Valley Volleyball Club, she coached with Mt. Hood Volleyball Club and Eastside FCA Volleyball Club, developing athletes across multiple age groups and competitive levels.\n\nHer coaching philosophy focuses on strong fundamentals, discipline, confidence, teamwork, and game-focused training. Megan is passionate about developing the whole athlete and believes volleyball provides an incredible opportunity to teach accountability, resilience, leadership, communication, and what it means to be a great teammate.\n\nOutside of volleyball, Megan is a Human Resources executive with nearly 20 years of leadership experience and a mom of two. She is excited to bring her experience and passion for youth athletics to Happy Valley Volleyball Club and looks forward to creating a competitive, positive environment where athletes are challenged, supported, and inspired to grow.",
+    "id": "megan-reynolds"
+  },
+  {
+    "name": "Kanoelani Shadron",
+    "section": "head",
+    "role": "",
+    "photo": "/img/staff/kanoelani-shadron.jpg",
+    "photoX": 28,
+    "photoY": 19,
+    "photoZoom": 1.08,
+    "bio": "Kanoelani (or Kanoe) had an interest in volleyball before she even knew what sports were. Her next door neighbors would play in the front yard and her grandfather told her that one day she would play volleyball. She officially started playing club 12 years ago at the age of 12! Started as a middle and moved to full time setter. She has played for Clackamas High School, earning 3 varsity letters, Second Team All-American her junior year, and First Team All-American her senior year. As her grandfather predicted she went on to play volleyball to help support her dream of becoming a pediatric nurse at Briar Cliff University from 2021-2026.\n\nFrom there Kanoe always knew she wanted to go on and share what she has learned to the new generations that are going to take the sport to new heights. She has been a coach at Siouxland Volleyball club in Iowa for the past three years and has helped the Boys Adrian C. Nelson High School Volleyball team. She is excited to finally coach for a club where she grew up and for her first season to be at HVVC.",
+    "id": "kanoelani-shadron"
+  },
+  {
     "name": "Kendal Ishida",
     "section": "head",
-    "role": "13-1 Head Coach",
+    "role": "",
     "photo": "/img/staff/kendal-ishida.jpg",
     "photoX": 35,
     "photoY": 35,
@@ -68,7 +68,7 @@
   {
     "name": "Maddy Abraham",
     "section": "head",
-    "role": "13-2 Head Coach",
+    "role": "",
     "photo": "/img/staff/maddy-abraham.jpg",
     "photoX": 41,
     "photoY": 24,
@@ -79,7 +79,7 @@
   {
     "name": "Christina Braks",
     "section": "head",
-    "role": "11-1 Head Coach",
+    "role": "",
     "photo": "/img/staff/christina-braks.jpg",
     "photoX": 34,
     "photoY": 33,
@@ -90,7 +90,7 @@
   {
     "name": "Sarah Borski",
     "section": "head",
-    "role": "10U Head Coach",
+    "role": "11-1 & 10-1 Head Coach",
     "photo": "/img/staff/sarah-borski.jpg",
     "photoX": 88,
     "photoY": 37,
@@ -101,7 +101,7 @@
   {
     "name": "Mackensie Wilson",
     "section": "staff",
-    "role": "18-1 Assistant Coach",
+    "role": "",
     "photo": "/img/staff/mackensie-wilson.jpg",
     "photoX": 43,
     "photoY": 30,
@@ -112,7 +112,7 @@
   {
     "name": "Harley Combs",
     "section": "staff",
-    "role": "16-1 Assistant Coach",
+    "role": "",
     "photo": "/img/staff/harley-combs.jpg",
     "photoX": 33,
     "photoY": 29,
@@ -134,7 +134,7 @@
   {
     "name": "Kaia Iranon",
     "section": "staff",
-    "role": "14-1 Assistant Coach",
+    "role": "",
     "photo": "/img/staff/kaia-iranon.jpg",
     "photoX": 0,
     "photoY": 25,
@@ -145,7 +145,7 @@
   {
     "name": "Kendel Redding",
     "section": "staff",
-    "role": "13-1 Assistant Coach",
+    "role": "",
     "photo": "/img/staff/kendel-redding.jpg",
     "photoX": 44,
     "photoY": 33,
@@ -156,7 +156,7 @@
   {
     "name": "Bayli Maude",
     "section": "staff",
-    "role": "13-2 Assistant Coach",
+    "role": "",
     "photo": "/img/staff/bayli-maude.jpg",
     "photoX": 45,
     "photoY": 33,
@@ -165,9 +165,20 @@
     "id": "bayli-maude"
   },
   {
+    "name": "Reese Maude",
+    "section": "staff",
+    "role": "",
+    "photo": "",
+    "photoX": 50,
+    "photoY": 20,
+    "photoZoom": 1,
+    "bio": "",
+    "id": "reese-maude"
+  },
+  {
     "name": "Makayla Borski",
     "section": "staff",
-    "role": "11-1 Assistant Coach",
+    "role": "",
     "photo": "/img/staff/makayla-borski.jpg",
     "photoX": 40,
     "photoY": 18,

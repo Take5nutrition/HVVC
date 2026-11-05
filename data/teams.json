@@ -10,7 +10,16 @@
     "cardText": "Our 18U team for the 2026–27 season. Team details are coming soon.",
     "overview": "HVVC 18-1 competes at the 18U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "nicole-warren",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "mackensie-wilson",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -62,7 +71,16 @@
     "cardText": "Our flagship 16U team competing at the highest level with purposeful training, strong communication, and a culture of confident competitors.",
     "overview": "HVVC 16-1 is our top-tier 16U team, competing at the highest level throughout the season. This team focuses on advanced competitive play, strategic development, and tournament excellence.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "mallory-cooper",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "harley-combs",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -138,7 +156,16 @@
     "cardText": "Competitive 16U team focused on development, game IQ, and preparing athletes for high-level play.",
     "overview": "HVVC 16-2 provides a competitive 16U experience focused on player development, game strategy, and building a strong team culture. This team prepares athletes for high-level play through consistent training and tournament competition.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "charles-awounor",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "hannah-brown",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -214,7 +241,16 @@
     "cardText": "Building strong foundations with advancing techniques, team chemistry, and competitive experience. Optional overnight travel tournaments.",
     "overview": "HVVC 14-1 is our premier 14U team, emphasizing competitive play, skill refinement, and preparing athletes for the next level of volleyball.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "megan-reynolds",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "kaia-iranon",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -290,7 +326,12 @@
     "cardText": "Developing well-rounded athletes through structured practices, competitive play, and a positive team environment.",
     "overview": "HVVC 14-2 focuses on competitive development and building a strong volleyball foundation. Athletes grow through structured training, tournament play, and a supportive team environment.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "kanoelani-shadron",
+        "role": "Head Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -366,7 +407,16 @@
     "cardText": "Our 13U team for the 2026–27 season. Team details are coming soon.",
     "overview": "HVVC 13-1 competes at the 13U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "kendal-ishida",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "kendel-redding",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -418,7 +468,16 @@
     "cardText": "Our 13U team for the 2026–27 season. Team details are coming soon.",
     "overview": "HVVC 13-2 competes at the 13U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "maddy-abraham",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "bayli-maude",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -470,7 +529,16 @@
     "cardText": "Clarity, energy, and a strong foundation for long-term development. Building core skills, game IQ, and competitive habits.",
     "overview": "HVVC 12-1 is our top 12U team, building strong volleyball fundamentals while developing competitive skills, court awareness, and a love for the game.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "christina-braks",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "reese-maude",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -546,7 +614,16 @@
     "cardText": "Our 11U team for the 2026–27 season. Team details are coming soon.",
     "overview": "HVVC 11-1 competes at the 11U level in the 2026–27 season. Practice times, season details, and the tournament schedule are coming soon.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "sarah-borski",
+        "role": "Head Coach"
+      },
+      {
+        "coach": "makayla-borski",
+        "role": "Assistant Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
@@ -598,7 +675,12 @@
     "cardText": "Our developmental program introduces young athletes to competitive volleyball. Players learn fundamentals, build confidence, and develop a love for the game in a supportive, age-appropriate environment. Represent the club at all times, showing respect for yourself, your teammates, your coaches, and the organization.",
     "overview": "Foundational skill development, team systems, positioning, court awareness, confidence, and communication. This program is designed to introduce young athletes to volleyball in a supportive, growth-oriented environment.",
     "scheduleDeveloping": true,
-    "coaches": [],
+    "coaches": [
+      {
+        "coach": "sarah-borski",
+        "role": "Head Coach"
+      }
+    ],
     "players": [],
     "seasonInfo": [
       {
