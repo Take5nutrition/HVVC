@@ -4133,14 +4133,25 @@ a.staff-card:hover .staff-card__more { color: #fff; }
       linear-gradient(to bottom, rgba(14,14,16,.35) 0%, transparent 25%);
   }
 }
+/* Phones and tablets: a tall photo across the top, with the title over its faded lower half */
 @media (max-width: 959px) {
-  .staff-hero { padding: var(--nav-height) 0 48px; }
-  .staff-hero__photo { order: -1; margin: 0 -24px; }
+  /* --lift tucks the photo's empty black top under the menu bar */
+  .staff-hero { --photo-h: clamp(360px, 108vw, 580px); --lift: 0px; padding: var(--nav-height) 0 44px; }
+  .staff-hero__inner { position: static; display: block; }
+  .staff-hero__photo { position: absolute; top: calc(var(--nav-height) - var(--lift)); left: 0; right: 0; height: var(--photo-h); z-index: 0; }
   .staff-hero__photo img {
-    -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0, #000 78%, transparent 100%);
+    width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%;
+    -webkit-mask-image: none; mask-image: none;
   }
-  .staff-hero .hero__split-sub { margin: 20px 0 28px; }
+  .staff-hero__photo::after {
+    inset: 0; z-index: 1;
+    background: linear-gradient(to bottom, rgba(14,14,16,.25) 0%, rgba(14,14,16,0) 14%, rgba(14,14,16,0) 42%, rgba(14,14,16,.78) 70%, #0e0e10 100%);
+  }
+  .staff-hero__text { z-index: 2; padding-top: calc(var(--photo-h) * .56 - var(--lift)); text-shadow: 0 2px 16px rgba(0,0,0,.6); }
+  .staff-hero .hero__editorial-badge { margin-bottom: 18px; text-shadow: none; }
+  .staff-hero .hero__split-sub { margin: 18px 0 26px; }
 }
+@media (max-width: 600px) { .staff-hero { --lift: 40px; } }
 
 /* ===== SCHOLARSHIPS PAGE (scholarships/index.html) ===== */
 .sch-wrap { max-width: 960px; }
